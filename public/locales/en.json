@@ -1,0 +1,192 @@
+{
+  "menu": {
+    "about": "About the App",
+    "language": "Language",
+    "privacy": "Privacy Policy",
+    "imprint": "Legal Notice"
+  },
+  "moodScreen": {
+    "title": "How is your current mood?",
+    "labelLeft": "very bad",
+    "labelRight": "very good",
+    "continueButton": "Continue",
+    "backButton": "Back",
+    "instruction": "Please move the slider to indicate your mood",
+    "symptomTitle": "What is currently your main symptom that you would like to influence with the app?",
+    "intensityTitle": "How strong is your main symptom {symptom} right now?",
+    "intensityLabelLeft": "very weak",
+    "intensityLabelRight": "very strong",
+    "symptoms": {
+      "anxietyPanic": "Anxiety, panic",
+      "depression": "Depression, dejection, sadness",
+      "flashback": "Flashback",
+      "rumination": "Rumination, circular thoughts",
+      "pain": "Pain",
+      "anger": "Anger, aggression",
+      "obsessiveThoughts": "Obsessive thoughts",
+      "alcoholCraving": "Alcohol craving",
+      "drugCraving": "Drug craving",
+      "eating": "Eating",
+      "nicotineCraving": "Nicotine craving",
+      "otherSymptom": "Other symptom"
+    }
+  },
+  "postGameMood": {
+    "title": "After the tasks",
+    "moodQuestion": "How is your mood now after the tasks?",
+    "symptomTitle": "Symptom Assessment",
+    "symptomQuestion": "How strong is your main symptom \"{symptom}\" now?",
+    "continue": "Continue",
+    "complete": "Complete",
+    "veryLight": "Very light",
+    "veryStrong": "Very strong"
+  },
+  "startScreen": {
+    "title": "Distractor",
+    "description": "The \"Distractor\" app serves for short-term mental distraction and concentration enhancement through simple memory and distraction tasks.",
+    "startButton": "Start",
+    "version": "Version: 2026v001",
+    "copyright": "© aepplerlandapps.de",
+    "usageExpired": "Usage period expired!"
+  },
+  "about": {
+    "title": "About the App",
+    "appInfoTitle": "About the App",
+    "appDescription": "The 'Distractor' app serves for short-term mental distraction and concentration enhancement through simple memory and distraction tasks. The goal is to support users in temporarily distancing themselves from subjectively stressful thoughts in everyday life and to direct their attention to neutral or positive cognitive content.",
+    "disclaimer1": "'Distractor' is a wellness and lifestyle application and not a medical device within the meaning of the EU Medical Device Regulation (MDR).",
+    "disclaimer2": "The app is not intended for diagnosis, treatment, relief or prevention of diseases.",
+    "liabilityTitle": "Disclaimer",
+    "liability1": "The use of the \"Distractor\" app is at your own risk. The provided content serves exclusively for general mental distraction and concentration enhancement.",
+    "liability2": "The app does not constitute medical, psychological or therapeutic advice and does not replace professional treatment by qualified medical or psychotherapeutic personnel.",
+    "liability3": "In case of persistent or severe psychological stress, it is strongly recommended to seek professional help.",
+    "acknowledgment": "I have understood the content and taken note of it.",
+    "closeButton": "Close",
+    "alertTitle": "Agreement required",
+    "alertMessage": "The app cannot be started without agreeing to the terms of use. Please read the text and check the box.",
+    "alertOkButton": "OK"
+  },
+  "chessTask": {
+    "instructionSingle": "Remember the position of the blue circle.",
+    "instructionMultiple": "Remember the positions of the blue circles."
+  },
+  "chessRecall": {
+    "instructionSingle": "Where was the blue circle?",
+    "instructionMultiple": "Where were the blue circles?",
+    "levelUp": "Level Up!",
+    "levelUpMessage": "Level {{level}} reached! Streak reset",
+    "correct": "Correct!",
+    "correctMessage": "Correct position! Streak: {{streak}}",
+    "wrong": "Wrong!",
+    "wrongMessage": "That was not the correct position.",
+    "levelDownMessage": "Level reduced to {{level}}. Streak reset."
+  },
+  "mathTask": {
+    "correct": "Correct!",
+    "wrong": "Unfortunately wrong",
+    "correctAnswer": "Correct! {{num1}} {{operator}} {{num2}} = {{answer}}",
+    "wrongAnswer": "Wrong! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, not {{userAnswer}}"
+  },
+  "face1Task": {
+    "instruction": "Remember this image."
+  },
+  "face1Recall": {
+    "instruction": "Which face did you remember?",
+    "correct": "Correct!",
+    "wrong": "Wrong!",
+    "correctMessage": "Correct! That was face #{{targetNumber}}",
+    "wrongMessage": "Unfortunately wrong. The correct face was #{{targetNumber}}, you selected #{{selectedNumber}}."
+  },  "face2Task": {
+    "instruction": "Remember these faces."
+  },
+  "face2Recall": {
+    "instruction": "Select all faces you remember.",
+    "submit": "Submit Selection",
+    "correct": "Perfect! All correct faces selected!",
+    "incorrect": "Not quite right. Try to remember all the faces next time."
+  },  "handTask": {
+    "instruction": "Remember the hand (which side?) and the finger with the red dot (thumb = 1, little finger = 5)."
+  },
+  "handRecall": {
+    "instruction": "Where was the red dot?",
+    "correct": "Correct!",
+    "wrong": "Wrong!",
+    "correctMessage": "Correct! It was {{hand}}, finger {{finger}}",
+    "wrongMessage": "Unfortunately wrong. It was {{hand}}, finger {{finger}}",
+    "leftHand": "left hand",
+    "rightHand": "right hand"
+  },
+  "fadenTask": {
+    "loading": "Loading thread image...",
+    "instruction": "Follow the path of the thread that starts at X, and click on the digit at the end of this thread.",
+    "correct": "Correct!",
+    "wrong": "Wrong!",
+    "correctMessage": "Correct! The answer was \"{{digit}}\"",
+    "wrongMessage": "Unfortunately wrong. The correct answer was \"{{expectedDigit}}\", you selected \"{{inputDigit}}\"."
+  },
+  "pieTask": {
+    "instructionSingle": "Remember the position of the blue segment:",
+    "instructionMultiple": "Remember the positions of the blue segments:"
+  },
+  "pieRecall": {
+    "instructionSingle": "Where was the blue segment?",
+    "instructionMultiple": "Where were the blue segments?",
+    "correct": "Correct!",
+    "wrong": "Wrong!",
+    "levelUp": "Level Up!",
+    "levelUpMessage": "Level {{level}} reached! Streak reset",
+    "correctMessage": "Correct segments selected! Streak: {{streak}}",
+    "wrongMessage": "Unfortunately not the correct segments.",
+    "levelDownMessage": "Level reduced to {{level}}. Streak reset."
+  },
+  "common": {
+    "ok": "OK",
+    "loading": "Loading...",
+    "left": "left",
+    "right": "right"
+  },
+  "languageSelection": {
+    "info": "Choose your preferred language"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "fr": "French",
+    "it": "Italian",
+    "nl": "Dutch",
+    "pt": "Portuguese",
+    "es": "Spanish"
+  },
+  "taskExamples": {
+    "title": "Task Explanations",
+    "subtitle": "Here are all available tasks with examples:",
+    "footer": "Each task is adapted according to difficulty level.",
+    "pie": {
+      "title": "Pie Task",
+      "description": "You will see a red circle with 1 - 4 blue colored segments. Remember the position of the blue colored segments. Then solve a math problem and tap on the previously blue colored segments."
+    },
+    "chess": {
+      "title": "Chess Task",
+      "description": "You will see a chessboard with 1 - 4 blue colored squares. Remember the position of the blue colored squares. Then solve a math problem and tap on the previously blue colored squares."
+    },
+    "math": {
+      "title": "Math Task",
+      "description": "Solve simple math problems during the distraction phase."
+    },
+    "hand": {
+      "title": "Hand Task",
+      "description": "You will see a hand with a red dot above one of the fingers. Remember the side of the hand (right or left) and the finger with the red dot (thumb = 1, little finger = 5). Solve the math problem and then indicate the side of the hand and the finger."
+    },
+    "face": {
+      "title": "Face Task 1",
+      "description": "You will see a face. Remember the face, then solve the math problem and afterwards tap on the previously shown face in the group of images."
+    },
+    "face2": {
+      "title": "Face Task 2",
+      "description": "You will see a group of 4-6 faces. You will see this group of faces 4 - 6 times in this task. In between you solve a math problem. You should tap each image only once in total. The images change their positions, i.e. you must remember the faces you have already tapped."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "You will see an image with 2 threads. Follow the thread that starts at x and tap on the digit at the end of this thread."
+    }
+  }
+}

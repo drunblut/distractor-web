@@ -1,0 +1,184 @@
+{
+  "menu": {
+    "about": "Acerca de la app",
+    "language": "Idioma",
+    "privacy": "Política de privacidad",
+    "imprint": "Aviso legal"
+  },
+  "moodScreen": {
+    "title": "¿Cómo está su estado de ánimo actualmente?",
+    "labelLeft": "muy malo",
+    "labelRight": "muy bueno",
+    "continueButton": "Continuar",
+    "backButton": "Atrás",
+    "instruction": "Por favor, mueve el control deslizante para indicar tu estado de ánimo",
+    "symptomTitle": "¿Cuál es actualmente tu síntoma principal que te gustaría influir con la aplicación?",
+    "intensityTitle": "¿Qué tan fuerte es tu síntoma principal {symptom} ahora mismo?",
+    "intensityLabelLeft": "muy débil",
+    "intensityLabelRight": "muy fuerte",
+    "symptoms": {
+      "anxietyPanic": "Ansiedad, pánico",
+      "depression": "Depresión, abatimiento, tristeza",
+      "flashback": "Flashback",
+      "rumination": "Rumiación, pensamientos circulares",
+      "pain": "Dolor",
+      "anger": "Ira, agresividad",
+      "obsessiveThoughts": "Pensamientos obsesivos",
+      "alcoholCraving": "Deseo de alcohol",
+      "drugCraving": "Deseo de drogas",
+      "eating": "Comer",
+      "nicotineCraving": "Deseo de nicotina",
+      "otherSymptom": "Otro síntoma"
+    }
+  },
+  "postGameMood": {
+    "title": "Después de las tareas",
+    "moodQuestion": "¿Cómo se siente ahora después de las tareas?",
+    "symptomTitle": "Evaluación de síntomas",
+    "symptomQuestion": "¿Qué tan fuerte es su síntoma principal \"{symptom}\" ahora?",
+    "continue": "Continuar",
+    "complete": "Completar",
+    "veryLight": "Muy ligero",
+    "veryStrong": "Muy fuerte"
+  },
+  "startScreen": {
+    "title": "Distractor",
+    "description": "La aplicación \"Distractor\" sirve para la distracción mental a corto plazo y la mejora de la concentración a través de simples tareas de memoria y distracción.",
+    "startButton": "Iniciar",
+    "version": "Versión: 2026v001",
+    "copyright": "© aepplerlandapps.de",
+    "usageExpired": "¡Período de uso expirado!"
+  },
+  "about": {
+    "title": "Acerca de la app",
+    "appInfoTitle": "Acerca de la app",
+    "appDescription": "La aplicación 'Distractor' sirve para la distracción mental a corto plazo y la mejora de la concentración a través de simples tareas de memoria y distracción. El objetivo es apoyar a los usuarios en distanciarse temporalmente de pensamientos subjetivamente estresantes en la vida cotidiana y dirigir su atención hacia contenido cognitivo neutral o positivo.",
+    "disclaimer1": "'Distractor' es una aplicación de bienestar y estilo de vida y no es un producto sanitario en el sentido del Reglamento de Productos Sanitarios de la UE (MDR).",
+    "disclaimer2": "La aplicación no está destinada al diagnóstico, tratamiento, alivio o prevención de enfermedades.",
+    "liabilityTitle": "Exención de responsabilidad",
+    "liability1": "El uso de la aplicación \"Distractor\" es bajo su propio riesgo. El contenido proporcionado sirve exclusivamente para la distracción mental general y la mejora de la concentración.",
+    "liability2": "La aplicación no constituye asesoramiento médico, psicológico o terapéutico y no reemplaza el tratamiento profesional por personal médico o psicoterapéutico calificado.",
+    "liability3": "En caso de estrés psicológico persistente o severo, se recomienda encarecidamente buscar ayuda profesional.",
+    "acknowledgment": "He entendido el contenido y lo he tomado nota.",
+    "closeButton": "Cerrar",
+    "alertTitle": "Acuerdo requerido",
+    "alertMessage": "La aplicación no se puede iniciar sin aceptar los términos de uso. Por favor lea el texto y marque la casilla.",
+    "alertOkButton": "OK"
+  },
+  "chessTask": {
+    "instructionSingle": "Recuerda la posición del círculo azul.",
+    "instructionMultiple": "Recuerda las posiciones de los círculos azules."
+  },
+  "chessRecall": {
+    "instructionSingle": "¿Dónde estaba el círculo azul?",
+    "instructionMultiple": "¿Dónde estaban los círculos azules?",
+    "levelUp": "¡Subiste de Nivel!",
+    "levelUpMessage": "¡Nivel {{level}} alcanzado! Racha reiniciada",
+    "correct": "¡Correcto!",
+    "correctMessage": "¡Posición correcta! Racha: {{streak}}",
+    "wrong": "¡Incorrecto!",
+    "wrongMessage": "Esa no era la posición correcta.",
+    "levelDownMessage": "Nivel reducido a {{level}}. Racha reiniciada."
+  },
+  "mathTask": {
+    "correct": "¡Correcto!",
+    "wrong": "Lamentablemente incorrecto",
+    "correctAnswer": "¡Correcto! {{num1}} {{operator}} {{num2}} = {{answer}}",
+    "wrongAnswer": "¡Incorrecto! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, no {{userAnswer}}"
+  },
+  "face1Task": {
+    "instruction": "Recuerda esta imagen."
+  },
+  "face1Recall": {    "instruction": "¿Qué rostro recordaste?",    "correct": "¡Correcto!",
+    "wrong": "¡Incorrecto!",
+    "correctMessage": "¡Correcto! Era la cara #{{targetNumber}}",
+    "wrongMessage": "Lamentablemente incorrecto. La cara correcta era #{{targetNumber}}, seleccionaste #{{selectedNumber}}."
+  },
+  "face2Task": {
+    "instruction": "La tarea consta de 4 rondas. Seleccione una imagen en cada ronda, ¡pero cada imagen solo una vez en total!"
+  },  "handTask": {    "instruction": "Recuerda la mano (¿de qué lado?) y el dedo con el punto rojo (pulgar = 1, meñique = 5)."
+  },
+  "handRecall": {
+    "instruction": "¿Dónde estaba el punto rojo?",
+    "correct": "¡Correcto!",
+    "wrong": "¡Incorrecto!",
+    "correctMessage": "¡Correcto! Era {{hand}}, dedo {{finger}}",
+    "wrongMessage": "Lamentablemente incorrecto. Era {{hand}}, dedo {{finger}}",
+    "leftHand": "mano izquierda",
+    "rightHand": "mano derecha"
+  },
+  "fadenTask": {
+    "loading": "Cargando imagen del hilo...",
+    "instruction": "Sigue el camino del hilo que comienza en X, y haz clic en el dígito al final de este hilo.",
+    "correct": "¡Correcto!",
+    "wrong": "¡Incorrecto!",
+    "correctMessage": "¡Correcto! La respuesta era \"{{digit}}\"",
+    "wrongMessage": "Lamentablemente incorrecto. La respuesta correcta era \"{{expectedDigit}}\", seleccionaste \"{{inputDigit}}\"."
+  },
+  "pieTask": {
+    "instructionSingle": "Recuerda la posición del segmento azul:",
+    "instructionMultiple": "Recuerda las posiciones de los segmentos azules:"
+  },
+  "pieRecall": {
+    "instructionSingle": "¿Dónde estaba el segmento azul?",
+    "instructionMultiple": "¿Dónde estaban los segmentos azules?",
+    "correct": "¡Correcto!",
+    "wrong": "¡Incorrecto!",
+    "levelUp": "¡Subiste de Nivel!",
+    "levelUpMessage": "¡Nivel {{level}} alcanzado! Racha reiniciada",
+    "correctMessage": "¡Segmentos correctos seleccionados! Racha: {{streak}}",
+    "wrongMessage": "Lamentablemente no los segmentos correctos.",
+    "levelDownMessage": "Nivel reducido a {{level}}. Racha reiniciada."
+  },
+  "common": {
+    "ok": "OK",
+    "loading": "Cargando...",
+    "left": "izquierda",
+    "right": "derecha"
+  },
+  "languageSelection": {
+    "info": "Elige tu idioma preferido"
+  },
+  "languages": {
+    "de": "Alemán",
+    "en": "Inglés",
+    "fr": "Francés",
+    "it": "Italiano",
+    "nl": "Holandés",
+    "pt": "Portugués",
+    "es": "Español"
+  },
+  "taskExamples": {
+    "title": "Explicaciones de las tareas",
+    "subtitle": "Aquí están todas las tareas disponibles con ejemplos:",
+    "footer": "Cada tarea se adapta según el nivel de dificultad.",
+    "pie": {
+      "title": "Pie Task",
+      "description": "Verás un círculo rojo con 1-4 segmentos coloreados de azul. Recuerda la posición de los segmentos coloreados de azul. Luego resuelve un problema de matemáticas y toca los segmentos previamente coloreados de azul."
+    },
+    "chess": {
+      "title": "Chess Task",
+      "description": "Verás un tablero de ajedrez con 1-4 cuadrados coloreados de azul. Recuerda la posición de los cuadrados coloreados de azul. Luego resuelve un problema de matemáticas y toca los cuadrados previamente coloreados de azul."
+    },
+    "math": {
+      "title": "Math Task",
+      "description": "Resuelve problemas simples de matemáticas durante la fase de distracción."
+    },
+    "hand": {
+      "title": "Hand Task",
+      "description": "Verás una mano con un punto rojo sobre uno de los dedos. Recuerda el lado de la mano (derecha o izquierda) y el dedo con el punto rojo (pulgar = 1, meñique = 5). Resuelve el problema matemático y luego indica el lado de la mano y el dedo."
+    },
+    "face": {
+      "title": "Face Task 1",
+      "description": "Verás una cara. Recuerda la cara, luego resuelve el problema matemático y después toca en la cara mostrada anteriormente en el grupo de imágenes."
+    },
+    "face2": {
+      "title": "Face Task 2",
+      "description": "Verás un grupo de 4-6 caras. Verás este grupo de caras 4 - 6 veces en esta tarea. Entre medias resolverás un problema matemático. Debes tocar cada imagen solo una vez en total. Las imágenes cambian sus posiciones, es decir, debes recordar las caras que ya has tocado."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "Verás una imagen con 2 hilos. Sigue el hilo que comienza en x y toca la cifra al final de este hilo."
+    }
+  }
+}

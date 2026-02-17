@@ -1,0 +1,182 @@
+{
+  "menu": {
+    "about": "Informazioni sull'app",
+    "language": "Lingua",
+    "privacy": "Privacy",
+    "imprint": "Note legali"
+  },
+  "moodScreen": {
+    "title": "Come è il suo umore attualmente?",
+    "labelLeft": "molto cattivo",
+    "labelRight": "molto buono",
+    "continueButton": "Continua",
+    "backButton": "Indietro",
+    "instruction": "Si prega di muovere il cursore per indicare il suo umore",
+    "symptomTitle": "Qual è attualmente il suo sintomo principale che vorrebbe influenzare con l'app?",    "intensityTitle": "Quanto è forte il suo sintoma principale {symptom} in questo momento?",
+    "intensityLabelLeft": "molto debole",
+    "intensityLabelRight": "molto forte",    "symptoms": {
+      "anxietyPanic": "Ansia, panico",
+      "depression": "Depressione, abbattimento, tristezza",
+      "flashback": "Flashback",
+      "rumination": "Rimuginazione, pensieri circolari",
+      "pain": "Dolore",
+      "anger": "Rabbia, aggressività",
+      "obsessiveThoughts": "Pensieri ossessivi",
+      "alcoholCraving": "Desiderio di alcol",
+      "drugCraving": "Desiderio di droga",
+      "eating": "Mangiare",
+      "nicotineCraving": "Desiderio di nicotina",
+      "otherSymptom": "Altro sintomo"
+    }
+  },
+  "postGameMood": {
+    "title": "Dopo i compiti",
+    "moodQuestion": "Come ti senti ora dopo i compiti?",
+    "symptomTitle": "Valutazione dei sintomi",
+    "symptomQuestion": "Quanto è forte il tuo sintoma principale \"{symptom}\" ora?",
+    "continue": "Continua",
+    "complete": "Completa",
+    "veryLight": "Molto leggero",
+    "veryStrong": "Molto forte"
+  },
+  "startScreen": {
+    "title": "Distractor",
+    "description": "L'app \"Distractor\" serve per la distrazione mentale a breve termine e il miglioramento della concentrazione attraverso semplici compiti di memoria e distrazione.",
+    "startButton": "Inizia",
+    "version": "Versione: 2026v001",
+    "copyright": "© aepplerlandapps.de",
+    "usageExpired": "Periodo di utilizzo scaduto!"
+  },
+  "about": {
+    "title": "Informazioni sull'app",
+    "appInfoTitle": "Informazioni sull'app",
+    "appDescription": "L'app 'Distractor' serve per la distrazione mentale a breve termine e il miglioramento della concentrazione attraverso semplici compiti di memoria e distrazione. L'obiettivo è sostenere gli utenti nel distanziarsi temporaneamente da pensieri soggettivamente stressanti nella vita quotidiana e dirigere la loro attenzione verso contenuti cognitivi neutrali o positivi.",
+    "disclaimer1": "'Distractor' è un'applicazione per il benessere e lo stile di vita e non è un dispositivo medico ai sensi del Regolamento sui dispositivi medici dell'UE (MDR).",
+    "disclaimer2": "L'app non è destinata alla diagnosi, al trattamento, al sollievo o alla prevenzione di malattie.",
+    "liabilityTitle": "Esclusione di responsabilità",
+    "liability1": "L'uso dell'app \"Distractor\" avviene a proprio rischio. I contenuti forniti servono esclusivamente per la distrazione mentale generale e il miglioramento della concentrazione.",
+    "liability2": "L'app non costituisce consulenza medica, psicologica o terapeutica e non sostituisce il trattamento professionale da parte di personale medico o psicoterapeutico qualificato.",
+    "liability3": "In caso di stress psicologico persistente o grave, si raccomanda vivamente di cercare aiuto professionale.",
+    "acknowledgment": "Ho compreso il contenuto e ne ho preso atto.",
+    "closeButton": "Chiudi",
+    "alertTitle": "Accordo richiesto",
+    "alertMessage": "L'app non può essere avviata senza accettare i termini di utilizzo. Si prega di leggere il testo e spuntare la casella.",
+    "alertOkButton": "OK"
+  },
+  "chessTask": {
+    "instructionSingle": "Ricorda la posizione del cerchio blu.",
+    "instructionMultiple": "Ricorda le posizioni dei cerchi blu."
+  },
+  "chessRecall": {
+    "instructionSingle": "Dov'era il cerchio blu?",
+    "instructionMultiple": "Dove erano i cerchi blu?",
+    "levelUp": "Livello superiore!",
+    "levelUpMessage": "Livello {{level}} raggiunto! Serie azzerata",
+    "correct": "Corretto!",
+    "correctMessage": "Posizione corretta! Serie: {{streak}}",
+    "wrong": "Sbagliato!",
+    "wrongMessage": "Non era la posizione corretta.",
+    "levelDownMessage": "Livello ridotto a {{level}}. Serie azzerata."
+  },
+  "mathTask": {
+    "correct": "Corretto!",
+    "wrong": "Purtroppo sbagliato",
+    "correctAnswer": "Corretto! {{num1}} {{operator}} {{num2}} = {{answer}}",
+    "wrongAnswer": "Sbagliato! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, non {{userAnswer}}"
+  },
+  "face1Task": {
+    "instruction": "Ricorda questa immagine."
+  },
+  "face1Recall": {    "instruction": "Quale volto hai ricordato?",    "correct": "Corretto!",
+    "wrong": "Sbagliato!",
+    "correctMessage": "Corretto! Era il viso #{{targetNumber}}",
+    "wrongMessage": "Purtroppo sbagliato. Il viso giusto era #{{targetNumber}}, hai selezionato #{{selectedNumber}}."
+  },
+  "face2Task": {
+    "instruction": "Il compito consiste di 4 round. Seleziona un'immagine in ogni round, ma ogni immagine solo una volta in totale!"
+  },  "handTask": {    "instruction": "Ricorda la mano (quale lato?) e il dito con il punto rosso (pollice = 1, mignolo = 5)."
+  },
+  "handRecall": {
+    "instruction": "Dov'era il punto rosso?",
+    "correct": "Corretto!",
+    "wrong": "Sbagliato!",
+    "correctMessage": "Corretto! Era {{hand}}, dito {{finger}}",
+    "wrongMessage": "Purtroppo sbagliato. Era {{hand}}, dito {{finger}}",
+    "leftHand": "mano sinistra",
+    "rightHand": "mano destra"
+  },
+  "fadenTask": {
+    "loading": "Caricamento immagine del filo...",
+    "instruction": "Segui il percorso del filo che inizia a X, e clicca sulla cifra alla fine di questo filo.",
+    "correct": "Corretto!",
+    "wrong": "Sbagliato!",
+    "correctMessage": "Corretto! La risposta era \"{{digit}}\"",
+    "wrongMessage": "Purtroppo sbagliato. La risposta corretta era \"{{expectedDigit}}\", hai selezionato \"{{inputDigit}}\"."
+  },
+  "pieTask": {
+    "instructionSingle": "Ricorda la posizione del segmento blu:",
+    "instructionMultiple": "Ricorda le posizioni dei segmenti blu:"
+  },
+  "pieRecall": {
+    "instructionSingle": "Dov'era il segmento blu?",
+    "instructionMultiple": "Dove erano i segmenti blu?",
+    "correct": "Corretto!",
+    "wrong": "Sbagliato!",
+    "levelUp": "Livello superiore!",
+    "levelUpMessage": "Livello {{level}} raggiunto! Serie azzerata",
+    "correctMessage": "Segmenti corretti selezionati! Serie: {{streak}}",
+    "wrongMessage": "Purtroppo non i segmenti giusti.",
+    "levelDownMessage": "Livello ridotto a {{level}}. Serie azzerata."
+  },
+  "common": {
+    "ok": "OK",
+    "loading": "Caricamento...",
+    "left": "sinistra",
+    "right": "destra"
+  },
+  "languageSelection": {
+    "info": "Scegli la tua lingua preferita"
+  },
+  "languages": {
+    "de": "Tedesco",
+    "en": "Inglese",
+    "fr": "Francese",
+    "it": "Italiano",
+    "nl": "Olandese",
+    "pt": "Portoghese",
+    "es": "Spagnolo"
+  },
+  "taskExamples": {
+    "title": "Spiegazioni dei compiti",
+    "subtitle": "Ecco tutti i compiti disponibili con esempi:",
+    "footer": "Ogni compito è adattato in base al livello di difficoltà.",
+    "pie": {
+      "title": "Pie Task",
+      "description": "Vedrai un cerchio rosso con 1-4 segmenti colorati di blu. Ricorda la posizione dei segmenti colorati di blu. Risolvi poi un problema di matematica e tocca i segmenti precedentemente colorati di blu."
+    },
+    "chess": {
+      "title": "Chess Task",
+      "description": "Vedrai una scacchiera con 1-4 quadrati colorati di blu. Ricorda la posizione dei quadrati colorati di blu. Risolvi poi un problema di matematica e tocca i quadrati precedentemente colorati di blu."
+    },
+    "math": {
+      "title": "Math Task",
+      "description": "Risolvi semplici problemi di matematica durante la fase di distrazione."
+    },
+    "hand": {
+      "title": "Hand Task",
+      "description": "Vedrai una mano con un punto rosso sopra una delle dita. Ricorda il lato della mano (destra o sinistra) e il dito con il punto rosso (pollice = 1, mignolo = 5). Risolvi il problema matematico e poi indica il lato della mano e il dito."
+    },
+    "face": {
+      "title": "Face Task 1",
+      "description": "Vedrai un volto. Ricorda il volto, poi risolvi il problema matematico e successivamente tocca il volto mostrato in precedenza nel gruppo di immagini."
+    },
+    "face2": {
+      "title": "Face Task 2",
+      "description": "Vedrai un gruppo di 4-6 volti. Vedrai questo gruppo di volti 4 - 6 volte in questo compito. Nel frattempo risolvi un problema matematico. Devi toccare ogni immagine solo una volta in totale. Le immagini cambiano le loro posizioni, cioè devi ricordare i volti che hai già toccato."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "Vedrai un'immagine con 2 fili. Segui il filo che inizia a x e tocca la cifra alla fine di questo filo."
+    }
+  }
+}

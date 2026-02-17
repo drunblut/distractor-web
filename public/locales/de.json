@@ -1,0 +1,194 @@
+{
+  "menu": {
+    "about": "Über die App",
+    "language": "Sprache",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum"
+  },
+  "moodScreen": {
+    "title": "Wie ist aktuell Ihre Stimmung?",
+    "labelLeft": "sehr schlecht",
+    "labelRight": "sehr gut",
+    "continueButton": "Weiter",
+    "backButton": "Zurück",
+    "instruction": "Bitte bewegen Sie den Schieber, um Ihre Stimmung anzugeben",
+    "symptomTitle": "Was ist aktuell Ihr Hauptsymptom, das Sie mit der App beeinflussen möchten?",
+    "intensityTitle": "Wie stark ist Ihr Hauptsymptom {symptom} jetzt aktuell?",
+    "intensityLabelLeft": "sehr schwach",
+    "intensityLabelRight": "sehr stark",
+    "symptoms": {
+      "anxietyPanic": "Angst, Panik",
+      "depression": "Depression, Niedergeschlagenheit, Traurigkeit",
+      "flashback": "Flashback",
+      "rumination": "Grübeln, Gedankenkreisen",
+      "pain": "Schmerzen",
+      "anger": "Wut, Aggressivität",
+      "obsessiveThoughts": "Zwangsgedanken",
+      "alcoholCraving": "Alkoholverlangen",
+      "drugCraving": "Drogenverlangen",
+      "eating": "Essen",
+      "nicotineCraving": "Nikotinverlangen",
+      "otherSymptom": "Anderes Symptom"
+    }
+  },
+  "postGameMood": {
+    "title": "Nach den Aufgaben",
+    "moodQuestion": "Wie ist Ihre Stimmung jetzt nach den Aufgaben?",
+    "symptomTitle": "Symptom-Bewertung",
+    "symptomQuestion": "Wie stark ist Ihr Hauptsymptom \"{symptom}\" jetzt?",
+    "continue": "Weiter",
+    "complete": "Abschließen",
+    "veryLight": "Sehr schwach",
+    "veryStrong": "Sehr stark"
+  },
+  "startScreen": {
+    "title": "Distractor",
+    "description": "Die App \"Distractor\" dient der kurzfristigen mentalen Ablenkung und Konzentrationsförderung durch einfache Merk- und Ablenkungsaufgaben.",
+    "startButton": "Start",
+    "version": "Version: 2026v001",
+    "copyright": "© aepplerlandapps.de",
+    "usageExpired": "Nutzungsdauer abgelaufen!"
+  },
+  "about": {
+    "title": "Über die App",
+    "appInfoTitle": "Über die App",
+    "appDescription": "Die App 'Distractor' dient der kurzfristigen mentalen Ablenkung und Konzentrationsförderung durch einfache Merk- und Ablenkungsaufgaben. Ziel ist es, Nutzer dabei zu unterstützen, sich im Alltag vorübergehend von subjektiv belastenden Gedanken zu distanzieren und ihre Aufmerksamkeit auf neutrale oder positive kognitive Inhalte zu lenken.",
+    "disclaimer1": "'Distractor' ist eine Wellness- und Lifestyle-Anwendung und kein Medizinprodukt im Sinne der EU-Medizinprodukteverordnung (MDR).",
+    "disclaimer2": "Die App ist nicht zur Diagnose, Behandlung, Linderung oder Prävention von Krankheiten bestimmt.",
+    "liabilityTitle": "Haftungsausschluss",
+    "liability1": "Die Nutzung der App \"Distractor\" erfolgt auf eigene Verantwortung. Die bereitgestellten Inhalte dienen ausschließlich der allgemeinen mentalen Ablenkung und Konzentrationsförderung.",
+    "liability2": "Die App stellt keine medizinische, psychologische oder therapeutische Beratung dar und ersetzt keine fachliche Behandlung durch qualifiziertes medizinisches oder psychotherapeutisches Personal.",
+    "liability3": "Bei anhaltenden oder schwerwiegenden psychischen Belastungen wird unbedingt empfohlen, professionelle Hilfe in Anspruch zu nehmen.",
+    "acknowledgment": "Ich habe den Inhalt verstanden und zur Kenntnis genommen.",
+    "closeButton": "Schließen",
+    "alertTitle": "Zustimmung erforderlich",
+    "alertMessage": "Die App kann ohne Zustimmung zu den Nutzungsbedingungen nicht gestartet werden. Bitte lesen Sie den Text und setzen Sie das Häkchen.",
+    "alertOkButton": "OK"
+  },
+  "chessTask": {
+    "instructionSingle": "Merken Sie sich die Position des blauen Kreises.",
+    "instructionMultiple": "Merken Sie sich die Positionen der blauen Kreise."
+  },
+  "chessRecall": {
+    "instructionSingle": "Wo war der blaue Kreis?",
+    "instructionMultiple": "Wo waren die blauen Kreise?",
+    "levelUp": "Level Up!",
+    "levelUpMessage": "Level {{level}} erreicht! Streak zurückgesetzt",
+    "correct": "Richtig!",
+    "correctMessage": "Korrekte Position! Streak: {{streak}}",
+    "wrong": "Falsch!",
+    "wrongMessage": "Das war nicht die richtige Position.",
+    "levelDownMessage": "Level auf {{level}} reduziert. Streak zurückgesetzt."
+  },
+  "mathTask": {
+    "correct": "Korrekt!",
+    "wrong": "Leider falsch",
+    "correctAnswer": "Richtig! {{num1}} {{operator}} {{num2}} = {{answer}}",
+    "wrongAnswer": "Falsch! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, nicht {{userAnswer}}"
+  },
+  "face1Task": {
+    "instruction": "Merken Sie sich dieses Bild."
+  },
+  "face1Recall": {
+    "instruction": "Welches Gesicht haben Sie sich gemerkt?",
+    "correct": "Richtig!",
+    "wrong": "Falsch!",
+    "correctMessage": "Korrekt! Das war Gesicht #{{targetNumber}}",
+    "wrongMessage": "Leider falsch. Das richtige Gesicht war #{{targetNumber}}, du hast #{{selectedNumber}} gewählt."
+  },
+  "face2Task": {
+    "instruction": "Merken Sie sich diese Gesichter."
+  },
+  "face2Recall": {
+    "instruction": "Wählen Sie alle Gesichter aus, an die Sie sich erinnern.",
+    "submit": "Auswahl bestätigen",
+    "correct": "Perfekt! Alle richtigen Gesichter ausgewählt!",
+    "incorrect": "Nicht ganz richtig. Versuchen Sie sich beim nächsten Mal an alle Gesichter zu erinnern."
+  },
+  "handTask": {
+    "instruction": "Merken Sie sich die Hand (welche Seite?) und den Finger mit dem roten Punkt (Daumen = 1, kleiner Finger = 5)."
+  },
+  "handRecall": {
+    "instruction": "Wo war der rote Punkt?",
+    "correct": "Richtig!",
+    "wrong": "Falsch!",
+    "correctMessage": "Korrekt! Es war {{hand}}, Finger {{finger}}",
+    "wrongMessage": "Leider falsch. Es war {{hand}}, Finger {{finger}}",
+    "leftHand": "linke Hand",
+    "rightHand": "rechte Hand"
+  },
+  "fadenTask": {
+    "loading": "Fadenbild wird geladen...",
+    "instruction": "Folgen Sie dem Verlauf des Fadens, der bei X startet, und klicken Sie auf die Ziffer am Ende dieses Fadens.",
+    "correct": "Richtig!",
+    "wrong": "Falsch!",
+    "correctMessage": "Korrekt! Die Antwort war \"{{digit}}\"",
+    "wrongMessage": "Leider falsch. Die richtige Antwort war \"{{expectedDigit}}\", du hast \"{{inputDigit}}\" gewählt."
+  },
+  "pieTask": {
+    "instructionSingle": "Merken Sie sich die Position des blauen Segmentes:",
+    "instructionMultiple": "Merken Sie sich die Positionen der blauen Segmente:"
+  },
+  "pieRecall": {
+    "instructionSingle": "Wo war das blaue Segment?",
+    "instructionMultiple": "Wo waren die blauen Segmente?",
+    "correct": "Richtig!",
+    "wrong": "Falsch!",
+    "levelUp": "Level Up!",
+    "levelUpMessage": "Level {{level}} erreicht! Streak zurückgesetzt",
+    "correctMessage": "Korrekte Segmente ausgewählt! Streak: {{streak}}",
+    "wrongMessage": "Leider nicht die richtigen Segmente.",
+    "levelDownMessage": "Level auf {{level}} reduziert. Streak zurückgesetzt."
+  },
+  "common": {
+    "ok": "OK",
+    "loading": "Laden...",
+    "left": "links",
+    "right": "rechts"
+  },
+  "languageSelection": {
+    "info": "Wählen Sie Ihre bevorzugte Sprache aus"
+  },
+  "languages": {
+    "de": "Deutsch",
+    "en": "Englisch",
+    "fr": "Französisch",
+    "it": "Italienisch",
+    "nl": "Niederländisch",
+    "pt": "Portugiesisch",
+    "es": "Spanisch"
+  },
+  "taskExamples": {
+    "title": "Erläuterungen zu den Aufgaben",
+    "subtitle": "Hier sind alle verfügbaren Aufgaben mit Beispielen:",
+    "footer": "Jede Aufgabe wird je nach Schwierigkeitsgrad angepasst.",
+    "pie": {
+      "title": "Pie Task",
+      "description": "Sie bekommen einen roten Kreis mit 1 - 4 blau eingefärbten Segmenten angezeigt. Merken Sie sich die Position der blau gefärbten Segmente. Lösen Sie dann eine Rechenaufgabe und tippen Sie danach auf die zuvor blau gefärbten Segmente."
+    },
+    "chess": {
+      "title": "Chess Task",
+      "description": "Sie bekommen ein Schachbrett mit 1 - 4 blau eingefärbten Feldern angezeigt. Merken Sie sich die Position der blau gefärbten Felder. Lösen Sie dann eine Rechenaufgabe und tippen Sie danach auf die zuvor blau gefärbten Felder."
+    },
+    "math": {
+      "title": "Mathe-Aufgabe",
+      "description": "Lösen Sie einfache Rechenaufgaben während der Ablenkungsphase."
+    },
+    "hand": {
+      "title": "Hand Task",
+      "description": "Sie bekommen eine Hand gezeigt mit einem roten Punkt über einem der Finger. Merken Sie sich die Seite der Hand (rechts oder links) und den Finger mit dem roten Punkt (Daumen = 1, kleiner Finger = 5). Lösen Sie die Rechenaufgabe und geben Sie danach die Seite der Hand und den Finger an."
+    },
+    "face": {
+      "title": "Face Task 1",
+      "description": "Sie bekommen ein Gesicht gezeigt. Merken Sie sich das Gesicht, lösen Sie dann die Rechenaufgabe und tippen Sie danach in der Gruppe von Bildern auf das zuvor gezeigte Gesicht."
+    },
+    "face2": {
+      "title": "Face Task 2",
+      "description": "Sie bekommen eine Gruppe von 4-6 Gesichtern gezeigt. Sie bekommen diese Gruppe von Gesichtern in dieser Aufgabe 4 - 6 mal gezeigt. Dazwischen lösen Sie eine Rechenaufgabe. Sie sollen insgesamt jedes Bild nur einmal antippen. Die Bilder ändern ihre Positionen, d.h. Sie müssen sich die Gesichter merken, die Sie bereits angetippt haben."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "Sie bekommen ein Bild mit 2 Fäden gezeigt. Verfolgen Sie den Faden, der bei x startet und tippen Sie auf die Ziffer am Ende dieses Fadens."
+    }
+  }
+}

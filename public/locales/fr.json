@@ -1,0 +1,188 @@
+{
+  "menu": {
+    "about": "À propos de l'app",
+    "language": "Langue",
+    "privacy": "Politique de confidentialité",
+    "imprint": "Mentions légales"
+  },
+  "moodScreen": {
+    "title": "Comment est votre humeur actuellement ?",
+    "labelLeft": "très mauvaise",
+    "labelRight": "très bonne",
+    "continueButton": "Continuer",
+    "backButton": "Retour",
+    "instruction": "Veuillez déplacer le curseur pour indiquer votre humeur",
+    "symptomTitle": "Quel est actuellement votre symptôme principal que vous aimeriez influencer avec l'application?",
+    "intensityTitle": "À quel point votre symptôme principal {symptom} est-il fort en ce moment?",
+    "intensityLabelLeft": "très faible",
+    "intensityLabelRight": "très fort",
+    "symptoms": {
+      "anxietyPanic": "Anxiété, panique",
+      "depression": "Dépression, abattement, tristesse",
+      "flashback": "Flashback",
+      "rumination": "Rumination, pensées circulaires",
+      "pain": "Douleur",
+      "anger": "Colère, agressivité",
+      "obsessiveThoughts": "Pensées obsessionnelles",
+      "alcoholCraving": "Envie d'alcool",
+      "drugCraving": "Envie de drogue",
+      "eating": "Manger",
+      "nicotineCraving": "Envie de nicotine",
+      "otherSymptom": "Autre symptôme"
+    }
+  },
+  "postGameMood": {
+    "title": "Après les tâches",
+    "moodQuestion": "Comment vous sentez-vous maintenant après les tâches ?",
+    "symptomTitle": "Évaluation des symptômes",
+    "symptomQuestion": "À quel point votre symptôme principal \"{symptom}\" est-il fort maintenant ?",
+    "continue": "Continuer",
+    "complete": "Terminer",
+    "veryLight": "Très léger",
+    "veryStrong": "Très fort"
+  },
+  "startScreen": {
+    "title": "Distractor",
+    "description": "L'application \"Distractor\" sert à la distraction mentale à court terme et à l'amélioration de la concentration par de simples tâches de mémoire et de distraction.",
+    "startButton": "Commencer",
+    "version": "Version : 2026v001",
+    "copyright": "© aepplerlandapps.de",
+    "usageExpired": "Période d'utilisation expirée !"
+  },
+  "about": {
+    "title": "À propos de l'app",
+    "appInfoTitle": "À propos de l'app",
+    "appDescription": "L'application 'Distractor' sert à la distraction mentale à court terme et à l'amélioration de la concentration par de simples tâches de mémoire et de distraction. L'objectif est d'aider les utilisateurs à se distancier temporairement des pensées subjectivement stressantes dans la vie quotidienne et à diriger leur attention vers un contenu cognitif neutre ou positif.",
+    "disclaimer1": "'Distractor' est une application de bien-être et de style de vie et n'est pas un dispositif médical au sens du Règlement sur les dispositifs médicaux de l'UE (MDR).",
+    "disclaimer2": "L'application n'est pas destinée au diagnostic, au traitement, au soulagement ou à la prévention de maladies.",
+    "liabilityTitle": "Avis de non-responsabilité",
+    "liability1": "L'utilisation de l'application \"Distractor\" se fait à vos propres risques. Le contenu fourni sert exclusivement à la distraction mentale générale et à l'amélioration de la concentration.",
+    "liability2": "L'application ne constitue pas un conseil médical, psychologique ou thérapeutique et ne remplace pas un traitement professionnel par du personnel médical ou psychothérapeutique qualifié.",
+    "liability3": "En cas de stress psychologique persistant ou sévère, il est fortement recommandé de chercher une aide professionnelle.",
+    "acknowledgment": "J'ai compris le contenu et en ai pris note.",
+    "closeButton": "Fermer",
+    "alertTitle": "Accord requis",
+    "alertMessage": "L'application ne peut pas être démarrée sans accepter les conditions d'utilisation. Veuillez lire le texte et cocher la case.",
+    "alertOkButton": "OK"
+  },
+  "chessTask": {
+    "instructionSingle": "Retenez la position du cercle bleu.",
+    "instructionMultiple": "Retenez les positions des cercles bleus."
+  },
+  "chessRecall": {
+    "instructionSingle": "Où était le cercle bleu ?",
+    "instructionMultiple": "Où étaient les cercles bleus ?",
+    "levelUp": "Niveau supérieur !",
+    "levelUpMessage": "Niveau {{level}} atteint ! Série remise à zéro",
+    "correct": "Correct !",
+    "correctMessage": "Position correcte ! Série : {{streak}}",
+    "wrong": "Faux !",
+    "wrongMessage": "Ce n'était pas la bonne position.",
+    "levelDownMessage": "Niveau réduit à {{level}}. Série remise à zéro."
+  },
+  "mathTask": {
+    "correct": "Correct !",
+    "wrong": "Malheureusement faux",
+    "correctAnswer": "Correct ! {{num1}} {{operator}} {{num2}} = {{answer}}",
+    "wrongAnswer": "Faux ! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, pas {{userAnswer}}"
+  },
+  "face1Task": {
+    "instruction": "Retenez cette image."
+  },
+  "face1Recall": {
+    "instruction": "Quel visage avez-vous retenu ?",
+    "correct": "Correct !",
+    "wrong": "Faux !",
+    "correctMessage": "Correct ! C'était le visage #{{targetNumber}}",
+    "wrongMessage": "Malheureusement faux. Le bon visage était #{{targetNumber}}, vous avez sélectionné #{{selectedNumber}}."
+  },
+  "face2Task": {
+    "instruction": "La tâche comprend 4 tours. Sélectionnez une image à chaque tour, mais chaque image une seule fois au total!"
+  },
+  "handTask": {
+    "instruction": "Retenez la main (de quel côté ?) et le doigt avec le point rouge (pouce = 1, petit doigt = 5)."
+  },
+  "handRecall": {
+    "instruction": "Où était le point rouge ?",
+    "correct": "Correct !",
+    "wrong": "Faux !",
+    "correctMessage": "Correct ! C'était {{hand}}, doigt {{finger}}",
+    "wrongMessage": "Malheureusement faux. C'était {{hand}}, doigt {{finger}}",
+    "leftHand": "main gauche",
+    "rightHand": "main droite"
+  },
+  "fadenTask": {
+    "loading": "Chargement de l'image de fil...",
+    "instruction": "Suivez le chemin du fil qui commence à X, et cliquez sur le chiffre à la fin de ce fil.",
+    "correct": "Correct !",
+    "wrong": "Faux !",
+    "correctMessage": "Correct ! La réponse était \"{{digit}}\"",
+    "wrongMessage": "Malheureusement faux. La bonne réponse était \"{{expectedDigit}}\", vous avez sélectionné \"{{inputDigit}}\"."
+  },
+  "pieTask": {
+    "instructionSingle": "Retenez la position du segment bleu :",
+    "instructionMultiple": "Retenez les positions des segments bleus :"
+  },
+  "pieRecall": {
+    "instructionSingle": "Où était le segment bleu ?",
+    "instructionMultiple": "Où étaient les segments bleus ?",
+    "correct": "Correct !",
+    "wrong": "Faux !",
+    "levelUp": "Niveau supérieur !",
+    "levelUpMessage": "Niveau {{level}} atteint ! Série remise à zéro",
+    "correctMessage": "Segments corrects sélectionnés ! Série : {{streak}}",
+    "wrongMessage": "Malheureusement pas les bons segments.",
+    "levelDownMessage": "Niveau réduit à {{level}}. Série remise à zéro."
+  },
+  "common": {
+    "ok": "OK",
+    "loading": "Chargement...",
+    "left": "gauche",
+    "right": "droite"
+  },
+  "languageSelection": {
+    "info": "Choisissez votre langue préférée"
+  },
+  "languages": {
+    "de": "Allemand",
+    "en": "Anglais",
+    "fr": "Français",
+    "it": "Italien",
+    "nl": "Néerlandais",
+    "pt": "Portugais",
+    "es": "Espagnol"
+  },
+  "taskExamples": {
+    "title": "Explication des tâches",
+    "subtitle": "Voici toutes les tâches disponibles avec des exemples:",
+    "footer": "Chaque tâche est adaptée selon le niveau de difficulté.",
+    "pie": {
+      "title": "Pie Task",
+      "description": "Vous verrez un cercle rouge avec 1 à 4 segments colorés en bleu. Mémorisez la position des segments colorés en bleu. Résolvez ensuite un problème de mathématiques puis tapez sur les segments précédemment colorés en bleu."
+    },
+    "chess": {
+      "title": "Chess Task",
+      "description": "Vous verrez un échiquier avec 1 à 4 cases colorées en bleu. Mémorisez la position des cases colorées en bleu. Résolvez ensuite un problème de mathématiques puis tapez sur les cases précédemment colorées en bleu."
+    },
+    "math": {
+      "title": "Math Task",
+      "description": "Résolvez de simples problèmes de mathématiques pendant la phase de distraction."
+    },
+    "hand": {
+      "title": "Hand Task",
+      "description": "Vous verrez une main avec un point rouge au-dessus d'un des doigts. Mémorisez le côté de la main (droite ou gauche) et le doigt avec le point rouge (pouce = 1, auriculaire = 5). Résolvez le problème de mathématiques puis indiquez le côté de la main et le doigt."
+    },
+    "face": {
+      "title": "Face Task 1",
+      "description": "Vous verrez un visage. Mémorisez le visage, puis résolvez le problème de mathématiques et ensuite touchez le visage précédemment montré dans le groupe d'images."
+    },
+    "face2": {
+      "title": "Face Task 2",
+      "description": "Vous verrez un groupe de 4-6 visages. Vous verrez ce groupe de visages 4 - 6 fois dans cette tâche. Entre les deux, vous résolvez un problème de mathématiques. Vous devez toucher chaque image seulement une fois au total. Les images changent leurs positions, c'est-à-dire vous devez vous souvenir des visages que vous avez déjà touchés."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "Vous verrez une image avec 2 fils. Suivez le fil qui commence à x et touchez le chiffre à la fin de ce fil."
+    }
+  }
+}

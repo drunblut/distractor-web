@@ -1,0 +1,184 @@
+{
+  "menu": {
+    "about": "Over de app",
+    "language": "Taal",
+    "privacy": "Privacybeleid",
+    "imprint": "Colofon"
+  },
+  "moodScreen": {
+    "title": "Hoe is uw stemming momenteel?",
+    "labelLeft": "zeer slecht",
+    "labelRight": "zeer goed",
+    "continueButton": "Verder",
+    "backButton": "Terug",
+    "instruction": "Verplaats de schuifregelaar om uw stemming aan te geven",
+    "symptomTitle": "Wat is momenteel uw hoofdsymptoom dat u graag met de app zou willen beïnvloeden?",
+    "intensityTitle": "Hoe sterk is uw hoofdsymptoom {symptom} op dit moment?",
+    "intensityLabelLeft": "zeer zwak",
+    "intensityLabelRight": "zeer sterk",
+    "symptoms": {
+      "anxietyPanic": "Angst, paniek",
+      "depression": "Depressie, neerslachtigheid, verdriet",
+      "flashback": "Flashback",
+      "rumination": "Piekeren, circulaire gedachten",
+      "pain": "Pijn",
+      "anger": "Woede, agressiviteit",
+      "obsessiveThoughts": "Obsessieve gedachten",
+      "alcoholCraving": "Alcoholverlangen",
+      "drugCraving": "Drugsverlangen",
+      "eating": "Eten",
+      "nicotineCraving": "Nicotineverlangen",
+      "otherSymptom": "Ander symptoom"
+    }
+  },
+  "postGameMood": {
+    "title": "Na de taken",
+    "moodQuestion": "Hoe voel je je nu na de taken?",
+    "symptomTitle": "Symptoom evaluatie",
+    "symptomQuestion": "Hoe sterk is je hoofdsymptoom \"{symptom}\" nu?",
+    "continue": "Verder",
+    "complete": "Voltooien",
+    "veryLight": "Zeer licht",
+    "veryStrong": "Zeer sterk"
+  },
+  "startScreen": {
+    "title": "Distractor",
+    "description": "De \"Distractor\" app dient voor kortstondige mentale afleiding en concentratieverbetering door eenvoudige geheugen- en afleidingstaken.",
+    "startButton": "Start",
+    "version": "Versie: 2026v001",
+    "copyright": "© aepplerlandapps.de",
+    "usageExpired": "Gebruiksperiode verlopen!"
+  },
+  "about": {
+    "title": "Over de app",
+    "appInfoTitle": "Over de app",
+    "appDescription": "De 'Distractor' app dient voor kortstondige mentale afleiding en concentratieverbetering door eenvoudige geheugen- en afleidingstaken. Het doel is gebruikers te ondersteunen bij het tijdelijk distantiëren van subjectief belastende gedachten in het dagelijks leven en hun aandacht te richten op neutrale of positieve cognitieve inhoud.",
+    "disclaimer1": "'Distractor' is een wellness- en lifestyle-applicatie en geen medisch hulpmiddel in de zin van de EU-verordening betreffende medische hulpmiddelen (MDR).",
+    "disclaimer2": "De app is niet bestemd voor diagnose, behandeling, verlichting of preventie van ziekten.",
+    "liabilityTitle": "Uitsluiting van aansprakelijkheid",
+    "liability1": "Het gebruik van de \"Distractor\" app is op eigen risico. De verstrekte inhoud dient uitsluitend voor algemene mentale afleiding en concentratieverbetering.",
+    "liability2": "De app vormt geen medisch, psychologisch of therapeutisch advies en vervangt geen professionele behandeling door gekwalificeerd medisch of psychotherapeutisch personeel.",
+    "liability3": "Bij aanhoudende of ernstige psychische belasting wordt dringend aanbevolen professionele hulp te zoeken.",
+    "acknowledgment": "Ik heb de inhoud begrepen en ter kennis genomen.",
+    "closeButton": "Sluiten",
+    "alertTitle": "Akkoord vereist",
+    "alertMessage": "De app kan niet worden gestart zonder akkoord te gaan met de gebruiksvoorwaarden. Lees de tekst en vink het vakje aan.",
+    "alertOkButton": "OK"
+  },
+  "chessTask": {
+    "instructionSingle": "Onthoud de positie van de blauwe cirkel.",
+    "instructionMultiple": "Onthoud de posities van de blauwe cirkels."
+  },
+  "chessRecall": {
+    "instructionSingle": "Waar was de blauwe cirkel?",
+    "instructionMultiple": "Waar waren de blauwe cirkels?",
+    "levelUp": "Level Up!",
+    "levelUpMessage": "Level {{level}} bereikt! Streak gereset",
+    "correct": "Correct!",
+    "correctMessage": "Juiste positie! Streak: {{streak}}",
+    "wrong": "Fout!",
+    "wrongMessage": "Dat was niet de juiste positie.",
+    "levelDownMessage": "Level verlaagd naar {{level}}. Streak gereset."
+  },
+  "mathTask": {
+    "correct": "Correct!",
+    "wrong": "Helaas fout",
+    "correctAnswer": "Correct! {{num1}} {{operator}} {{num2}} = {{answer}}",
+    "wrongAnswer": "Fout! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, niet {{userAnswer}}"
+  },
+  "face1Task": {
+    "instruction": "Onthoud deze afbeelding."
+  },
+  "face1Recall": {    "instruction": "Welk gezicht heb je onthouden?",    "correct": "Correct!",
+    "wrong": "Fout!",
+    "correctMessage": "Correct! Dat was gezicht #{{targetNumber}}",
+    "wrongMessage": "Helaas fout. Het juiste gezicht was #{{targetNumber}}, je selecteerde #{{selectedNumber}}."
+  },
+  "face2Task": {
+    "instruction": "De taak bestaat uit 4 rondes. Selecteer één afbeelding per ronde, maar elke afbeelding slechts één keer in totaal!"
+  },
+  "handTask": {
+    "instruction": "Onthoud de hand (welke kant?) en de vinger met de rode stip (duim = 1, pink = 5)."
+  },
+  "handRecall": {    "instruction": "Waar was de rode punt?",    "correct": "Correct!",
+    "wrong": "Fout!",
+    "correctMessage": "Correct! Het was {{hand}}, vinger {{finger}}",
+    "wrongMessage": "Helaas fout. Het was {{hand}}, vinger {{finger}}",
+    "leftHand": "linker hand",
+    "rightHand": "rechter hand"
+  },
+  "fadenTask": {
+    "loading": "Draadafbeelding wordt geladen...",
+    "instruction": "Volg het pad van de draad die begint bij X, en klik op het cijfer aan het einde van deze draad.",
+    "correct": "Correct!",
+    "wrong": "Fout!",
+    "correctMessage": "Correct! Het antwoord was \"{{digit}}\"",
+    "wrongMessage": "Helaas fout. Het juiste antwoord was \"{{expectedDigit}}\", je selecteerde \"{{inputDigit}}\"."
+  },
+  "pieTask": {
+    "instructionSingle": "Onthoud de positie van het blauwe segment:",
+    "instructionMultiple": "Onthoud de posities van de blauwe segmenten:"
+  },
+  "pieRecall": {
+    "instructionSingle": "Waar was het blauwe segment?",
+    "instructionMultiple": "Waar waren de blauwe segmenten?",
+    "correct": "Correct!",
+    "wrong": "Fout!",
+    "levelUp": "Level Up!",
+    "levelUpMessage": "Level {{level}} bereikt! Streak gereset",
+    "correctMessage": "Juiste segmenten geselecteerd! Streak: {{streak}}",
+    "wrongMessage": "Helaas niet de juiste segmenten.",
+    "levelDownMessage": "Level verlaagd naar {{level}}. Streak gereset."
+  },
+  "common": {
+    "ok": "OK",
+    "loading": "Laden...",
+    "left": "links",
+    "right": "rechts"
+  },
+  "languageSelection": {
+    "info": "Kies je voorkeurstaal"
+  },
+  "languages": {
+    "de": "Duits",
+    "en": "Engels",
+    "fr": "Frans",
+    "it": "Italiaans",
+    "nl": "Nederlands",
+    "pt": "Portugees",
+    "es": "Spaans"
+  },
+  "taskExamples": {
+    "title": "Uitleg van de taken",
+    "subtitle": "Hier zijn alle beschikbare taken met voorbeelden:",
+    "footer": "Elke taak wordt aangepast aan het moeilijkheidsniveau.",
+    "pie": {
+      "title": "Pie Task",
+      "description": "Je ziet een rode cirkel met 1-4 blauw gekleurde segmenten. Onthoud de positie van de blauw gekleurde segmenten. Los dan een wiskundeprobleem op en tik op de eerder blauw gekleurde segmenten."
+    },
+    "chess": {
+      "title": "Chess Task",
+      "description": "Je ziet een schaakbord met 1-4 blauw gekleurde vakjes. Onthoud de positie van de blauw gekleurde vakjes. Los dan een wiskundeprobleem op en tik op de eerder blauw gekleurde vakjes."
+    },
+    "math": {
+      "title": "Math Task",
+      "description": "Los eenvoudige wiskundeproblemen op tijdens de afleidingsfase."
+    },
+    "hand": {
+      "title": "Hand Task",
+      "description": "Je ziet een hand met een rode stip boven een van de vingers. Onthoud de zijde van de hand (rechts of links) en de vinger met de rode stip (duim = 1, pink = 5). Los het rekenprobleem op en geef daarna de zijde van de hand en de vinger aan."
+    },
+    "face": {
+      "title": "Face Task 1",
+      "description": "Je ziet een gezicht. Onthoud het gezicht, los dan het rekenprobleem op en tik daarna op het eerder getoonde gezicht in de groep afbeeldingen."
+    },
+    "face2": {
+      "title": "Face Task 2",
+      "description": "Je ziet een groep van 4-6 gezichten. Je ziet deze groep gezichten 4 - 6 keer in deze taak. Tussendoor los je een rekenprobleem op. Je mag elke afbeelding in totaal slechts één keer aanraken. De afbeeldingen veranderen hun posities, dat wil zeggen je moet je de gezichten herinneren die je al hebt aangeraakt."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "Je ziet een afbeelding met 2 draden. Volg de draad die begint bij x en tik op het cijfer aan het einde van deze draad."
+    }
+  }
+}

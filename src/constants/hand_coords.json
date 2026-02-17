@@ -1,0 +1,53 @@
+{
+  "Linksaussen_0.png": [
+    {"finger":1,"x":240,"y":140}, {"finger":2,"x":200,"y":48}, {"finger":3,"x":160,"y":40}, {"finger":4,"x": 120,"y":60}, {"finger":5,"x":86,"y":98}
+  ],
+  "Linksinnen_0.png": [
+    {"finger":1,"x":85,"y":133}, {"finger":2,"x":118,"y":50}, {"finger":3,"x":156,"y":35}, {"finger":4,"x":194,"y":57}, {"finger":5,"x":230,"y":100}
+  ],
+  "Rechtsaussen_0.png": [
+    {"finger":1,"x":74,"y":143}, {"finger":2,"x":119,"y":58}, {"finger":3,"x":155,"y":46}, {"finger":4,"x":190,"y":62}, {"finger":5,"x":225,"y":93}
+  ],
+  "Rechtsinnen_0.png": [
+    {"finger":1,"x":220,"y":130}, {"finger":2,"x":195,"y":50}, {"finger":3,"x":150,"y":40}, {"finger":4,"x":119,"y":62}, {"finger":5,"x":84,"y":99}
+  ],
+
+  "Linksaussen_90.png": [
+    {"finger":1,"x":174,"y":240}, {"finger":2,"x":265,"y":206}, {"finger":3,"x":279,"y":165}, {"finger":4,"x":256,"y":123}, {"finger":5,"x":220,"y":87}
+  ],
+  "Linksinnen_90.png": [
+    {"finger":1,"x":185,"y":85}, {"finger":2,"x":272,"y":118}, {"finger":3,"x":280,"y":154}, {"finger":4,"x":267,"y":195}, {"finger":5,"x":224,"y":231}
+  ],
+  "Rechtsaussen_90.png": [
+    {"finger":1,"x":176,"y":80}, {"finger":2,"x":263,"y":116}, {"finger":3,"x":274,"y":153}, {"finger":4,"x":255,"y":190}, {"finger":5,"x":220,"y":223}
+  ],
+  "Rechtsinnen_90.png": [
+    {"finger":1,"x":190,"y":220}, {"finger":2,"x":269,"y":194}, {"finger":3,"x":280,"y":149}, {"finger":4,"x":253,"y":117}, {"finger":5,"x":218,"y":85}
+  ],
+
+  "Linksaussen_180.png": [
+    {"finger":1,"x":83,"y":180}, {"finger":2,"x":115,"y":265}, {"finger":3,"x":155,"y":280}, {"finger":4,"x":195,"y":260}, {"finger":5,"x":230,"y":220}
+  ],
+  "Linksinnen_180.png": [
+    {"finger":1,"x":234,"y":180}, {"finger":2,"x":201,"y":270}, {"finger":3,"x":165,"y":286}, {"finger":4,"x":125,"y":265}, {"finger":5,"x":88,"y":223}
+  ],
+  "Rechtsaussen_180.png": [
+    {"finger":1,"x":240,"y":175}, {"finger":2,"x":205,"y":260}, {"finger":3,"x":167,"y":275}, {"finger":4,"x":130,"y":260}, {"finger":5,"x":94,"y":226}
+  ],
+  "Rechtsinnen_180.png": [
+    {"finger":1,"x":94,"y":190}, {"finger":2,"x":127,"y":271}, {"finger":3,"x":172,"y":279}, {"finger":4,"x":205,"y":256}, {"finger":5,"x":236,"y":224}
+  ],
+
+  "Linksaussen_270.png": [
+    {"finger":1,"x":150,"y":74}, {"finger":2,"x":55,"y":120}, {"finger":3,"x":41,"y":160}, {"finger":4,"x":63,"y":196}, {"finger":5,"x":100,"y":230}
+  ],
+  "Linksinnen_270.png": [
+    {"finger":1,"x":138,"y":234}, {"finger":2,"x":50,"y":200}, {"finger":3,"x":34,"y":164}, {"finger":4,"x":92,"y":86}, {"finger":5,"x":56,"y":124}
+  ],
+  "Rechtsaussen_270.png": [
+    {"finger":1,"x":145,"y":240}, {"finger":2,"x":62,"y":203}, {"finger":3,"x":46,"y":164}, {"finger":4,"x":67,"y":130}, {"finger":5,"x":98,"y":97}
+  ],
+  "Rechtsinnen_270.png": [
+    {"finger":1,"x":132,"y":92}, {"finger":2,"x":50,"y":124}, {"finger":3,"x":41,"y":170}, {"finger":4,"x":66,"y":201}, {"finger":5,"x":103,"y":233}
+  ]
+}

@@ -1,0 +1,16 @@
+# Exclude heavy files from Railway upload
+.next/
+node_modules/
+.env.local
+.git/
+*.log
+data/
+public/images/*.png
+public/images/*.jpg
+
+# Keep essential files only
+!public/images/Bild1.png
+!public/images/Bild2.png
+!public/images/Bild3.png
+!public/images/Bild4.png
+!public/images/Bild5.png
