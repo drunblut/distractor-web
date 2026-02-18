@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   // Disable React Strict Mode to prevent double rendering during development
   reactStrictMode: false,
   
+  // Static export for Netlify deployment (uncomment if needed)
+  // output: 'export',
+  // trailingSlash: true,
+  
   // Production und Development Config
   turbopack: {
     root: path.resolve(".")

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TaskStats Debug</title>
+</head>
+<body>
+    <h1>Debug TaskStats</h1>
+    <p>Drücken Sie F12 und gehen Sie zur Console, um die taskStats zu sehen.</p>
+    <script>
+        // Check localStorage for session data
+        const session = localStorage.getItem('currentSession');
+        if (session) {
+            try {
+                const sessionData = JSON.parse(session);
+                console.log('Current Session Data:', sessionData);
+                
+                if (sessionData.taskStats) {
+                    console.log('TaskStats Details:');
+                    Object.entries(sessionData.taskStats).forEach(([taskType, stats]) => {
+                        console.log(`${taskType}:`, stats);
+                    });
+                }
+            } catch (e) {
+                console.error('Error parsing session:', e);
+            }
+        } else {
+            console.log('No current session found in localStorage');
+        }
+    </script>
+</body>
+</html>

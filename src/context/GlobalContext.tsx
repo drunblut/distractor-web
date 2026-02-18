@@ -101,6 +101,9 @@ export interface GlobalContextType {
   reduceMathLevelOnError: () => void;
   completePhase: () => void;
   
+  // Task statistics debugging
+  resetTaskStats: () => void;
+  
   // Task statistics
   taskStats: {
     [taskType: string]: {
@@ -248,18 +251,62 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       level: number;
     };
   }>({});
+
+  // Validate and clean taskStats to fix data corruption issues
+  const validateAndCleanTaskStats = useCallback((stats: any) => {
+    const cleanStats: typeof taskStats = {};
+    
+    if (stats && typeof stats === 'object') {
+      Object.entries(stats).forEach(([taskType, taskData]: [string, any]) => {
+        if (taskData && typeof taskData === 'object') {
+          const attempts = typeof taskData.attempts === 'number' && taskData.attempts >= 0 && taskData.attempts < 1000 
+            ? taskData.attempts : 0;
+          const correct = typeof taskData.correct === 'number' && taskData.correct >= 0 && taskData.correct <= attempts 
+            ? taskData.correct : 0;
+          const level = typeof taskData.level === 'number' && taskData.level >= 1 && taskData.level <= 4 
+            ? taskData.level : 1;
+          
+          cleanStats[taskType] = { attempts, correct, level };
+        }
+      });
+    }
+    
+    return cleanStats;
+  }, []);
+
+  // Clean task stats function for debugging
+  const resetTaskStats = useCallback(() => {
+    console.log('[TaskStats] Resetting all task statistics');
+    setTaskStats({});
+    
+    // Also clean localStorage
+    try {
+      const savedSession = localStorage.getItem('currentSession');
+      if (savedSession) {
+        const sessionData = JSON.parse(savedSession);
+        sessionData.taskStats = {};
+        localStorage.setItem('currentSession', JSON.stringify(sessionData));
+        console.log('[LocalStorage] Task stats cleared in session');
+      }
+    } catch (error) {
+      console.error('[LocalStorage] Error clearing task stats:', error);
+    }
+  }, []);
   
   // Task Queue und Phase System
   const [taskQueue, setTaskQueue] = useState<string[]>([]);
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(1);
-  const [phaseTimer, setPhaseTimer] = useState(180); // Phase 1: 180 Sekunden
+  const [phaseTimer, setPhaseTimer] = useState(30); // Phase 1: 30 Sekunden (TESTING)
   const [isPhaseActive, setIsPhaseActive] = useState(true);
   const [pendingPhaseChange, setPendingPhaseChange] = useState<number | null>(null);
   
   // Track if pie data has been initialized to prevent multiple calls
   const pieDataInitialized = useRef(false);
   const appInitialized = useRef(false);
+  
+  // Prevent duplicate trackTaskAttempt calls
+  const lastTaskAttemptRef = useRef<{taskType: string, timestamp: number} | null>(null);
   
   // ========================================
   // ALL FUNCTION DEFINITIONS AFTER STATE
@@ -308,8 +355,34 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   
   // Original Distractor App Complex Scoring System
   const trackTaskAttempt = useCallback((taskType: string, correct: boolean) => {
+    // CRITICAL: Prevent duplicate calls within 500ms for same task type
+    const now = Date.now();
+    const lastAttempt = lastTaskAttemptRef.current;
+    
+    if (lastAttempt && lastAttempt.taskType === taskType && (now - lastAttempt.timestamp) < 500) {
+      console.warn(`[DUPLICATE PROTECTION] Blocking duplicate trackTaskAttempt for ${taskType} within 500ms`);
+      return;
+    }
+    
+    lastTaskAttemptRef.current = { taskType, timestamp: now };
+    
+    console.log(`[CRITICAL DEBUG] trackTaskAttempt called: ${taskType}, correct=${correct}`);
+    console.log(`[CRITICAL DEBUG] Current taskStats before update:`, taskStats);
+    
     setTaskStats(prev => {
       const currentStats = prev[taskType] || { attempts: 0, correct: 0, level: 1 };
+      console.log(`[CRITICAL DEBUG] Previous ${taskType} stats:`, currentStats);
+      
+      // Validation: Check for corrupted data
+      if (typeof currentStats.attempts !== 'number' || currentStats.attempts < 0 || currentStats.attempts > 999) {
+        console.warn(`[TaskStats] Corrupted attempts data detected for ${taskType}:`, currentStats.attempts, '- resetting to 0');
+        currentStats.attempts = 0;
+      }
+      
+      if (typeof currentStats.correct !== 'number' || currentStats.correct < 0 || currentStats.correct > currentStats.attempts + 1) {
+        console.warn(`[TaskStats] Corrupted correct data detected for ${taskType}:`, currentStats.correct, '- resetting to 0'); 
+        currentStats.correct = 0;
+      }
       
       // Get current level for this task type - read directly without dependencies
       let currentLevel = 1;
@@ -345,6 +418,9 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         }
       };
       
+      console.log(`[CRITICAL DEBUG] NEW ${taskType} stats:`, newStats[taskType]);
+      console.log(`[CRITICAL DEBUG] Calculation check: ${currentStats.attempts} + 1 = ${currentStats.attempts + 1}`);
+      
       // Save task stats to localStorage
       saveTaskStatsToLocalStorage(newStats);
       
@@ -360,7 +436,22 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       const savedSession = localStorage.getItem('currentSession');
       if (savedSession) {
         const sessionData = JSON.parse(savedSession);
-        sessionData.taskStats = newTaskStats;
+        
+        // CRITICAL FIX: Ensure we never save points as attempts
+        const cleanedTaskStats: typeof taskStats = {};
+        Object.entries(newTaskStats).forEach(([taskType, stats]) => {
+          if (stats && typeof stats === 'object') {
+            cleanedTaskStats[taskType] = {
+              attempts: typeof stats.attempts === 'number' && stats.attempts >= 0 && stats.attempts <= 100 ? stats.attempts : 0,
+              correct: typeof stats.correct === 'number' && stats.correct >= 0 && stats.correct <= stats.attempts ? stats.correct : 0,
+              level: typeof stats.level === 'number' && stats.level >= 1 && stats.level <= 4 ? stats.level : 1
+            };
+          }
+        });
+        
+        console.log(`[LocalStorage] Cleaned taskStats before saving:`, cleanedTaskStats);
+        
+        sessionData.taskStats = cleanedTaskStats;
         sessionData.totalPoints = totalPoints;
         sessionData.phasePoints = phasePoints; // Save phase points too
         sessionData.lastUpdated = new Date().toISOString();
@@ -450,6 +541,8 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   // Enhanced addPoints with original scoring logic
   const addPoints = useCallback((taskType: string, correct: boolean, level?: number) => {
+    console.log(`[CRITICAL DEBUG] addPoints called: ${taskType}, correct=${correct}, level=${level}`);
+    
     // Track the attempt first (for both correct and incorrect)
     trackTaskAttempt(taskType, correct);
     
@@ -670,7 +763,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         console.log('[PHASE DEBUG] Phase 1 completed - switching to Phase 2');
         completePhase(); // Save Phase 1 results
         setCurrentPhase(2);
-        setPhaseTimer(180); // 180 Sekunden für Phase 2
+        setPhaseTimer(30); // 30 Sekunden für Phase 2 (TESTING)
         const phase2Queue = generateTaskQueue(2);
         console.log('[PHASE 2 QUEUE] Generated Phase 2 queue with tasks:', phase2Queue);
         console.log('[PHASE 2 QUEUE] Queue length:', phase2Queue.length);
@@ -690,7 +783,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         console.log('[PHASE DEBUG] Phase 2 completed - switching to Phase 3');
         completePhase(); // Save Phase 2 results
         setCurrentPhase(3);
-        setPhaseTimer(240); // 240 Sekunden für Phase 3
+        setPhaseTimer(30); // 30 Sekunden für Phase 3 (TESTING)
         const phase3Queue = generateTaskQueue(3);
         console.log('[PHASE DEBUG] Generated Phase 3 Queue:', phase3Queue);
         console.log('[PHASE DEBUG] Face2Task count in Phase 3:', phase3Queue.filter(task => task === 'face2Task').length);
@@ -962,6 +1055,35 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setLoadingText('Initialisiere App...');
         setLoadingProgress(10);
         
+        // CRUCIAL: Always start with fresh, empty taskStats
+        console.log('[INIT] Resetting taskStats to ensure clean start');
+        setTaskStats({});
+        
+        // ADDITIONAL: Clean any corrupted data from localStorage
+        try {
+          const savedSession = localStorage.getItem('currentSession');
+          if (savedSession) {
+            const sessionData = JSON.parse(savedSession);
+            if (sessionData.taskStats) {
+              // Check if taskStats contain unrealistic values (points instead of attempts)
+              let hasCorruption = false;
+              Object.entries(sessionData.taskStats).forEach(([taskType, stats]: [string, any]) => {
+                if (stats && typeof stats.attempts === 'number' && stats.attempts > 50) {
+                  console.warn(`[INIT] Found corrupted taskStats for ${taskType}: attempts=${stats.attempts} - clearing localStorage`);
+                  hasCorruption = true;
+                }
+              });
+              
+              if (hasCorruption) {
+                console.log('[INIT] Clearing corrupted localStorage session');
+                localStorage.removeItem('currentSession');
+              }
+            }
+          }
+        } catch (error) {
+          console.error('[INIT] Error checking localStorage:', error);
+        }
+        
         // Initialize task queue
         if (taskQueue.length === 0) {
           const initialQueue = generateTaskQueue(1);
@@ -1139,6 +1261,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     // Statistics
     trackTaskAttempt,
     reduceMathLevelOnError,
+    resetTaskStats,
     taskStats,
     
     // Task Queue und Phase System

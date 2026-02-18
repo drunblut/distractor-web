@@ -338,27 +338,6 @@ export default function PostGameMoodScreen({ onComplete }: PostGameMoodScreenPro
     }
   };
 
-  const getMoodEmoji = (value: number) => {
-    if (value <= 1) return '😭';
-    if (value <= 2) return '😢';
-    if (value <= 3) return '😞';
-    if (value <= 4) return '😐';
-    if (value <= 5) return '😕';
-    if (value <= 6) return '🙂';
-    if (value <= 7) return '😊';
-    if (value <= 8) return '😄';
-    if (value <= 9) return '😁';
-    return '🤩';
-  };
-
-  const getIntensityEmoji = (value: number) => {
-    if (value <= 2) return '🟢'; // Very low
-    if (value <= 4) return '🟡'; // Low
-    if (value <= 6) return '🟠'; // Medium
-    if (value <= 8) return '🟠'; // High
-    return '🔴'; // Very high
-  };
-
   // Render mood assessment step
   if (currentStep === 1) {
     return (
@@ -371,15 +350,6 @@ export default function PostGameMoodScreen({ onComplete }: PostGameMoodScreenPro
           <p className="text-base sm:text-lg text-gray-700 text-center mb-8">
             {t('postGameMood.moodQuestion')}
           </p>
-
-          {/* Mood Emoji Display */}
-          <div className="flex justify-center mb-6">
-            <div className="text-6xl">
-              {getMoodEmoji(moodValue)}
-            </div>
-          </div>
-
-
 
           {/* Mood Slider */}
           <div className="mb-8">
@@ -457,15 +427,6 @@ export default function PostGameMoodScreen({ onComplete }: PostGameMoodScreenPro
         <p className="text-base sm:text-lg text-gray-700 text-center mb-8">
           {t('postGameMood.symptomQuestion', { symptom: selectedSymptom || 'Hauptsymptom' })}
         </p>
-
-        {/* Intensity Emoji Display */}
-        <div className="flex justify-center mb-6">
-          <div className="text-6xl">
-            {getIntensityEmoji(symptomIntensity)}
-          </div>
-        </div>
-
-
 
         {/* Intensity Slider */}
         <div className="mb-8">
