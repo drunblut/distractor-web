@@ -1,4 +1,4 @@
-# Railway Configuration
+# Railway Configuration - Optimized
 [build]
   builder = "NIXPACKS"
 
@@ -9,3 +9,7 @@
   
 [variables]
   NODE_ENV = "production"
+  
+# Build optimization
+[build.env]
+  NEXT_TELEMETRY_DISABLED = "1"
