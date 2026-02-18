@@ -286,16 +286,8 @@ function ContextChecker({ children }: { children: React.ReactNode }) {
 
   if (!isReady || !context.taskQueue || context.taskQueue.length === 0) {
     return (
-      <div className="min-h-screen bg-[#dfdfdfff] flex flex-col items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
-          <p className="text-lg text-gray-600">Initialisiere Task Queue...</p>
-          <p className="text-xs text-gray-500 mt-4">
-            Queue: {context.taskQueue?.length || 0} | 
-            Current: {context.currentTask} | 
-            Index: {context.currentTaskIndex}
-          </p>
-        </div>
+      <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
       </div>
     );
   }

@@ -82,32 +82,15 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
   // Wenn Context noch nicht geladen, einfache Anzeige
   if (!context) {
     return (
-      <div className="fixed inset-0 bg-[#dfdfdfff] flex flex-col items-center justify-center z-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
-          <p className="text-lg text-gray-600">GlobalContext wird geladen...</p>
-          <p className="text-sm text-gray-400 mt-2">Bitte warten...</p>
-        </div>
+      <div className="fixed inset-0 bg-[#dfdfdfff] flex items-center justify-center z-50">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-[#dfdfdfff] flex flex-col items-center justify-center z-50">
-      <div className="text-center max-w-sm">
-        {/* Logo/Title */}
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">
-          Distractor Web
-        </h1>
-
-        {/* Loading Animation - nur kreisender Indikator */}
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-6 mx-auto"></div>
-
-        {/* Loading Text */}
-        <p className="text-lg text-gray-600">
-          {loadingText}
-        </p>
-      </div>
+    <div className="fixed inset-0 bg-[#dfdfdfff] flex items-center justify-center z-50">
+      <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
     </div>
   );
 }
