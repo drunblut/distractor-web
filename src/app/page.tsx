@@ -7,6 +7,7 @@ import PieTask from '../components/PieTask';
 import PieRecall from '../components/PieRecall';
 import ChessTask from '../components/ChessTask';
 import ChessRecall from '../components/ChessRecall';
+import LoadingScreen from '../components/LoadingScreen';
 import { MathProblem, MathTaskStats } from '../utils/mathUtils';
 import { GlobalProvider } from '../context/GlobalContext';
 import '../config/i18n';
@@ -16,6 +17,24 @@ type NavigationFlow = 'pie-flow' | 'chess-flow';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null; // Prevent hydration mismatch
+  }
+
+  return (
+    <GlobalProvider>
+      <HomeContent />
+    </GlobalProvider>
+  );
+}
+
+// Separate component that uses GlobalContext
+function HomeContent() {
   const [currentView, setCurrentView] = useState<CurrentView>('start');
   const [navigationFlow, setNavigationFlow] = useState<NavigationFlow>('pie-flow');
   const [mathStats, setMathStats] = useState<MathTaskStats>({
@@ -27,17 +46,15 @@ export default function Home() {
     totalAttempts: 0
   });
   const [mathTaskKey, setMathTaskKey] = useState(0); // Force re-render with new problem
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
 
-  if (!mounted) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[#dfdfdfff]">
-        <div className="text-xl text-gray-600">Loading...</div>
-      </div>
-    );
+  // Show loading screen during initial app load
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
   }
 
   const handleStart = () => {
@@ -115,14 +132,13 @@ export default function Home() {
   };
 
   return (
-    <GlobalProvider>
-      <div className="w-full h-screen">
-        {currentView === 'start' && (
-          <StartScreen 
-            onStart={handleStart}
-            onLanguagePress={handleLanguagePress}
-          />
-        )}
+    <div className="w-full h-screen">
+      {currentView === 'start' && (
+        <StartScreen 
+          onStart={handleStart}
+          onLanguagePress={handleLanguagePress}
+        />
+      )}
         
         {currentView === 'mood' && (
           <div className="relative w-full h-full">
@@ -155,7 +171,10 @@ export default function Home() {
             >
               ← Zurück
             </button>
-            <PieTask onComplete={handlePieTaskComplete} />
+            <PieTask 
+              onComplete={handlePieTaskComplete} 
+              onNext={handlePieTaskComplete} 
+            />
           </div>
         )}
         
@@ -252,6 +271,5 @@ export default function Home() {
           </div>
         )}
       </div>
-    </GlobalProvider>
-  );
+    );
 }
