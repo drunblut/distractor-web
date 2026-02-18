@@ -268,26 +268,16 @@ function ContextChecker({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const context = useContext(GlobalContext);
   const [isReady, setIsReady] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     if (!context) return;
 
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 10;
-      setLoadingProgress(progress);
-      
-      if (progress >= 100) {
-        clearInterval(interval);
-        // Warte bis Context vollständig initialisiert
-        setTimeout(() => {
-          setIsReady(true);
-        }, 500);
-      }
-    }, 100);
+    // Einfache Wartezeit für Context-Initialisierung
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, [context]);
 
   if (!context) {
@@ -300,14 +290,7 @@ function ContextChecker({ children }: { children: React.ReactNode }) {
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
           <p className="text-lg text-gray-600">Initialisiere Task Queue...</p>
-          <div className="w-64 bg-gray-200 rounded-full h-2 mt-4">
-            <div 
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${loadingProgress}%` }}
-            />
-          </div>
-          <p className="text-sm text-gray-400 mt-2">{loadingProgress}%</p>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500 mt-4">
             Queue: {context.taskQueue?.length || 0} | 
             Current: {context.currentTask} | 
             Index: {context.currentTaskIndex}

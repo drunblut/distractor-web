@@ -7,7 +7,6 @@ interface LoadingScreenProps {
 }
 
 export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
-  const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingText, setLoadingText] = useState('Initialisiere App...');
   const context = useContext(GlobalContext);
 
@@ -20,22 +19,19 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
     const initializeApp = async () => {
       try {
         setLoadingText('GlobalContext geladen...');
-        setLoadingProgress(30);
+        setLoadingText('Context wird geladen...');
 
         // Schritt 1: Kurze Wartezeit für Context-Stabilisierung 
         await new Promise(resolve => setTimeout(resolve, 200));
         setLoadingText('Bilder werden vorgeladen...');
-        setLoadingProgress(50);
 
         // Schritt 2: Bilder preloaden
         await preloadImages();
         setLoadingText('Schriftarten werden geladen...');
-        setLoadingProgress(80);
 
         // Schritt 3: Fonts laden
         await preloadFonts();
         setLoadingText('App ist bereit!');
-        setLoadingProgress(100);
 
         // Kurze Pause bevor die App startet
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -104,25 +100,12 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
           Distractor Web
         </h1>
 
-        {/* Loading Animation - ähnlich wie Desktop-Version */}
+        {/* Loading Animation - nur kreisender Indikator */}
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-6 mx-auto"></div>
 
-        {/* Progress Bar - ähnlich wie Desktop-Version */}
-        <div className="w-64 bg-gray-200 rounded-full h-2 mb-4">
-          <div 
-            className="bg-blue-500 h-2 rounded-full transition-all duration-300 ease-out"
-            style={{ width: `${loadingProgress}%` }}
-          ></div>
-        </div>
-
         {/* Loading Text */}
-        <p className="text-lg text-gray-600 mb-2">
+        <p className="text-lg text-gray-600">
           {loadingText}
-        </p>
-
-        {/* Progress Percentage */}
-        <p className="text-sm text-gray-400">
-          {loadingProgress}%
         </p>
       </div>
     </div>
