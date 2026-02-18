@@ -45,16 +45,13 @@ export default function Home() {
     setCurrentView('mood');
   };
 
-  const handleMoodContinue = (moodValue: number) => {
-    console.log('Mood value:', moodValue);
+  const handleMoodContinue = (data: { moodValue: number; mainSymptom: string; symptomIntensity: number }) => {
+    console.log('Mood data:', data);
     setCurrentView('pie-task');
   };
 
-  const handleMathComplete = (stats: MathTaskStats, problem: MathProblem, userAnswer: string, isCorrect: boolean) => {
-    console.log('Math completed:', { stats, problem, userAnswer, isCorrect });
-    
-    // Update persistent stats
-    setMathStats(stats);
+  const handleMathComplete = (isCorrect: boolean) => {
+    console.log('Math completed:', isCorrect);
     
     // Navigate based on current flow
     setTimeout(() => {
@@ -147,8 +144,6 @@ export default function Home() {
             key={mathTaskKey}
             onComplete={handleMathComplete}
             onBack={handleBackToMood}
-            initialLevel={mathStats.level}
-            initialStats={mathStats}
           />
         )}
         

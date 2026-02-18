@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   // output: 'export',
   // trailingSlash: true,
   
+  // Exclude experimental folder from build
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  
   // Production und Development Config
   turbopack: {
     root: path.resolve(".")
@@ -16,6 +19,13 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true
   },
+  
+  // Webpack configuration to exclude experimental folder
+  webpack: (config) => {
+    config.resolve.alias['@experimental'] = false;
+    return config;
+  },
+  
   // Allow cross-origin access for testing
   ...(process.env.NODE_ENV === "development" && {
     allowedDevOrigins: [

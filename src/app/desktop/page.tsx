@@ -49,8 +49,8 @@ function MathTaskWrapper() {
   
   const { navigateToNextTask, mathLevel, trackTaskAttempt, addPoints, previousTask, setCurrentTask, setPreviousTask } = context;
   
-  const handleMathComplete = (stats: any, problem: any, userAnswer: string, isCorrect: boolean) => {
-    console.log('MathTask completed:', { stats, isCorrect, userAnswer });
+  const handleMathComplete = (isCorrect: boolean) => {
+    console.log('MathTask completed:', { isCorrect });
     
     // Track attempt in GlobalContext
     if (trackTaskAttempt) {
@@ -111,7 +111,6 @@ function MathTaskWrapper() {
       <MathTask 
         onComplete={handleMathComplete}
         onBack={() => {}}
-        initialLevel={mathLevel}
       />
     </div>
   );
