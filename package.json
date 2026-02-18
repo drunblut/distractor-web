@@ -8,6 +8,9 @@
     "start": "next start --port ${PORT:-3000} --hostname 0.0.0.0",
     "lint": "eslint"
   },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "dependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "better-sqlite3": "^12.6.2",
