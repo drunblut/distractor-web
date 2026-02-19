@@ -156,6 +156,33 @@
     "pt": "Portuguese",
     "es": "Spanish"
   },
+  "results": {
+    "title": "Distractor App Results",
+    "table": {
+      "task": "Task",
+      "count": "Number",
+      "correct": "correct answers",
+      "percentage": "%",
+      "total": "Total"
+    },
+    "phasePoints": {
+      "title": "Phase",
+      "points": "Points"
+    },
+    "moodData": {
+      "title": "Mood & Symptoms",
+      "measurement": "Measurement",
+      "value": "Value",
+      "moodStart": "Mood Start",
+      "moodEnd": "Mood End",
+      "mainSymptom": "Main Symptom",
+      "symptomStart": "Symptom Start",
+      "symptomEnd": "Symptom End",
+      "notRecorded": "Not recorded"
+    },
+    "totalScore": "Total Score",
+    "playAgain": "Play Again"
+  },
   "taskExamples": {
     "title": "Task Explanations",
     "subtitle": "Here are all available tasks with examples:",

@@ -158,6 +158,33 @@
     "pt": "Portugiesisch",
     "es": "Spanisch"
   },
+  "results": {
+    "title": "Distractor App Ergebnisse",
+    "table": {
+      "task": "Aufgabe",
+      "count": "Anzahl",
+      "correct": "davon korrekt",
+      "percentage": "%",
+      "total": "Gesamt"
+    },
+    "phasePoints": {
+      "title": "Phase",
+      "points": "Punkte"
+    },
+    "moodData": {
+      "title": "Stimmung & Symptome",
+      "measurement": "Messwert",
+      "value": "Wert",
+      "moodStart": "Stimmung Anfang",
+      "moodEnd": "Stimmung Ende",
+      "mainSymptom": "Hauptsymptom",
+      "symptomStart": "Hauptsymptom Anfang",
+      "symptomEnd": "Hauptsymptom Ende",
+      "notRecorded": "Nicht erfasst"
+    },
+    "totalScore": "Gesamtscore",
+    "playAgain": "Erneut spielen"
+  },
   "taskExamples": {
     "title": "Erläuterungen zu den Aufgaben",
     "subtitle": "Hier sind alle verfügbaren Aufgaben mit Beispielen:",

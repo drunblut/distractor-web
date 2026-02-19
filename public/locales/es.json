@@ -148,6 +148,33 @@
     "pt": "Portugués",
     "es": "Español"
   },
+  "results": {
+    "title": "Resultados de la App Distractor",
+    "table": {
+      "task": "Tarea",
+      "count": "Número",
+      "correct": "respuestas correctas",
+      "percentage": "%",
+      "total": "Total"
+    },
+    "phasePoints": {
+      "title": "Fase",
+      "points": "Puntos"
+    },
+    "moodData": {
+      "title": "Estado de Ánimo y Síntomas",
+      "measurement": "Medición",
+      "value": "Valor",
+      "moodStart": "Estado de Ánimo Inicial",
+      "moodEnd": "Estado de Ánimo Final",
+      "mainSymptom": "Síntoma Principal",
+      "symptomStart": "Síntoma Inicial",
+      "symptomEnd": "Síntoma Final",
+      "notRecorded": "No registrado"
+    },
+    "totalScore": "Puntuación Total",
+    "playAgain": "Jugar de Nuevo"
+  },
   "taskExamples": {
     "title": "Explicaciones de las tareas",
     "subtitle": "Aquí están todas las tareas disponibles con ejemplos:",

@@ -148,6 +148,33 @@
     "pt": "Portugees",
     "es": "Spaans"
   },
+  "results": {
+    "title": "Distractor App Resultaten",
+    "table": {
+      "task": "Taak",
+      "count": "Aantal",
+      "correct": "juiste antwoorden",
+      "percentage": "%",
+      "total": "Totaal"
+    },
+    "phasePoints": {
+      "title": "Fase",
+      "points": "Punten"
+    },
+    "moodData": {
+      "title": "Stemming & Symptomen",
+      "measurement": "Meting",
+      "value": "Waarde",
+      "moodStart": "Stemming Begin",
+      "moodEnd": "Stemming Einde",
+      "mainSymptom": "Hoofdsymptoom",
+      "symptomStart": "Symptoom Begin",
+      "symptomEnd": "Symptoom Einde",
+      "notRecorded": "Niet opgenomen"
+    },
+    "totalScore": "Totale Score",
+    "playAgain": "Opnieuw Spelen"
+  },
   "taskExamples": {
     "title": "Uitleg van de taken",
     "subtitle": "Hier zijn alle beschikbare taken met voorbeelden:",

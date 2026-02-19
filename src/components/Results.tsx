@@ -42,6 +42,20 @@ export default function Results({ onComplete }: ResultsProps) {
   } = contextValue || {};
   const { t } = useTranslation();
 
+  // Format task names for display (without translation)
+  const formatTaskName = (taskName: string): string => {
+    const formatMap: { [key: string]: string } = {
+      'MathTask': 'Math Task',
+      'PieTask': 'Pie Task',
+      'ChessTask': 'Chess Task',
+      'FadenTask': 'Faden Task',
+      'HandTask': 'Hand Task',
+      'Face1Task': 'Face Task 1',
+      'Face2Task': 'Face Task 2'
+    };
+    return formatMap[taskName] || taskName;
+  };
+
   if (!contextValue) {
     console.error('[Results] GlobalContext is undefined');
     return null;
@@ -142,7 +156,7 @@ export default function Results({ onComplete }: ResultsProps) {
           const accuracy = (correct / attempts * 100);
           
           results.push({
-            name: task.name,
+            name: formatTaskName(task.name),
             attempts: attempts,
             correct: correct,
             accuracy: accuracy.toFixed(1)
@@ -157,9 +171,9 @@ export default function Results({ onComplete }: ResultsProps) {
   // Calculate phase points from the new phase tracking system
   const getPhasePoints = () => {
     return [
-      { phase: 'Phase 1', points: phasePoints?.[1] || 0 },
-      { phase: 'Phase 2', points: phasePoints?.[2] || 0 },
-      { phase: 'Phase 3', points: phasePoints?.[3] || 0 }
+      { phase: `${t('results.phasePoints.title')} 1`, points: phasePoints?.[1] || 0 },
+      { phase: `${t('results.phasePoints.title')} 2`, points: phasePoints?.[2] || 0 },
+      { phase: `${t('results.phasePoints.title')} 3`, points: phasePoints?.[3] || 0 }
     ];
   };
 
@@ -379,17 +393,17 @@ export default function Results({ onComplete }: ResultsProps) {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Distractor App Ergebnisse</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">{t('results.title')}</h1>
           
           {/* Task Results Table */}
           <div className="mb-8">
             <table className="w-full border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left">Aufgabe</th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">Anzahl</th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">davon korrekt</th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">%</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">{t('results.table.task')}</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center">{t('results.table.count')}</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center">{t('results.table.correct')}</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center">{t('results.table.percentage')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -401,10 +415,10 @@ export default function Results({ onComplete }: ResultsProps) {
                     <td className="border border-gray-300 px-4 py-2 text-center">{task.accuracy}%</td>
                   </tr>
                 ))}
-                {/* Gesamt row */}
+                {/* Total row */}
                 {taskResults.length > 0 && (
                   <tr className="bg-gray-100 border-t-2 border-gray-400">
-                    <td className="border border-gray-300 px-4 py-2 font-bold">Gesamt</td>
+                    <td className="border border-gray-300 px-4 py-2 font-bold">{t('results.table.total')}</td>
                     <td className="border border-gray-300 px-4 py-2 text-center font-bold">
                       {taskResults.reduce((sum, task) => sum + task.attempts, 0)}
                     </td>
@@ -429,8 +443,8 @@ export default function Results({ onComplete }: ResultsProps) {
             <table className="w-full border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left">Phase</th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">Punkte</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">{t('results.phasePoints.title')}</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center">{t('results.phasePoints.points')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -452,11 +466,11 @@ export default function Results({ onComplete }: ResultsProps) {
               try {
                 const sessionData = JSON.parse(savedSession);
                 moodDisplayData = {
-                  'Stimmung Anfang': sessionData.mood_vorher !== undefined ? `${sessionData.mood_vorher}/10` : 'Nicht erfasst',
-                  'Stimmung Ende': sessionData.mood_nachher !== undefined ? `${sessionData.mood_nachher}/10` : 'Nicht erfasst',
-                  'Hauptsymptom': sessionData.symptom ? t(`moodScreen.symptoms.${sessionData.symptom}`) : 'Nicht erfasst',
-                  'Hauptsymptom Anfang': sessionData.symptom_intensity !== undefined ? `${sessionData.symptom_intensity}/10` : 'Nicht erfasst',
-                  'Hauptsymptom Ende': sessionData.hauptsymptom_nachher !== undefined ? `${sessionData.hauptsymptom_nachher}/10` : 'Nicht erfasst'
+                  [t('results.moodData.moodStart')]: sessionData.mood_vorher !== undefined ? `${sessionData.mood_vorher}/10` : t('results.moodData.notRecorded'),
+                  [t('results.moodData.moodEnd')]: sessionData.mood_nachher !== undefined ? `${sessionData.mood_nachher}/10` : t('results.moodData.notRecorded'),
+                  [t('results.moodData.mainSymptom')]: sessionData.symptom ? t(`moodScreen.symptoms.${sessionData.symptom}`) : t('results.moodData.notRecorded'),
+                  [t('results.moodData.symptomStart')]: sessionData.symptom_intensity !== undefined ? `${sessionData.symptom_intensity}/10` : t('results.moodData.notRecorded'),
+                  [t('results.moodData.symptomEnd')]: sessionData.hauptsymptom_nachher !== undefined ? `${sessionData.hauptsymptom_nachher}/10` : t('results.moodData.notRecorded')
                 };
               } catch (error) {
                 console.error('[Results] Error parsing session for mood display:', error);
@@ -465,12 +479,12 @@ export default function Results({ onComplete }: ResultsProps) {
             
             return moodDisplayData ? (
               <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Stimmung & Symptome</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-4">{t('results.moodData.title')}</h3>
                 <table className="w-full border-collapse border border-gray-300">
                   <thead>
                     <tr className="bg-gray-100">
-                      <th className="border border-gray-300 px-4 py-2 text-left">Messwert</th>
-                      <th className="border border-gray-300 px-4 py-2 text-center">Wert</th>
+                      <th className="border border-gray-300 px-4 py-2 text-left">{t('results.moodData.measurement')}</th>
+                      <th className="border border-gray-300 px-4 py-2 text-center">{t('results.moodData.value')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -489,7 +503,7 @@ export default function Results({ onComplete }: ResultsProps) {
           {/* Total Score */}
           <div className="text-center mb-6">
             <div className="text-2xl font-bold text-gray-800">
-              Gesamtscore: {totalPoints || 0}
+              {t('results.totalScore')}: {totalPoints || 0}
             </div>
           </div>
 
@@ -499,7 +513,7 @@ export default function Results({ onComplete }: ResultsProps) {
               onClick={handleRestart}
               className="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-bold transition-colors"
             >
-              Erneut spielen
+              {t('results.playAgain')}
             </button>
           </div>
         </div>
