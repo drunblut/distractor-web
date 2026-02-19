@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalContext } from '../context/GlobalContext';
 import fadenCoords from '../constants/faden_coords.json';
+import ScreenLoader from './ScreenLoader';
 
 interface FadenTaskProps {
   onComplete?: () => void;

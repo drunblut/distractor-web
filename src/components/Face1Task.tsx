@@ -2,7 +2,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdChevronRight } from 'react-icons/md';
-import { GlobalContext } from '../context/GlobalContext';import OptimizedImage from './OptimizedImage';
+import { GlobalContext } from '../context/GlobalContext';
+import OptimizedImage from './OptimizedImage';
+import ScreenLoader from './ScreenLoader';
+
 interface Face1TaskProps {
   onComplete?: () => void;
 }
@@ -18,9 +21,8 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     return null;
   }
 
-  const [targetFace, setTargetFace] = useState<number>(1);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const [targetFace, setTargetFace] = useState<number>(0);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   
   // Responsive image sizing
   const [imageSize, setImageSize] = useState(350);
@@ -50,10 +52,16 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
 
   const initializeFace1Task = () => {
     // Select a random face number from all available faces (1-69)
-    // Level difficulty is determined by number of choices in recall, not face selection
     const faceNumber = getRandomInt(1, 69);
     
     setTargetFace(faceNumber);
+    
+    // Set up image URLs for preloading  
+    const urls = [
+      `/images/Bild${faceNumber}.webp`,
+      `/images/Bild${faceNumber}.png`
+    ];
+    setImageUrls(urls);
     
     // Save face data to GlobalContext
     const currentLevel = face1Level || 1;
@@ -61,38 +69,22 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     if (setFace1Data) {
       setFace1Data({ targetFace: faceNumber });
     }
-    
-    setImageLoaded(true);
   };
 
   useEffect(() => {
     initializeFace1Task();
   }, []);
 
-  const handleImageLoad = () => {
-    setImageError(false);
-  };
-
-  const handleImageError = () => {
-    setImageError(true);
-    setImageLoaded(true);
-  };
-
-  // Show loading indicator while initializing
-  if (!imageLoaded) {
+  // Don't render anything until we have a target face
+  if (targetFace === 0) {
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
-        <div className="flex flex-col items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
-          <p className="text-base text-gray-600 text-center font-medium">
-            {t('common.loading')}
-          </p>
-        </div>
+      <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
-  return (
+  const TaskContent = () => (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
       <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-lg w-full">
         <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-4 sm:mb-6">
@@ -107,26 +99,11 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
               height: `${imageSize}px`,
             }}
           >
-            {imageError ? (
-              // Fallback placeholder if image is missing
-              <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                <div className="text-center">
-                  <div className="text-6xl text-gray-400 mb-2">👤</div>
-                  <p className="text-lg font-semibold text-gray-600">Face {targetFace}</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Image not found. Please check Bild{targetFace}.png in /public/images/
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <OptimizedImage
-                faceNumber={targetFace}
-                alt={`Face ${targetFace}`}
-                className="w-full h-full object-contain"
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-              />
-            )}
+            <OptimizedImage
+              faceNumber={targetFace}
+              alt={`Face ${targetFace}`}
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
         
@@ -140,5 +117,14 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <ScreenLoader
+      imageUrls={imageUrls}
+      minLoadTime={800}
+    >
+      <TaskContent />
+    </ScreenLoader>
   );
 }
