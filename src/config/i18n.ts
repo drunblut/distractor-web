@@ -10,11 +10,22 @@ import it from '../../public/locales/it.json';
 import nl from '../../public/locales/nl.json';
 import pt from '../../public/locales/pt.json';
 
+// Get saved language from localStorage or default to German
+const getSavedLanguage = (): string => {
+  if (typeof window !== 'undefined') {
+    const savedLang = localStorage.getItem('selectedLanguage');
+    if (savedLang && ['de', 'en', 'es', 'fr', 'it', 'nl', 'pt'].includes(savedLang)) {
+      return savedLang;
+    }
+  }
+  return 'de'; // Default to German
+};
+
 i18n
   .use(initReactI18next)
   .init({
     debug: false,
-    lng: 'de', // Deutsch als Standardsprache
+    lng: getSavedLanguage(), // Use saved language or default
     fallbackLng: 'de', // Fallback auf Deutsch
     
     interpolation: {

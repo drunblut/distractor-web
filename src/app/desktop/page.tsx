@@ -451,6 +451,16 @@ function DesktopNavigationApp() {
 
   const handleLanguageSelect = (languageCode: string) => {
     console.log('Language selected:', languageCode);
+    
+    // Save selected language to localStorage
+    try {
+      localStorage.setItem('selectedLanguage', languageCode);
+      console.log('Language saved to localStorage:', languageCode);
+    } catch (error) {
+      console.error('Failed to save language to localStorage:', error);
+    }
+    
+    // Change language in i18n
     i18n.changeLanguage(languageCode);
   };
 
