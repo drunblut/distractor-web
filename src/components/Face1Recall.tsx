@@ -3,7 +3,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalContext } from '../context/GlobalContext';
 import OptimizedImage from './OptimizedImage';
-import ScreenLoader from './ScreenLoader';
 
 interface Face1RecallProps {
   onComplete?: () => void;
@@ -67,16 +66,6 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   };
   
   const [faces] = useState(() => getChoices());
-
-  // Generate image URLs for preloading
-  const [imageUrls] = useState(() => {
-    const urls: string[] = [];
-    faces.forEach(face => {
-      urls.push(`/images/Bild${face}.webp`);
-      urls.push(`/images/Bild${face}.png`);
-    });
-    return urls;
-  });
 
   useEffect(() => {
     const updateSize = () => {
@@ -210,12 +199,5 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     </div>
   );
 
-  return (
-    <ScreenLoader
-      imageUrls={imageUrls}
-      minLoadTime={1000}
-    >
-      <TaskContent />
-    </ScreenLoader>
-  );
+  return <TaskContent />;
 }

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { MdChevronRight } from 'react-icons/md';
 import { GlobalContext } from '../context/GlobalContext';
 import OptimizedImage from './OptimizedImage';
-import ScreenLoader from './ScreenLoader';
 
 interface Face1TaskProps {
   onComplete?: () => void;
@@ -22,7 +21,6 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
   }
 
   const [targetFace, setTargetFace] = useState<number>(0);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
   
   // Responsive image sizing
   const [imageSize, setImageSize] = useState(350);
@@ -55,13 +53,6 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     const faceNumber = getRandomInt(1, 69);
     
     setTargetFace(faceNumber);
-    
-    // Set up image URLs for preloading  
-    const urls = [
-      `/images/Bild${faceNumber}.webp`,
-      `/images/Bild${faceNumber}.png`
-    ];
-    setImageUrls(urls);
     
     // Save face data to GlobalContext
     const currentLevel = face1Level || 1;
@@ -119,12 +110,5 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     </div>
   );
 
-  return (
-    <ScreenLoader
-      imageUrls={imageUrls}
-      minLoadTime={800}
-    >
-      <TaskContent />
-    </ScreenLoader>
-  );
+  return <TaskContent />;
 }

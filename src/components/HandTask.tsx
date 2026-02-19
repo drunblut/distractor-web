@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { MdChevronRight } from 'react-icons/md';
 import { GlobalContext } from '../context/GlobalContext';
 import handCoords from '../constants/hand_coords.json';
-import ScreenLoader from './ScreenLoader';
 
 interface HandTaskProps {
   onComplete?: () => void;
