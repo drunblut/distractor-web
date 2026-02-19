@@ -13,7 +13,7 @@
     "backButton": "Zurück",
     "instruction": "Bitte bewegen Sie den Schieber, um Ihre Stimmung anzugeben",
     "symptomTitle": "Was ist aktuell Ihr Hauptsymptom, das Sie mit der App beeinflussen möchten?",
-    "intensityTitle": "Wie stark ist Ihr Hauptsymptom {symptom} jetzt aktuell?",
+    "intensityTitle": "Wie stark ist Ihr Hauptsymptom ({{symptom}}) jetzt aktuell?",
     "intensityLabelLeft": "sehr schwach",
     "intensityLabelRight": "sehr stark",
     "symptoms": {
@@ -35,7 +35,7 @@
     "title": "Nach den Aufgaben",
     "moodQuestion": "Wie ist Ihre Stimmung jetzt nach den Aufgaben?",
     "symptomTitle": "Symptom-Bewertung",
-    "symptomQuestion": "Wie stark ist Ihr Hauptsymptom \"{symptom}\" jetzt?",
+    "symptomQuestion": "Wie stark ist Ihr Hauptsymptom ({{symptom}}) jetzt?",
     "continue": "Weiter",
     "complete": "Abschließen",
     "veryLight": "Sehr schwach",

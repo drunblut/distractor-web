@@ -12,7 +12,7 @@
     "continueButton": "Continua",
     "backButton": "Indietro",
     "instruction": "Si prega di muovere il cursore per indicare il suo umore",
-    "symptomTitle": "Qual è attualmente il suo sintomo principale che vorrebbe influenzare con l'app?",    "intensityTitle": "Quanto è forte il suo sintoma principale {symptom} in questo momento?",
+    "symptomTitle": "Qual è attualmente il suo sintomo principale che vorrebbe influenzare con l'app?",    "intensityTitle": "Quanto è forte il suo sintoma principale ({{symptom}}) in questo momento?",
     "intensityLabelLeft": "molto debole",
     "intensityLabelRight": "molto forte",    "symptoms": {
       "anxietyPanic": "Ansia, panico",
@@ -33,7 +33,7 @@
     "title": "Dopo i compiti",
     "moodQuestion": "Come ti senti ora dopo i compiti?",
     "symptomTitle": "Valutazione dei sintomi",
-    "symptomQuestion": "Quanto è forte il tuo sintoma principale \"{symptom}\" ora?",
+    "symptomQuestion": "Quanto è forte il tuo sintoma principale ({{symptom}}) ora?",
     "continue": "Continua",
     "complete": "Completa",
     "veryLight": "Molto leggero",

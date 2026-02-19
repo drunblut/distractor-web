@@ -13,7 +13,7 @@
     "backButton": "Back",
     "instruction": "Please move the slider to indicate your mood",
     "symptomTitle": "What is currently your main symptom that you would like to influence with the app?",
-    "intensityTitle": "How strong is your main symptom {symptom} right now?",
+    "intensityTitle": "How strong is your main symptom ({{symptom}}) right now?",
     "intensityLabelLeft": "very weak",
     "intensityLabelRight": "very strong",
     "symptoms": {
@@ -35,7 +35,7 @@
     "title": "After the tasks",
     "moodQuestion": "How is your mood now after the tasks?",
     "symptomTitle": "Symptom Assessment",
-    "symptomQuestion": "How strong is your main symptom \"{symptom}\" now?",
+    "symptomQuestion": "How strong is your main symptom ({{symptom}}) now?",
     "continue": "Continue",
     "complete": "Complete",
     "veryLight": "Very light",

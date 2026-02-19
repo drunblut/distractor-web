@@ -13,7 +13,7 @@
     "backButton": "Atrás",
     "instruction": "Por favor, mueve el control deslizante para indicar tu estado de ánimo",
     "symptomTitle": "¿Cuál es actualmente tu síntoma principal que te gustaría influir con la aplicación?",
-    "intensityTitle": "¿Qué tan fuerte es tu síntoma principal {symptom} ahora mismo?",
+    "intensityTitle": "¿Qué tan fuerte es tu síntoma principal ({{symptom}}) ahora mismo?",
     "intensityLabelLeft": "muy débil",
     "intensityLabelRight": "muy fuerte",
     "symptoms": {
@@ -35,7 +35,7 @@
     "title": "Después de las tareas",
     "moodQuestion": "¿Cómo se siente ahora después de las tareas?",
     "symptomTitle": "Evaluación de síntomas",
-    "symptomQuestion": "¿Qué tan fuerte es su síntoma principal \"{symptom}\" ahora?",
+    "symptomQuestion": "¿Qué tan fuerte es su síntoma principal ({{symptom}}) ahora?",
     "continue": "Continuar",
     "complete": "Completar",
     "veryLight": "Muy ligero",

@@ -13,7 +13,7 @@
     "backButton": "Terug",
     "instruction": "Verplaats de schuifregelaar om uw stemming aan te geven",
     "symptomTitle": "Wat is momenteel uw hoofdsymptoom dat u graag met de app zou willen beïnvloeden?",
-    "intensityTitle": "Hoe sterk is uw hoofdsymptoom {symptom} op dit moment?",
+    "intensityTitle": "Hoe sterk is uw hoofdsymptoom ({{symptom}}) op dit moment?",
     "intensityLabelLeft": "zeer zwak",
     "intensityLabelRight": "zeer sterk",
     "symptoms": {
@@ -35,7 +35,7 @@
     "title": "Na de taken",
     "moodQuestion": "Hoe voel je je nu na de taken?",
     "symptomTitle": "Symptoom evaluatie",
-    "symptomQuestion": "Hoe sterk is je hoofdsymptoom \"{symptom}\" nu?",
+    "symptomQuestion": "Hoe sterk is je hoofdsymptoom ({{symptom}}) nu?",
     "continue": "Verder",
     "complete": "Voltooien",
     "veryLight": "Zeer licht",

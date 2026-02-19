@@ -13,7 +13,7 @@
     "backButton": "Retour",
     "instruction": "Veuillez déplacer le curseur pour indiquer votre humeur",
     "symptomTitle": "Quel est actuellement votre symptôme principal que vous aimeriez influencer avec l'application?",
-    "intensityTitle": "À quel point votre symptôme principal {symptom} est-il fort en ce moment?",
+    "intensityTitle": "À quel point votre symptôme principal ({{symptom}}) est-il fort en ce moment?",
     "intensityLabelLeft": "très faible",
     "intensityLabelRight": "très fort",
     "symptoms": {
@@ -35,7 +35,7 @@
     "title": "Après les tâches",
     "moodQuestion": "Comment vous sentez-vous maintenant après les tâches ?",
     "symptomTitle": "Évaluation des symptômes",
-    "symptomQuestion": "À quel point votre symptôme principal \"{symptom}\" est-il fort maintenant ?",
+    "symptomQuestion": "À quel point votre symptôme principal ({{symptom}}) est-il fort maintenant ?",
     "continue": "Continuer",
     "complete": "Terminer",
     "veryLight": "Très léger",
