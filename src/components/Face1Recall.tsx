@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalContext } from '../context/GlobalContext';
 import OptimizedImage from './OptimizedImage';
+import ScreenLoader from './ScreenLoader';
 
 interface Face1RecallProps {
   onComplete?: () => void;
@@ -67,10 +68,15 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   
   const [faces] = useState(() => getChoices());
 
-  // Check if all images have been processed (loaded or errored)
-  const imagesLoaded = faces.every(face => 
-    loadedImages.has(face) || imageErrors[face]
-  );
+  // Generate image URLs for preloading
+  const [imageUrls] = useState(() => {
+    const urls: string[] = [];
+    faces.forEach(face => {
+      urls.push(`/images/Bild${face}.webp`);
+      urls.push(`/images/Bild${face}.png`);
+    });
+    return urls;
+  });
 
   useEffect(() => {
     const updateSize = () => {
@@ -151,21 +157,7 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     }, 200);
   };
 
-  // Show loading indicator while images are loading (but don't block rendering)
-  // if (!imagesLoaded) {
-  //   return (
-  //     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
-  //       <div className="flex flex-col items-center justify-center">
-  //         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
-  //         <p className="text-base text-gray-600 text-center font-medium">
-  //           {t('common.loading')}
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  return (
+  const TaskContent = () => (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
       <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-4xl w-full">
         <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-6 sm:mb-8">
@@ -216,5 +208,14 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <ScreenLoader
+      imageUrls={imageUrls}
+      minLoadTime={1000}
+    >
+      <TaskContent />
+    </ScreenLoader>
   );
 }
