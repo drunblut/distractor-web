@@ -118,6 +118,13 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
       console.warn('[PieTask DEBUG] Missing setPieRotation or setPieTargetSegments functions');
     }
     
+    // BACKUP: Also save to localStorage for reliability
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('pieTaskRotation', rotationRef.current.toString());
+      localStorage.setItem('pieTaskTargetSegments', JSON.stringify(targetSegments));
+      console.log('[PieTask DEBUG] Backup saved to localStorage');
+    }
+    
     // ALWAYS call onDataUpdate to ensure GlobalContext gets the data
     if (onDataUpdate) {
       onDataUpdate(rotationRef.current, targetSegments);
@@ -140,6 +147,19 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
       setPieRotation(rotationRef.current);
       setPieTargetSegments(targetSegments);
       console.log('[PieTask] Re-saved data before navigation');
+    }
+    
+    // Re-save to localStorage before navigation
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('pieTaskRotation', rotationRef.current.toString());
+      localStorage.setItem('pieTaskTargetSegments', JSON.stringify(targetSegments));
+      console.log('[PieTask] Re-saved to localStorage before navigation');
+    }
+    
+    // Call onDataUpdate callback if available
+    if (onDataUpdate) {
+      onDataUpdate(rotationRef.current, targetSegments);
+      console.log('[PieTask] Called onDataUpdate with final data');
     }
     
     console.log('[PieTask] onNext function available:', !!onNext);

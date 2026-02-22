@@ -60,9 +60,30 @@ export default function PieRecall({
     return null;
   }
 
-  // Use context values if available, fall back to props
-  const actualPieRotation = contextPieRotation ?? pieRotation ?? 0;
-  const actualPieTargetSegments = contextPieTargetSegments ?? pieTargetSegments ?? [];
+  // Use context values if available, fall back to props, then localStorage
+  let actualPieRotation = contextPieRotation ?? pieRotation ?? 0;
+  let actualPieTargetSegments = contextPieTargetSegments ?? pieTargetSegments ?? [];
+
+  // BACKUP: Try localStorage if context/props are empty
+  if (actualPieRotation === 0 && typeof window !== 'undefined') {
+    const storedRotation = localStorage.getItem('pieTaskRotation');
+    if (storedRotation) {
+      actualPieRotation = parseFloat(storedRotation);
+      console.log('[PieRecall DEBUG] Using localStorage rotation:', actualPieRotation);
+    }
+  }
+
+  if (actualPieTargetSegments.length === 0 && typeof window !== 'undefined') {
+    const storedSegments = localStorage.getItem('pieTaskTargetSegments');
+    if (storedSegments) {
+      try {
+        actualPieTargetSegments = JSON.parse(storedSegments);
+        console.log('[PieRecall DEBUG] Using localStorage segments:', actualPieTargetSegments);
+      } catch (e) {
+        console.warn('[PieRecall DEBUG] Failed to parse localStorage segments');
+      }
+    }
+  }
 
   // DEBUG: Log rotation values
   console.log('[PieRecall DEBUG] contextPieRotation:', contextPieRotation);
