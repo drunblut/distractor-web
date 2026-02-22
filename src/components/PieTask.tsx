@@ -108,16 +108,11 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   useEffect(() => {
     // Save rotation and target segments to GlobalContext
     if (setPieRotation && setPieTargetSegments) {
-      console.log('[PieTask DEBUG] Saving to GlobalContext:', {
-        rotation: rotationRef.current,
-        targetSegments: targetSegments
-      });
       setPieRotation(rotationRef.current);
       setPieTargetSegments(targetSegments);
     }
     
     if (onDataUpdate && !dataInitialized) {
-      console.log('[PieTask] Component mounted, sending data to parent');
       onDataUpdate(rotationRef.current, targetSegments);
       setDataInitialized(true);
     }

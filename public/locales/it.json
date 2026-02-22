@@ -178,5 +178,16 @@
       "title": "Thread Task", 
       "description": "Vedrai un'immagine con 2 fili. Segui il filo che inizia a x e tocca la cifra alla fine di questo filo."
     }
+  },
+  "imprint": {
+    "title": "Impronta",
+    "responsible": "Responsabile del contenuto",
+    "name": "Dr. Andreas Reimer",
+    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
+    "email": "Email: musteremail@example.com",
+    "legalBasis": "Questo sito web è fornito come servizio informativo in conformità con § 5 TMG (Legge sui Telemedia). L'operatore sopra menzionato è responsabile del contenuto. Se avete domande o commenti, non esitate a contattare l'indirizzo email specificato.",
+    "additionalInfo": "Ulteriori informazioni sull'impronta possono essere trovate su ",
+    "linkUrl": "http://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }

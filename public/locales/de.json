@@ -190,5 +190,16 @@
       "title": "Thread Task", 
       "description": "Sie bekommen ein Bild mit 2 Fäden gezeigt. Verfolgen Sie den Faden, der bei x startet und tippen Sie auf die Ziffer am Ende dieses Fadens."
     }
+  },
+  "imprint": {
+    "title": "Impressum",
+    "responsible": "Verantwortlich für den Inhalt",
+    "name": "Dr. Andreas Reimer",
+    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
+    "email": "Email: musteremail@example.com",
+    "legalBasis": "Diese Webseite wird gemäß § 5 TMG (Telemediengesetz) als Informationsangebot bereitgestellt. Für die Inhalte ist der oben genannte Betreiber verantwortlich. Bei Fragen oder Anmerkungen können Sie sich gerne an die angegebene E-Mail-Adresse wenden.",
+    "additionalInfo": "Weitere Informationen zum Impressum finden Sie auf ",
+    "linkUrl": "http://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }

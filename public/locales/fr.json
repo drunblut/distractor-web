@@ -184,5 +184,16 @@
       "title": "Thread Task", 
       "description": "Vous verrez une image avec 2 fils. Suivez le fil qui commence à x et touchez le chiffre à la fin de ce fil."
     }
+  },
+  "imprint": {
+    "title": "Mentions légales",
+    "responsible": "Responsable du contenu",
+    "name": "Dr. Andreas Reimer",
+    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
+    "email": "Email: musteremail@example.com",
+    "legalBasis": "Ce site web est fourni comme service d'information conformément au § 5 TMG (Loi sur les télémédias). L'opérateur mentionné ci-dessus est responsable du contenu. Si vous avez des questions ou des commentaires, n'hésitez pas à contacter l'adresse e-mail spécifiée.",
+    "additionalInfo": "Des informations supplémentaires sur les mentions légales peuvent être trouvées sur ",
+    "linkUrl": "http://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }

@@ -180,5 +180,16 @@
       "title": "Thread Task", 
       "description": "Je ziet een afbeelding met 2 draden. Volg de draad die begint bij x en tik op het cijfer aan het einde van deze draad."
     }
+  },
+  "imprint": {
+    "title": "Impressum",
+    "responsible": "Verantwoordelijk voor de inhoud",
+    "name": "Dr. Andreas Reimer",
+    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
+    "email": "Email: musteremail@example.com",
+    "legalBasis": "Deze website wordt aangeboden als informatiedienst in overeenstemming met § 5 TMG (Telemediewet). De bovengenoemde operator is verantwoordelijk voor de inhoud. Als u vragen of opmerkingen heeft, aarzel dan niet om contact op te nemen met het opgegeven e-mailadres.",
+    "additionalInfo": "Aanvullende informatie over het impressum is te vinden op ",
+    "linkUrl": "http://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }

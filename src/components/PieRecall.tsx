@@ -64,20 +64,6 @@ export default function PieRecall({
   const actualPieRotation = contextPieRotation ?? pieRotation ?? 0;
   const actualPieTargetSegments = contextPieTargetSegments ?? pieTargetSegments ?? [];
 
-  console.log('[PieRecall DEBUG] Props:', { 
-    pieRotation: pieRotation, 
-    pieTargetSegments: pieTargetSegments 
-  });
-  console.log('[PieRecall DEBUG] Context values:', { 
-    contextPieRotation: contextPieRotation, 
-    contextPieTargetSegments: contextPieTargetSegments,
-    contextAvailable: !!contextValue
-  });
-  console.log('[PieRecall DEBUG] Using values:', { 
-    actualPieRotation: actualPieRotation, 
-    actualPieTargetSegments: actualPieTargetSegments 
-  });
-
   const [selectedSegments, setSelectedSegments] = useState<number[]>([]);
   const [temporaryClickedSegment, setTemporaryClickedSegment] = useState<number | null>(null);
   
@@ -115,7 +101,6 @@ export default function PieRecall({
   // Update rotation ref when context values change
   useEffect(() => {
     rotationRef.current = actualPieRotation;
-    console.log('[PieRecall DEBUG] Updated rotationRef to:', actualPieRotation);
   }, [actualPieRotation]);
 
   // Pre-computed SVG paths with useMemo for performance - same as PieTask

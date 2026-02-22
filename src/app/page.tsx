@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import StartScreen from '../components/StartScreen';
 import MoodScreen from '../components/MoodScreen';
 import MathTask from '../components/MathTask';
@@ -8,6 +9,7 @@ import PieRecall from '../components/PieRecall';
 import ChessTask from '../components/ChessTask';
 import ChessRecall from '../components/ChessRecall';
 import LoadingScreen from '../components/LoadingScreen';
+import LanguageSelector from '../components/LanguageSelector';
 import { MathProblem, MathTaskStats } from '../utils/mathUtils';
 import { GlobalProvider } from '../context/GlobalContext';
 import '../config/i18n';
@@ -35,8 +37,10 @@ export default function Home() {
 
 // Separate component that uses GlobalContext
 function HomeContent() {
+  const { i18n } = useTranslation();
   const [currentView, setCurrentView] = useState<CurrentView>('start');
   const [navigationFlow, setNavigationFlow] = useState<NavigationFlow>('pie-flow');
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [mathStats, setMathStats] = useState<MathTaskStats>({
     level: 1,
     streak: 0,
@@ -56,6 +60,15 @@ function HomeContent() {
   if (isLoading) {
     return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
   }
+
+  const handleLanguagePress = () => {
+    setShowLanguageSelector(true);
+  };
+
+  const handleLanguageChange = (languageCode: string) => {
+    i18n.changeLanguage(languageCode);
+    setShowLanguageSelector(false);
+  };
 
   const handleStart = () => {
     console.log('App started, navigating to mood screen...');
@@ -78,11 +91,6 @@ function HomeContent() {
         setCurrentView('chess-recall');
       }
     }, 100);
-  };
-
-  const handleLanguagePress = () => {
-    console.log('Language selection requested');
-    alert('Sprachauswahl - noch nicht implementiert');
   };
 
   const handleBackToStart = () => {
@@ -269,6 +277,14 @@ function HomeContent() {
               Sie haben erfolgreich PieTask und ChessTask absolviert! Der Aufgabenflow ist: Mood → PieTask → Math → PieRecall → ChessTask → ChessRecall → Fertig
             </p>
           </div>
+        )}
+
+        {showLanguageSelector && (
+          <LanguageSelector 
+            isVisible={showLanguageSelector}
+            onLanguageSelect={handleLanguageChange}
+            onClose={() => setShowLanguageSelector(false)}
+          />
         )}
       </div>
     );

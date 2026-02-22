@@ -188,5 +188,16 @@
       "title": "Thread Task", 
       "description": "You will see an image with 2 threads. Follow the thread that starts at x and tap on the digit at the end of this thread."
     }
+  },
+  "imprint": {
+    "title": "Imprint",
+    "responsible": "Responsible for the content",
+    "name": "Dr. Andreas Reimer",
+    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
+    "email": "Email: musteremail@example.com",
+    "legalBasis": "This website is provided as an information service in accordance with § 5 TMG (Telemedia Act). The above-mentioned operator is responsible for the content. If you have any questions or comments, please feel free to contact the specified email address.",
+    "additionalInfo": "Additional information about the imprint can be found at ",
+    "linkUrl": "http://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }

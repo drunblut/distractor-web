@@ -180,5 +180,16 @@
       "title": "Thread Task", 
       "description": "Verás una imagen con 2 hilos. Sigue el hilo que comienza en x y toca la cifra al final de este hilo."
     }
+  },
+  "imprint": {
+    "title": "Aviso legal",
+    "responsible": "Responsable del contenido",
+    "name": "Dr. Andreas Reimer",
+    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
+    "email": "Email: musteremail@example.com",
+    "legalBasis": "Este sitio web se proporciona como un servicio de información de acuerdo con § 5 TMG (Ley de Telemedios). El operador mencionado anteriormente es responsable del contenido. Si tiene alguna pregunta o comentario, no dude en ponerse en contacto con la dirección de correo electrónico especificada.",
+    "additionalInfo": "Información adicional sobre el aviso legal se puede encontrar en ",
+    "linkUrl": "http://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }
