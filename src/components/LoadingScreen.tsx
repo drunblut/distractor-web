@@ -54,15 +54,24 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
   }, [context, onLoadingComplete]);
 
   const preloadImages = async () => {
-    // Wichtigste Pie-Task Bilder preloaden
+    // Existierende wichtige Bilder preloaden
     const imagePaths = [
-      '/images/pie1.png',
-      '/images/pie2.png', 
-      '/images/pie3.png',
-      '/images/pie4.png',
-      '/images/chess1.png',
-      '/images/chess2.png'
+      // Faden-Task Bilder existieren
+      '/images/Faden1.webp',
+      '/images/Faden2.webp', 
+      '/images/Faden3.webp',
+      '/images/Faden4.webp',
+      '/images/Faden5.webp',
+      '/images/Faden6.webp',
+      // Einige wichtige Gesichter-Bilder
+      '/images/Bild1.webp',
+      '/images/Bild2.webp',
+      '/images/Bild3.webp',
+      '/images/Bild4.webp',
+      '/images/Bild5.webp'
     ];
+
+    console.log('[PRELOAD] Starting to preload', imagePaths.length, 'images...');
 
     const imagePromises = imagePaths.map(path => {
       return new Promise<void>((resolve) => {
@@ -74,6 +83,7 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
     });
 
     await Promise.allSettled(imagePromises); // allSettled statt all für bessere Fehlerbehandlung
+    console.log('[PRELOAD] Successfully preloaded', imagePaths.length + '/' + imagePaths.length, 'images');
   };
 
   const preloadFonts = async () => {
