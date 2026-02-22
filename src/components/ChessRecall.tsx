@@ -29,6 +29,26 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
   const [showTemporaryCircle, setShowTemporaryCircle] = useState<{row: number, col: number} | null>(null);
   const [selectedPositions, setSelectedPositions] = useState<Array<{row: number, col: number}>>([]);
 
+  // Get circle positions with localStorage backup
+  let actualCirclePositions = circlePositions || [];
+  
+  // BACKUP: Try localStorage if context is empty
+  if (actualCirclePositions.length === 0 && typeof window !== 'undefined') {
+    const storedPositions = localStorage.getItem('chessTaskCirclePositions');
+    if (storedPositions) {
+      try {
+        actualCirclePositions = JSON.parse(storedPositions);
+        console.log('[ChessRecall DEBUG] Using localStorage positions:', actualCirclePositions);
+      } catch (e) {
+        console.warn('[ChessRecall DEBUG] Failed to parse localStorage positions');
+      }
+    }
+  }
+  
+  // DEBUG: Log circle positions
+  console.log('[ChessRecall DEBUG] contextCirclePositions:', circlePositions);
+  console.log('[ChessRecall DEBUG] actualCirclePositions:', actualCirclePositions);
+
   // Responsive chess board size
   const [chessSize, setChessSize] = useState(400);
 
@@ -49,12 +69,16 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
   }, []);
 
   const handleSquarePress = (row: number, col: number) => {
+    console.log('[ChessRecall DEBUG] Square clicked:', { row, col });
+    console.log('[ChessRecall DEBUG] Available positions to check against:', actualCirclePositions);
+    
     if (!setChessLevel || !setChessStreak || !addPoints || !trackTaskAttempt || !reduceMathLevelOnError) {
-      console.error('Missing context functions');
+      console.error('[ChessRecall DEBUG] Missing context functions');
       return;
     }
 
     const currentLevel = chessLevel || 1;
+    console.log('[ChessRecall DEBUG] Current level:', currentLevel);
 
     if (currentLevel === 1) {
       // Level 1: Original Logic - immediate feedback
@@ -63,10 +87,12 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
       setTimeout(() => {
         setShowTemporaryCircle(null);
 
-        const isCorrect = (circlePositions || []).some(pos => pos.row === row && pos.col === col);
+        const isCorrect = actualCirclePositions.some(pos => pos.row === row && pos.col === col);
+        console.log('[ChessRecall DEBUG] Level 1 - Is position correct?', isCorrect);
         
         if (isCorrect) {
           const newStreak = (chessStreak || 0) + 1;
+          console.log('[ChessRecall DEBUG] Correct! New streak:', newStreak);
           setChessStreak(newStreak);
 
           // Add points
@@ -74,28 +100,33 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
 
           // Level up after 3 correct answers
           if (newStreak % 3 === 0 && currentLevel < 4) {
+            console.log('[ChessRecall DEBUG] Level up! New level:', currentLevel + 1);
             setChessLevel(currentLevel + 1);
             setChessStreak(0);
             setTimeout(() => {
               navigateToNextTask && navigateToNextTask();
             }, 200);
           } else {
+            console.log('[ChessRecall DEBUG] Continue at same level, navigating to next task');
             setTimeout(() => {
               navigateToNextTask && navigateToNextTask();
             }, 200);
           }
         } else {
+          console.log('[ChessRecall DEBUG] Wrong answer - Level down on wrong answer (except level 1)');
           // Level down on wrong answer (except level 1)
           addPoints('chessTask', false);
           reduceMathLevelOnError(); // Reduce MathLevel on any error
           
           if (currentLevel > 1) {
+            console.log('[ChessRecall DEBUG] Level down! New level:', currentLevel - 1);
             setChessLevel(currentLevel - 1);
             setChessStreak(0);
             setTimeout(() => {
               navigateToNextTask && navigateToNextTask();
             }, 200);
           } else {
+            console.log('[ChessRecall DEBUG] Stay at level 1, navigating to next task');
             setTimeout(() => {
               navigateToNextTask && navigateToNextTask();
             }, 200);
@@ -104,27 +135,35 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
       }, 200);
     } else {
       // Level 2-4: Toggle functionality
+      console.log('[ChessRecall DEBUG] Level > 1 - Toggle functionality');
       const isAlreadySelected = selectedPositions.some(pos => pos.row === row && pos.col === col);
       
       if (isAlreadySelected) {
         // Remove selection
+        console.log('[ChessRecall DEBUG] Removing selection at:', { row, col });
         setSelectedPositions(prev => prev.filter(pos => !(pos.row === row && pos.col === col)));
       } else {
         // Add selection
         const newSelectedPositions = [...selectedPositions, { row, col }];
+        console.log('[ChessRecall DEBUG] Adding selection, total selected:', newSelectedPositions.length);
         setSelectedPositions(newSelectedPositions);
 
         // Wait briefly for visual change to render, then check
         setTimeout(() => {
           // Check if correct number reached
           if (newSelectedPositions.length === currentLevel) {
+            console.log('[ChessRecall DEBUG] All positions selected, checking correctness...');
             // Check correctness of all selections
             const allCorrect = newSelectedPositions.every(selected =>
-              (circlePositions || []).some(circle => circle.row === selected.row && circle.col === selected.col)
-            ) && newSelectedPositions.length === (circlePositions || []).length;
+              actualCirclePositions.some(circle => circle.row === selected.row && circle.col === selected.col)
+            ) && newSelectedPositions.length === actualCirclePositions.length;
+
+            console.log('[ChessRecall DEBUG] All positions correct?', allCorrect);
 
             if (allCorrect) {
+              console.log('[ChessRecall DEBUG] All correct! Success.');
               const newStreak = (chessStreak || 0) + 1;
+              console.log('[ChessRecall DEBUG] Correct! New streak:', newStreak);
               setChessStreak(newStreak);
 
               // Add points
@@ -132,6 +171,7 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
 
               // Level up after 3 correct answers
               if (newStreak % 3 === 0 && currentLevel < 4) {
+                console.log('[ChessRecall DEBUG] Level up! New level:', currentLevel + 1);
                 setChessLevel(currentLevel + 1);
                 setChessStreak(0);
                 setTimeout(() => {
@@ -139,17 +179,20 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
                   navigateToNextTask && navigateToNextTask();
                 }, 200);
               } else {
+                console.log('[ChessRecall DEBUG] Continue at same level, navigating to next task');
                 setTimeout(() => {
                   setSelectedPositions([]);
                   navigateToNextTask && navigateToNextTask();
                 }, 200);
               }
             } else {
+              console.log('[ChessRecall DEBUG] Wrong selections - Level down');
               // Level down on wrong answer
               addPoints('chessTask', false);
               reduceMathLevelOnError(); // Reduce MathLevel on error
               
               if (currentLevel > 1) {
+                console.log('[ChessRecall DEBUG] Level down! New level:', currentLevel - 1);
                 setChessLevel(currentLevel - 1);
                 setChessStreak(0);
                 setTimeout(() => {
@@ -157,6 +200,7 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
                   navigateToNextTask && navigateToNextTask();
                 }, 200);
               } else {
+                console.log('[ChessRecall DEBUG] Stay at level 1, navigating to next task');
                 setTimeout(() => {
                   setSelectedPositions([]);
                   navigateToNextTask && navigateToNextTask();

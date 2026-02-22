@@ -58,14 +58,29 @@ export default function ChessTask({ onComplete }: ChessTaskProps) {
         }
       }
 
+      console.log('[ChessTask DEBUG] Generated circle positions:', positions);
       setLocalCirclePositions(positions);
+      
+      // Store in GlobalContext
       if (setCirclePositions) {
-        setCirclePositions(positions); // Store in GlobalContext
+        setCirclePositions(positions);
+        console.log('[ChessTask DEBUG] Saved positions to GlobalContext');
+      }
+      
+      // BACKUP: Also save to localStorage for reliability
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('chessTaskCirclePositions', JSON.stringify(positions));
+        console.log('[ChessTask DEBUG] Backup saved to localStorage');
       }
     } else {
+      console.log('[ChessTask DEBUG] Invalid level, clearing positions');
       setLocalCirclePositions([]);
       if (setCirclePositions) {
         setCirclePositions([]);
+      }
+      // Clear localStorage too
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('chessTaskCirclePositions');
       }
     }
   }, [chessLevel, setCirclePositions]);
@@ -129,7 +144,24 @@ export default function ChessTask({ onComplete }: ChessTaskProps) {
         
         <div className="flex justify-center">
           <button
-            onClick={() => onComplete && onComplete()}
+            onClick={() => {
+              console.log('[ChessTask] Navigation button clicked');
+              console.log('[ChessTask] Final circle positions:', localCirclePositions);
+              
+              // Re-save to localStorage before navigation
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('chessTaskCirclePositions', JSON.stringify(localCirclePositions));
+                console.log('[ChessTask] Re-saved to localStorage before navigation');
+              }
+              
+              // Re-save to GlobalContext before navigation
+              if (setCirclePositions) {
+                setCirclePositions(localCirclePositions);
+                console.log('[ChessTask] Re-saved to GlobalContext before navigation');
+              }
+              
+              onComplete && onComplete();
+            }}
             className="p-4 rounded-full transition-all duration-200 text-gray-600 hover:text-gray-800 hover:bg-gray-100 transform hover:scale-110"
           >
             <MdChevronRight size={72} />
