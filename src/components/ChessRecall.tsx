@@ -8,6 +8,9 @@ interface ChessRecallProps {
 }
 
 export default function ChessRecall({ onComplete }: ChessRecallProps) {
+  console.log('[ChessRecall INIT] Component mounted with onComplete:', typeof onComplete);
+  console.log('[ChessRecall INIT] onComplete function value:', onComplete);
+  
   const contextValue = useContext(GlobalContext);
   const {
     chessLevel, 
