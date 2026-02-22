@@ -71,6 +71,12 @@ export default function PieRecall({
   console.log('[PieRecall DEBUG] contextPieTargetSegments:', contextPieTargetSegments);
   console.log('[PieRecall DEBUG] actualPieTargetSegments:', actualPieTargetSegments);
 
+  // Track context changes with useEffect
+  useEffect(() => {
+    console.log('[PieRecall DEBUG] Context changed - contextPieRotation:', contextPieRotation);
+    console.log('[PieRecall DEBUG] Context changed - contextPieTargetSegments:', contextPieTargetSegments);
+  }, [contextPieRotation, contextPieTargetSegments]);
+
   const [selectedSegments, setSelectedSegments] = useState<number[]>([]);
   const [temporaryClickedSegment, setTemporaryClickedSegment] = useState<number | null>(null);
   
@@ -114,7 +120,10 @@ export default function PieRecall({
   const staticSegmentPaths = useMemo(() => {
     const paths: string[] = [];
     const angleStep = 360 / PIE_SEGMENTS;
-    const rotation = rotationRef.current;
+    // Use actualPieRotation directly instead of rotationRef.current for consistency
+    const rotation = actualPieRotation;
+
+    console.log('[PieRecall DEBUG] Calculating SVG paths with rotation:', rotation);
 
     for (let index = 0; index < PIE_SEGMENTS; index++) {
       const startAngle = (index * angleStep + rotation) * (Math.PI / 180);
@@ -286,7 +295,7 @@ export default function PieRecall({
 
   const createClickableArea = useCallback((index: number) => {
     const angleStep = 360 / PIE_SEGMENTS;
-    const rotation = rotationRef.current;
+    const rotation = actualPieRotation;
     const midAngle = ((index + 0.5) * angleStep + rotation) * (Math.PI / 180);
 
     // Calculate position for clickable area (middle of segment)
@@ -311,7 +320,7 @@ export default function PieRecall({
         aria-label={`Segment ${index + 1}`}
       />
     );
-  }, [handleSegmentPress, center, radius, pieSize]);
+  }, [handleSegmentPress, center, radius, pieSize, actualPieRotation]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
@@ -349,7 +358,7 @@ export default function PieRecall({
                 {/* Third: Draw thick white separator lines to force visibility */}
                 {Array.from({ length: PIE_SEGMENTS }, (_, i) => {
                   const angleStep = 360 / PIE_SEGMENTS;
-                  const rotation = rotationRef.current;
+                const rotation = actualPieRotation;
                   const angle = (i * angleStep + rotation) * (Math.PI / 180);
                   const x = center + radius * Math.cos(angle);
                   const y = center + radius * Math.sin(angle);
@@ -368,7 +377,7 @@ export default function PieRecall({
                 {/* Fourth: Draw thinner dark lines on top for better contrast */}
                 {Array.from({ length: PIE_SEGMENTS }, (_, i) => {
                   const angleStep = 360 / PIE_SEGMENTS;
-                  const rotation = rotationRef.current;
+                  const rotation = actualPieRotation;
                   const angle = (i * angleStep + rotation) * (Math.PI / 180);
                   const x = center + radius * Math.cos(angle);
                   const y = center + radius * Math.sin(angle);
