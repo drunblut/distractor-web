@@ -40,7 +40,11 @@ interface PieTaskProps {
 export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskProps) {
   const { t } = useTranslation();
   const contextValue = useContext(GlobalContext);
-  const { pieLevel } = contextValue || {};
+  const { 
+    pieLevel,
+    setPieRotation,
+    setPieTargetSegments 
+  } = contextValue || {};
   
   // Safety check for context
   if (!contextValue) {
@@ -102,12 +106,22 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   const [dataInitialized, setDataInitialized] = useState(false);
   
   useEffect(() => {
+    // Save rotation and target segments to GlobalContext
+    if (setPieRotation && setPieTargetSegments) {
+      console.log('[PieTask DEBUG] Saving to GlobalContext:', {
+        rotation: rotationRef.current,
+        targetSegments: targetSegments
+      });
+      setPieRotation(rotationRef.current);
+      setPieTargetSegments(targetSegments);
+    }
+    
     if (onDataUpdate && !dataInitialized) {
       console.log('[PieTask] Component mounted, sending data to parent');
       onDataUpdate(rotationRef.current, targetSegments);
       setDataInitialized(true);
     }
-  }, [onDataUpdate, dataInitialized]); // Removed targetSegments to prevent unnecessary re-runs
+  }, [onDataUpdate, dataInitialized, setPieRotation, setPieTargetSegments, targetSegments]);
 
   // Navigate to next task using the new navigation system
   const handleNavigateToNext = () => {

@@ -64,14 +64,17 @@ export default function PieRecall({
   const actualPieRotation = contextPieRotation ?? pieRotation ?? 0;
   const actualPieTargetSegments = contextPieTargetSegments ?? pieTargetSegments ?? [];
 
-  console.log('[PieRecall DEBUG] Props:', { pieRotation, pieTargetSegments });
+  console.log('[PieRecall DEBUG] Props:', { 
+    pieRotation: pieRotation, 
+    pieTargetSegments: pieTargetSegments 
+  });
   console.log('[PieRecall DEBUG] Context values:', { 
-    contextPieRotation, 
-    contextPieTargetSegments,
+    contextPieRotation: contextPieRotation, 
+    contextPieTargetSegments: contextPieTargetSegments,
     contextAvailable: !!contextValue
   });
   console.log('[PieRecall DEBUG] Using values:', { 
-    actualPieRotation, 
+    actualPieRotation: actualPieRotation, 
     actualPieTargetSegments: actualPieTargetSegments 
   });
 
