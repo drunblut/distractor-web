@@ -153,10 +153,7 @@ const ChessRecallWrapperComponent = React.memo(() => {
   return (
     <div className="relative w-full h-full">
       <ScoreDisplay />
-      <ChessRecall 
-        onComplete={handleRecallComplete}
-        circlePositions={context.circlePositions}
-      />
+      <ChessRecall onComplete={handleRecallComplete} />
     </div>
   );
 });
