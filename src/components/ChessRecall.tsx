@@ -71,6 +71,7 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
   const handleSquarePress = (row: number, col: number) => {
     console.log('[ChessRecall DEBUG] Square clicked:', { row, col });
     console.log('[ChessRecall DEBUG] Available positions to check against:', actualCirclePositions);
+    console.log('[ChessRecall DEBUG] onComplete function available:', typeof onComplete === 'function');
     
     if (!setChessLevel || !setChessStreak || !addPoints || !trackTaskAttempt || !reduceMathLevelOnError) {
       console.error('[ChessRecall DEBUG] Missing context functions');
@@ -105,13 +106,23 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
             setChessStreak(0);
             setTimeout(() => {
               console.log('[ChessRecall DEBUG] Calling onComplete after level up');
-              onComplete && onComplete();
+              if (onComplete) {
+                console.log('[ChessRecall DEBUG] onComplete is being called!');
+                onComplete();
+              } else {
+                console.error('[ChessRecall DEBUG] onComplete is missing!');
+              }
             }, 200);
           } else {
             console.log('[ChessRecall DEBUG] Continue at same level, calling onComplete');
             setTimeout(() => {
               console.log('[ChessRecall DEBUG] Calling onComplete after correct answer');
-              onComplete && onComplete();
+              if (onComplete) {
+                console.log('[ChessRecall DEBUG] onComplete is being called!');
+                onComplete();
+              } else {
+                console.error('[ChessRecall DEBUG] onComplete is missing!');
+              }
             }, 200);
           }
         } else {
@@ -126,13 +137,23 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
             setChessStreak(0);
             setTimeout(() => {
               console.log('[ChessRecall DEBUG] Calling onComplete after level down');
-              onComplete && onComplete();
+              if (onComplete) {
+                console.log('[ChessRecall DEBUG] onComplete is being called (wrong answer)!');
+                onComplete();
+              } else {
+                console.error('[ChessRecall DEBUG] onComplete is missing (wrong answer)!');
+              }
             }, 200);
           } else {
             console.log('[ChessRecall DEBUG] Stay at level 1, calling onComplete');
             setTimeout(() => {
               console.log('[ChessRecall DEBUG] Calling onComplete after wrong answer');
-              onComplete && onComplete();
+              if (onComplete) {
+                console.log('[ChessRecall DEBUG] onComplete is being called (wrong level 1)!');
+                onComplete();
+              } else {
+                console.error('[ChessRecall DEBUG] onComplete is missing (wrong level 1)!');
+              }
             }, 200);
           }
         }

@@ -139,8 +139,15 @@ function ChessRecallWrapper() {
   if (!context) return null;
   
   const handleRecallComplete = () => {
+    console.log('[ChessRecallWrapper DEBUG] handleRecallComplete called!');
+    console.log('[ChessRecallWrapper DEBUG] navigateToNextTask function available:', typeof context.navigateToNextTask === 'function');
     console.log('[ChessRecall] Recall completed - using navigateToNextTask');
-    context.navigateToNextTask();
+    if (context.navigateToNextTask) {
+      console.log('[ChessRecallWrapper DEBUG] Calling navigateToNextTask now!');
+      context.navigateToNextTask();
+    } else {
+      console.error('[ChessRecallWrapper DEBUG] navigateToNextTask is missing!');
+    }
   };
   
   return (
