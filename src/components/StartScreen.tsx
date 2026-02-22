@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdMenu } from 'react-icons/md';
+import About from './About';
+import PrivacyInfo from './PrivacyInfo';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -11,6 +13,8 @@ interface StartScreenProps {
 export default function StartScreen({ onStart, onLanguagePress }: StartScreenProps) {
   const { t } = useTranslation();
   const [menuVisible, setMenuVisible] = useState(false);
+  const [aboutVisible, setAboutVisible] = useState(false);
+  const [privacyVisible, setPrivacyVisible] = useState(false);
 
   const handleStart = () => {
     console.log('Starting app...');
@@ -25,7 +29,14 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
         onLanguagePress();
         break;
       case 'about':
-        alert('Über die App - noch nicht implementiert');
+        setAboutVisible(true);
+        break;
+      case 'privacy':
+        setPrivacyVisible(true);
+        break;
+      case 'imprint':
+        // Impressum ist Teil der About-Komponente
+        setAboutVisible(true);
         break;
       default:
         console.log('Menu item pressed:', item);
@@ -75,6 +86,29 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
         </div>
       )}
 
+      {/* About Modal */}
+      {aboutVisible && (
+        <About onClose={() => setAboutVisible(false)} />
+      )}
+
+      {/* Privacy Modal */}
+      {privacyVisible && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
+            <h2 className="text-xl font-bold mb-4">{t('menu.privacy')}</h2>
+            <p className="text-gray-600 mb-4">
+              Datenschutz-Informationen finden Sie in der PrivacyInfo-Komponente am unteren Bildschirmrand beim ersten Besuch.
+            </p>
+            <button
+              onClick={() => setPrivacyVisible(false)}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Schließen
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <div className="flex flex-col items-center justify-center flex-1 px-8">
         <h1 className="text-5xl font-bold text-[#333] mb-10 text-center">
@@ -104,6 +138,9 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
           {t('startScreen.copyright')}
         </p>
       </div>
+
+      {/* Privacy Info Component (shows on first visit) */}
+      <PrivacyInfo />
     </div>
   );
 }
