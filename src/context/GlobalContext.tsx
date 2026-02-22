@@ -882,11 +882,16 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   // Stable callback functions using useRef to prevent re-renders
   const stableHandlePieDataUpdate = useRef((rotation: number, segments: number[]) => {
     console.log('[GlobalContext] Pie data update called with rotation:', rotation, 'segments:', segments);
+    console.log('[GlobalContext] Current pieRotation before update:', pieRotation);
+    console.log('[GlobalContext] Current pieTargetSegments before update:', pieTargetSegments);
+    
     // Always save the rotation data, regardless of initialization state
     setPieRotation(rotation);
     setPieTargetSegments(segments);
     pieDataInitialized.current = true;
-    console.log('[GlobalContext] Pie data saved to context');
+    
+    console.log('[GlobalContext] Pie data saved to context - setPieRotation called with:', rotation);
+    console.log('[GlobalContext] Pie data saved to context - setPieTargetSegments called with:', segments);
   });
 
   const stableHandlePieTaskComplete = useRef(() => {
@@ -1041,6 +1046,16 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   // ========================================
   // ALL EFFECTS AFTER FUNCTIONS
   // ========================================
+  
+  // Debug: Track pieRotation state changes
+  useEffect(() => {
+    console.log('[GlobalContext] pieRotation state changed to:', pieRotation);
+  }, [pieRotation]);
+  
+  // Debug: Track pieTargetSegments state changes  
+  useEffect(() => {
+    console.log('[GlobalContext] pieTargetSegments state changed to:', pieTargetSegments);
+  }, [pieTargetSegments]);
   
   // App initialization
   useEffect(() => {

@@ -118,12 +118,16 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
       console.warn('[PieTask DEBUG] Missing setPieRotation or setPieTargetSegments functions');
     }
     
-    if (onDataUpdate && !dataInitialized) {
+    // ALWAYS call onDataUpdate to ensure GlobalContext gets the data
+    if (onDataUpdate) {
       onDataUpdate(rotationRef.current, targetSegments);
-      setDataInitialized(true);
-      console.log('[PieTask DEBUG] Called onDataUpdate callback');
+      console.log('[PieTask DEBUG] Called onDataUpdate callback with rotation:', rotationRef.current);
+    } else {
+      console.warn('[PieTask DEBUG] No onDataUpdate callback provided');
     }
-  }, [onDataUpdate, dataInitialized, setPieRotation, setPieTargetSegments, targetSegments]);
+    
+    setDataInitialized(true);
+  }, [onDataUpdate, setPieRotation, setPieTargetSegments, targetSegments]);
 
   // Navigate to next task using the new navigation system
   const handleNavigateToNext = () => {
