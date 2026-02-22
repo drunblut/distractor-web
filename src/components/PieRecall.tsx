@@ -49,7 +49,9 @@ export default function PieRecall({
     setPieStreak, 
     addPoints, 
     trackTaskAttempt,
-    reduceMathLevelOnError
+    reduceMathLevelOnError,
+    pieRotation: contextPieRotation,
+    pieTargetSegments: contextPieTargetSegments
   } = contextValue || {};
 
   // Safety check for context
@@ -57,6 +59,21 @@ export default function PieRecall({
     console.error('[PieRecall] GlobalContext is undefined');
     return null;
   }
+
+  // Use context values if available, fall back to props
+  const actualPieRotation = contextPieRotation ?? pieRotation ?? 0;
+  const actualPieTargetSegments = contextPieTargetSegments ?? pieTargetSegments ?? [];
+
+  console.log('[PieRecall DEBUG] Props:', { pieRotation, pieTargetSegments });
+  console.log('[PieRecall DEBUG] Context values:', { 
+    contextPieRotation, 
+    contextPieTargetSegments,
+    contextAvailable: !!contextValue
+  });
+  console.log('[PieRecall DEBUG] Using values:', { 
+    actualPieRotation, 
+    actualPieTargetSegments: actualPieTargetSegments 
+  });
 
   const [selectedSegments, setSelectedSegments] = useState<number[]>([]);
   const [temporaryClickedSegment, setTemporaryClickedSegment] = useState<number | null>(null);
@@ -87,10 +104,16 @@ export default function PieRecall({
     }
   }, []);
 
-  // Use the same rotation and target segments from GlobalContext
-  const rotationRef = useRef(pieRotation || 0);
+  // Use the same rotation and target segments from GlobalContext or props
+  const rotationRef = useRef(actualPieRotation);
   const currentLevel = pieLevel || 1;
-  const targetSegments = pieTargetSegments || [];
+  const targetSegments = actualPieTargetSegments;
+  
+  // Update rotation ref when context values change
+  useEffect(() => {
+    rotationRef.current = actualPieRotation;
+    console.log('[PieRecall DEBUG] Updated rotationRef to:', actualPieRotation);
+  }, [actualPieRotation]);
 
   // Pre-computed SVG paths with useMemo for performance - same as PieTask
   const staticSegmentPaths = useMemo(() => {
@@ -120,7 +143,7 @@ export default function PieRecall({
     }
 
     return paths;
-  }, [center, radius]);
+  }, [center, radius, actualPieRotation]);
 
   const handleSegmentPress = (segmentIndex: number) => {
     if (!setPieLevel || !setPieStreak || !addPoints || !reduceMathLevelOnError) {
