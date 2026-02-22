@@ -338,8 +338,13 @@ const PieTaskWrapperComponent = React.memo(() => {
   };
 
   const handleDataUpdate = (rotation: number, segments: number[]) => {
+    console.log('[Desktop PieTaskWrapper] handleDataUpdate called with rotation:', rotation, 'segments:', segments);
+    console.log('[Desktop PieTaskWrapper] About to call setPieRotation and setPieTargetSegments');
+    
     context.setPieRotation(rotation);
     context.setPieTargetSegments(segments);
+    
+    console.log('[Desktop PieTaskWrapper] Successfully called setPieRotation and setPieTargetSegments');
   };
   
   return (
