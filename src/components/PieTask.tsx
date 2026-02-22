@@ -106,21 +106,38 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   const [dataInitialized, setDataInitialized] = useState(false);
   
   useEffect(() => {
+    console.log('[PieTask DEBUG] Saving rotation data:', rotationRef.current);
+    console.log('[PieTask DEBUG] Saving target segments:', targetSegments);
+    
     // Save rotation and target segments to GlobalContext
     if (setPieRotation && setPieTargetSegments) {
       setPieRotation(rotationRef.current);
       setPieTargetSegments(targetSegments);
+      console.log('[PieTask DEBUG] Successfully saved to GlobalContext');
+    } else {
+      console.warn('[PieTask DEBUG] Missing setPieRotation or setPieTargetSegments functions');
     }
     
     if (onDataUpdate && !dataInitialized) {
       onDataUpdate(rotationRef.current, targetSegments);
       setDataInitialized(true);
+      console.log('[PieTask DEBUG] Called onDataUpdate callback');
     }
   }, [onDataUpdate, dataInitialized, setPieRotation, setPieTargetSegments, targetSegments]);
 
   // Navigate to next task using the new navigation system
   const handleNavigateToNext = () => {
     console.log('[PieTask] handleNavigateToNext called');
+    console.log('[PieTask] Final rotation before navigation:', rotationRef.current);
+    console.log('[PieTask] Final target segments before navigation:', targetSegments);
+    
+    // Ensure data is saved before navigation
+    if (setPieRotation && setPieTargetSegments) {
+      setPieRotation(rotationRef.current);
+      setPieTargetSegments(targetSegments);
+      console.log('[PieTask] Re-saved data before navigation');
+    }
+    
     console.log('[PieTask] onNext function available:', !!onNext);
     if (onNext) {
       console.log('[PieTask] Calling onNext function');

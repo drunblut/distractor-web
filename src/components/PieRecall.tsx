@@ -64,6 +64,13 @@ export default function PieRecall({
   const actualPieRotation = contextPieRotation ?? pieRotation ?? 0;
   const actualPieTargetSegments = contextPieTargetSegments ?? pieTargetSegments ?? [];
 
+  // DEBUG: Log rotation values
+  console.log('[PieRecall DEBUG] contextPieRotation:', contextPieRotation);
+  console.log('[PieRecall DEBUG] pieRotation prop:', pieRotation);
+  console.log('[PieRecall DEBUG] actualPieRotation:', actualPieRotation);
+  console.log('[PieRecall DEBUG] contextPieTargetSegments:', contextPieTargetSegments);
+  console.log('[PieRecall DEBUG] actualPieTargetSegments:', actualPieTargetSegments);
+
   const [selectedSegments, setSelectedSegments] = useState<number[]>([]);
   const [temporaryClickedSegment, setTemporaryClickedSegment] = useState<number | null>(null);
   

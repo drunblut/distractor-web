@@ -881,12 +881,12 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   // Stable callback functions using useRef to prevent re-renders
   const stableHandlePieDataUpdate = useRef((rotation: number, segments: number[]) => {
-    if (!pieDataInitialized.current) {
-      console.log('[GlobalContext] Initializing pie data');
-      setPieRotation(rotation);
-      setPieTargetSegments(segments);
-      pieDataInitialized.current = true;
-    }
+    console.log('[GlobalContext] Pie data update called with rotation:', rotation, 'segments:', segments);
+    // Always save the rotation data, regardless of initialization state
+    setPieRotation(rotation);
+    setPieTargetSegments(segments);
+    pieDataInitialized.current = true;
+    console.log('[GlobalContext] Pie data saved to context');
   });
 
   const stableHandlePieTaskComplete = useRef(() => {
