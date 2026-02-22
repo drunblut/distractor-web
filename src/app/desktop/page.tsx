@@ -134,7 +134,7 @@ function ChessTaskWrapper() {
   );
 }
 
-function ChessRecallWrapper() {
+const ChessRecallWrapperComponent = React.memo(() => {
   const context = useContext(GlobalContext);
   if (!context) return null;
   
@@ -153,10 +153,13 @@ function ChessRecallWrapper() {
   return (
     <div className="relative w-full h-full">
       <ScoreDisplay />
-      <ChessRecall onComplete={handleRecallComplete} />
+      <ChessRecall 
+        onComplete={handleRecallComplete}
+        circlePositions={context.circlePositions}
+      />
     </div>
   );
-}
+});
 
 function HandTaskWrapper() {
   const context = useContext(GlobalContext);
@@ -564,7 +567,7 @@ function DesktopNavigationApp() {
       {currentTask === 'pieTask' && <PieTaskWrapperComponent />}
       {currentTask === 'pieRecall' && <PieRecallWrapperComponent />}
       {currentTask === 'chessTask' && <ChessTaskWrapper />}
-      {currentTask === 'chessRecall' && <ChessRecallWrapper />}
+      {currentTask === 'chessRecall' && <ChessRecallWrapperComponent />}
       {currentTask === 'handTask' && <HandTaskWrapper />}
       {currentTask === 'handRecall' && <HandRecallWrapper />}
       {currentTask === 'fadenTask' && <FadenTaskWrapper />}
