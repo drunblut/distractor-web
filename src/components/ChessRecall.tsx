@@ -104,12 +104,14 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
             setChessLevel(currentLevel + 1);
             setChessStreak(0);
             setTimeout(() => {
-              navigateToNextTask && navigateToNextTask();
+              console.log('[ChessRecall DEBUG] Calling onComplete after level up');
+              onComplete && onComplete();
             }, 200);
           } else {
-            console.log('[ChessRecall DEBUG] Continue at same level, navigating to next task');
+            console.log('[ChessRecall DEBUG] Continue at same level, calling onComplete');
             setTimeout(() => {
-              navigateToNextTask && navigateToNextTask();
+              console.log('[ChessRecall DEBUG] Calling onComplete after correct answer');
+              onComplete && onComplete();
             }, 200);
           }
         } else {
@@ -123,12 +125,14 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
             setChessLevel(currentLevel - 1);
             setChessStreak(0);
             setTimeout(() => {
-              navigateToNextTask && navigateToNextTask();
+              console.log('[ChessRecall DEBUG] Calling onComplete after level down');
+              onComplete && onComplete();
             }, 200);
           } else {
-            console.log('[ChessRecall DEBUG] Stay at level 1, navigating to next task');
+            console.log('[ChessRecall DEBUG] Stay at level 1, calling onComplete');
             setTimeout(() => {
-              navigateToNextTask && navigateToNextTask();
+              console.log('[ChessRecall DEBUG] Calling onComplete after wrong answer');
+              onComplete && onComplete();
             }, 200);
           }
         }
@@ -176,13 +180,15 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
                 setChessStreak(0);
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  navigateToNextTask && navigateToNextTask();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after level up');
+                  onComplete && onComplete();
                 }, 200);
               } else {
-                console.log('[ChessRecall DEBUG] Continue at same level, navigating to next task');
+                console.log('[ChessRecall DEBUG] Continue at same level, calling onComplete');
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  navigateToNextTask && navigateToNextTask();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after correct');
+                  onComplete && onComplete();
                 }, 200);
               }
             } else {
@@ -197,13 +203,15 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
                 setChessStreak(0);
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  navigateToNextTask && navigateToNextTask();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after level down');
+                  onComplete && onComplete();
                 }, 200);
               } else {
-                console.log('[ChessRecall DEBUG] Stay at level 1, navigating to next task');
+                console.log('[ChessRecall DEBUG] Stay at level 1, calling onComplete');
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  navigateToNextTask && navigateToNextTask();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after wrong');
+                  onComplete && onComplete();
                 }, 200);
               }
             }
