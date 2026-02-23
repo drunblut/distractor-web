@@ -108,23 +108,29 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
             setChessLevel(currentLevel + 1);
             setChessStreak(0);
             setTimeout(() => {
-              console.log('[ChessRecall DEBUG] Calling onComplete after level up');
-              if (onComplete) {
-                console.log('[ChessRecall DEBUG] onComplete is being called!');
+              console.log('[ChessRecall DEBUG] Calling navigateToNextTask after level up');
+              if (navigateToNextTask) {
+                console.log('[ChessRecall DEBUG] navigateToNextTask is being called!');
+                navigateToNextTask();
+              } else if (onComplete) {
+                console.log('[ChessRecall DEBUG] Fallback: onComplete is being called!');
                 onComplete();
               } else {
-                console.error('[ChessRecall DEBUG] onComplete is missing!');
+                console.error('[ChessRecall DEBUG] No navigation function available!');
               }
             }, 200);
           } else {
             console.log('[ChessRecall DEBUG] Continue at same level, calling onComplete');
             setTimeout(() => {
-              console.log('[ChessRecall DEBUG] Calling onComplete after correct answer');
-              if (onComplete) {
-                console.log('[ChessRecall DEBUG] onComplete is being called!');
+              console.log('[ChessRecall DEBUG] Calling navigateToNextTask after correct answer');
+              if (navigateToNextTask) {
+                console.log('[ChessRecall DEBUG] navigateToNextTask is being called!');
+                navigateToNextTask();
+              } else if (onComplete) {
+                console.log('[ChessRecall DEBUG] Fallback: onComplete is being called!');
                 onComplete();
               } else {
-                console.error('[ChessRecall DEBUG] onComplete is missing!');
+                console.error('[ChessRecall DEBUG] No navigation function available!');
               }
             }, 200);
           }
@@ -139,23 +145,29 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
             setChessLevel(currentLevel - 1);
             setChessStreak(0);
             setTimeout(() => {
-              console.log('[ChessRecall DEBUG] Calling onComplete after level down');
-              if (onComplete) {
-                console.log('[ChessRecall DEBUG] onComplete is being called (wrong answer)!');
+              console.log('[ChessRecall DEBUG] Calling navigateToNextTask after level down');
+              if (navigateToNextTask) {
+                console.log('[ChessRecall DEBUG] navigateToNextTask is being called (wrong answer)!');
+                navigateToNextTask();
+              } else if (onComplete) {
+                console.log('[ChessRecall DEBUG] Fallback: onComplete is being called (wrong answer)!');
                 onComplete();
               } else {
-                console.error('[ChessRecall DEBUG] onComplete is missing (wrong answer)!');
+                console.error('[ChessRecall DEBUG] No navigation function available (wrong answer)!');
               }
             }, 200);
           } else {
             console.log('[ChessRecall DEBUG] Stay at level 1, calling onComplete');
             setTimeout(() => {
-              console.log('[ChessRecall DEBUG] Calling onComplete after wrong answer');
-              if (onComplete) {
-                console.log('[ChessRecall DEBUG] onComplete is being called (wrong level 1)!');
+              console.log('[ChessRecall DEBUG] Calling navigateToNextTask after wrong answer');
+              if (navigateToNextTask) {
+                console.log('[ChessRecall DEBUG] navigateToNextTask is being called (wrong level 1)!');
+                navigateToNextTask();
+              } else if (onComplete) {
+                console.log('[ChessRecall DEBUG] Fallback: onComplete is being called (wrong level 1)!');
                 onComplete();
               } else {
-                console.error('[ChessRecall DEBUG] onComplete is missing (wrong level 1)!');
+                console.error('[ChessRecall DEBUG] No navigation function available (wrong level 1)!');
               }
             }, 200);
           }
@@ -204,15 +216,15 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
                 setChessStreak(0);
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after level up');
-                  onComplete && onComplete();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling navigateToNextTask after level up');
+                  navigateToNextTask ? navigateToNextTask() : onComplete && onComplete();
                 }, 200);
               } else {
                 console.log('[ChessRecall DEBUG] Continue at same level, calling onComplete');
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after correct');
-                  onComplete && onComplete();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling navigateToNextTask after correct');
+                  navigateToNextTask ? navigateToNextTask() : onComplete && onComplete();
                 }, 200);
               }
             } else {
@@ -227,15 +239,15 @@ export default function ChessRecall({ onComplete }: ChessRecallProps) {
                 setChessStreak(0);
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after level down');
-                  onComplete && onComplete();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling navigateToNextTask after level down');
+                  navigateToNextTask ? navigateToNextTask() : onComplete && onComplete();
                 }, 200);
               } else {
                 console.log('[ChessRecall DEBUG] Stay at level 1, calling onComplete');
                 setTimeout(() => {
                   setSelectedPositions([]);
-                  console.log('[ChessRecall DEBUG] Multi-level: Calling onComplete after wrong');
-                  onComplete && onComplete();
+                  console.log('[ChessRecall DEBUG] Multi-level: Calling navigateToNextTask after wrong');
+                  navigateToNextTask ? navigateToNextTask() : onComplete && onComplete();
                 }, 200);
               }
             }
