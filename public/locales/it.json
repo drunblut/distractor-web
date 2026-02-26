@@ -132,7 +132,16 @@
     "ok": "OK",
     "loading": "Caricamento...",
     "left": "sinistra",
-    "right": "destra"
+    "right": "destra",
+    "symptoms": {
+      "anxiety": "Ansia",
+      "sadness": "Tristezza",
+      "stress": "Stress",
+      "irritability": "Irritabilit\u00e0",
+      "fatigue": "Affaticamento",
+      "none": "Nessuno"
+    },
+    "cancel": "Annulla"
   },
   "languageSelection": {
     "info": "Scegli la tua lingua preferita"
@@ -204,6 +213,70 @@
     "faden": {
       "title": "Thread Task", 
       "description": "Vedrai un'immagine con 2 fili. Segui il filo che inizia a x e tocca la cifra alla fine di questo filo."
+    }
+  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Raccolta e Trattamento dei Dati",
+      "content": "Questa applicazione raccoglie i seguenti dati a fini di valutazione:",
+      "list": {
+        "mood": "Informazioni sul suo umore attuale",
+        "symptoms": "Informazioni sul suo sintomo principale e la sua intensit\u00e0",
+        "scores": "I suoi punteggi ottenuti nei compiti cognitivi",
+        "usage": "Statistiche di utilizzo dei vari compiti"
+      }
+    },
+    "section2": {
+      "title": "2. Anonimato",
+      "content": "Tutti i dati vengono memorizzati in modo completamente anonimo. Non vengono raccolti o memorizzati dati personali come nome, indirizzo email o altre caratteristiche identificative."
+    },
+    "section3": {
+      "title": "3. Scopo del Trattamento dei Dati",
+      "content": "I dati raccolti servono esclusivamente per la valutazione dell'utilizzo dell'applicazione."
+    },
+    "section4": {
+      "title": "4. Archiviazione dei Dati",
+      "content": "I dati anonimizzati vengono memorizzati su server sicuri e rispettano le normative applicabili sulla protezione dei dati (GDPR)."
+    },
+    "section5": {
+      "title": "5. I Suoi Diritti",
+      "content": "Poich\u00e9 non vengono memorizzati dati personali, i dati anonimizzati non possono essere ricondotti alla sua persona. L'uso dell'applicazione \u00e8 volontario e pu\u00f2 smettere di usare l'applicazione in qualsiasi momento senza fornire motivi."
+    },
+    "section6": {
+      "title": "6. Contatto",
+      "content": {
+        "pre": "Per domande sulla protezione dei dati, contatti",
+        "mid": "Ulteriori informazioni sulla protezione dei dati possono essere trovate su"
+      }
+    }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "Informazioni sull'Applicazione",
+      "name": "Nome dell'Applicazione",
+      "version": "Versione",
+      "type": "Questa applicazione \u00e8 un'applicazione per il benessere e lo stile di vita."
+    },
+    "responsible": {
+      "title": "Responsabile del Contenuto",
+      "email": "Email",
+      "website": "Sito Web"
+    },
+    "disclaimer": {
+      "title": "Esclusione di Responsabilit\u00e0",
+      "content1": "I contenuti di questa applicazione sono stati creati con la massima cura possibile. Tuttavia, non possiamo garantire l'accuratezza, la completezza e l'attualit\u00e0 del contenuto.",
+      "content2": "L'applicazione serve esclusivamente a scopi di benessere e stile di vita e non costituisce trattamento medico o terapeutico."
+    },
+    "copyright": {
+      "title": "Diritti d'Autore",
+      "content": "Il contenuto e le opere create dagli operatori dell'applicazione sono soggetti alla legge tedesca sul diritto d'autore. La riproduzione, l'editing, la distribuzione e qualsiasi forma di sfruttamento al di fuori dei limiti della legge sul diritto d'autore richiedono il consenso scritto del rispettivo autore o creatore."
+    },
+    "legalBasis": {
+      "title": "Base Legale",
+      "content": "Questo avviso legale \u00e8 stato creato secondo il \u00a7 5 della Legge sui Servizi Digitali (DDG) e soddisfa gli obblighi informativi per i servizi telemediatici.",
+      "additionalInfo": "Ulteriori informazioni sull'avviso legale possono essere trovate su",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
     }
   }
 }

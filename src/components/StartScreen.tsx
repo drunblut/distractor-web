@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdMenu } from 'react-icons/md';
+import PrivacyPolicy from './PrivacyPolicy';
+import Imprint from './Imprint';
+import About from './About';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -11,6 +14,9 @@ interface StartScreenProps {
 export default function StartScreen({ onStart, onLanguagePress }: StartScreenProps) {
   const { t } = useTranslation();
   const [menuVisible, setMenuVisible] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showImprint, setShowImprint] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
 
   const handleStart = () => {
     console.log('Starting app...');
@@ -25,11 +31,16 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
         onLanguagePress();
         break;
       case 'about':
-        alert('Über die App - noch nicht implementiert');
+        setShowAbout(true);
+        break;
+      case 'privacy':
+        setShowPrivacy(true);
+        break;
+      case 'imprint':
+        setShowImprint(true);
         break;
       default:
         console.log('Menu item pressed:', item);
-        alert(`${item} - noch nicht implementiert`);
     }
   };
 
@@ -104,6 +115,21 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
           {t('startScreen.copyright')}
         </p>
       </div>
+
+      {/* Privacy Policy Modal */}
+      {showPrivacy && (
+        <PrivacyPolicy onClose={() => setShowPrivacy(false)} />
+      )}
+
+      {/* Imprint Modal */}
+      {showImprint && (
+        <Imprint onClose={() => setShowImprint(false)} />
+      )}
+
+      {/* About Modal */}
+      {showAbout && (
+        <About onClose={() => setShowAbout(false)} />
+      )}
     </div>
   );
 }

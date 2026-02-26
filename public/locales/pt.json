@@ -134,7 +134,16 @@
     "ok": "OK",
     "loading": "Carregando...",
     "left": "esquerda",
-    "right": "direita"
+    "right": "direita",
+    "symptoms": {
+      "anxiety": "Ansiedade",
+      "sadness": "Tristeza",
+      "stress": "Estresse",
+      "irritability": "Irritabilidade",
+      "fatigue": "Fadiga",
+      "none": "Nenhum"
+    },
+    "cancel": "Cancelar"
   },
   "languageSelection": {
     "info": "Escolha o seu idioma preferido"
@@ -206,6 +215,68 @@
     "faden": {
       "title": "Thread Task", 
       "description": "Você verá uma imagem com 2 fios. Siga o fio que começa em x e toque no dígito no final deste fio."
+    }  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Coleta e Processamento de Dados",
+      "content": "Esta aplica\u00e7\u00e3o coleta os seguintes dados para fins de avalia\u00e7\u00e3o:",
+      "list": {
+        "mood": "Informa\u00e7\u00f5es sobre o seu humor atual",
+        "symptoms": "Informa\u00e7\u00f5es sobre o seu sintoma principal e sua intensidade",
+        "scores": "Suas pontua\u00e7\u00f5es obtidas nas tarefas cognitivas",
+        "usage": "Estat\u00edsticas de uso das v\u00e1rias tarefas"
+      }
+    },
+    "section2": {
+      "title": "2. Anonimato",
+      "content": "Todos os dados s\u00e3o armazenados de forma completamente an\u00f4nima. N\u00e3o s\u00e3o coletados ou armazenados dados pessoais como nome, endere\u00e7o de e-mail ou outras caracter\u00edsticas identificadoras."
+    },
+    "section3": {
+      "title": "3. Prop\u00f3sito do Processamento de Dados",
+      "content": "Os dados coletados servem exclusivamente para a avalia\u00e7\u00e3o do uso da aplica\u00e7\u00e3o."
+    },
+    "section4": {
+      "title": "4. Armazenamento de Dados",
+      "content": "Os dados anonimizados s\u00e3o armazenados em servidores seguros e cumprem as regulamenta\u00e7\u00f5es aplic\u00e1veis de prote\u00e7\u00e3o de dados (GDPR)."
+    },
+    "section5": {
+      "title": "5. Seus Direitos",
+      "content": "Como n\u00e3o s\u00e3o armazenados dados pessoais, os dados anonimizados n\u00e3o podem ser rastreados at\u00e9 sua pessoa. O uso da aplica\u00e7\u00e3o \u00e9 volunt\u00e1rio e voc\u00ea pode parar de usar a aplica\u00e7\u00e3o a qualquer momento sem dar motivos."
+    },
+    "section6": {
+      "title": "6. Contato",
+      "content": {
+        "pre": "Para perguntas sobre prote\u00e7\u00e3o de dados, entre em contato",
+        "mid": "Mais informa\u00e7\u00f5es sobre prote\u00e7\u00e3o de dados podem ser encontradas em"
+      }
     }
-  }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "Informa\u00e7\u00f5es da Aplica\u00e7\u00e3o",
+      "name": "Nome da Aplica\u00e7\u00e3o",
+      "version": "Vers\u00e3o",
+      "type": "Esta aplica\u00e7\u00e3o \u00e9 uma aplica\u00e7\u00e3o de bem-estar e estilo de vida."
+    },
+    "responsible": {
+      "title": "Respons\u00e1vel pelo Conte\u00fado",
+      "email": "Email",
+      "website": "Site"
+    },
+    "disclaimer": {
+      "title": "Isen\u00e7\u00e3o de Responsabilidade",
+      "content1": "Os conte\u00fados desta aplica\u00e7\u00e3o foram criados com o maior cuidado poss\u00edvel. No entanto, n\u00e3o podemos garantir a precis\u00e3o, completude e atualidade do conte\u00fado.",
+      "content2": "A aplica\u00e7\u00e3o serve exclusivamente para prop\u00f3sitos de bem-estar e estilo de vida e n\u00e3o constitui tratamento m\u00e9dico ou terap\u00eautico."
+    },
+    "copyright": {
+      "title": "Direitos Autorais",
+      "content": "O conte\u00fado e as obras criadas pelos operadores da aplica\u00e7\u00e3o est\u00e3o sujeitos \u00e0 lei alem\u00e3 de direitos autorais. A reprodu\u00e7\u00e3o, edi\u00e7\u00e3o, distribui\u00e7\u00e3o e qualquer forma de explora\u00e7\u00e3o fora dos limites da lei de direitos autorais requer o consentimento por escrito do respectivo autor ou criador."
+    },
+    "legalBasis": {
+      "title": "Base Legal",
+      "content": "Esta impress\u00e3o legal foi criada de acordo com o \u00a7 5 da Lei de Servi\u00e7os Digitais (DDG) e atende \u00e0s obriga\u00e7\u00f5es de informa\u00e7\u00e3o para servi\u00e7os de telem\u00eddia.",
+      "additionalInfo": "Mais informa\u00e7\u00f5es sobre a impress\u00e3o legal podem ser encontradas em",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
+    }  }
 }

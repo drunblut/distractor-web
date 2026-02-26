@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "About the App",
+    "tasks": "Tasks",
     "language": "Language",
     "privacy": "Privacy Policy",
     "imprint": "Legal Notice"
@@ -28,7 +29,13 @@
       "drugCraving": "Drug craving",
       "eating": "Eating",
       "nicotineCraving": "Nicotine craving",
-      "otherSymptom": "Other symptom"
+      "otherSymptom": "Other symptom",
+      "anxiety": "Anxiety",
+      "sadness": "Sadness", 
+      "stress": "Stress",
+      "irritability": "Irritability",
+      "fatigue": "Fatigue",
+      "none": "None of these"
     }
   },
   "postGameMood": {
@@ -140,6 +147,7 @@
   },
   "common": {
     "ok": "OK",
+    "cancel": "Cancel",
     "loading": "Loading...",
     "left": "left",
     "right": "right"
@@ -214,6 +222,70 @@
     "faden": {
       "title": "Thread Task", 
       "description": "You will see an image with 2 threads. Follow the thread that starts at x and tap on the digit at the end of this thread."
+    }
+  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Data Collection and Processing",
+      "content": "This app collects the following data for evaluation purposes:",
+      "list": {
+        "mood": "Information about your current mood",
+        "symptoms": "Information about your main symptom and its intensity",
+        "scores": "Your achieved scores in the cognitive tasks",
+        "usage": "Usage statistics of the various tasks"
+      }
+    },
+    "section2": {
+      "title": "2. Anonymity",
+      "content": "All data is stored completely anonymized. No personal data such as name, email address or other identification features are collected or stored."
+    },
+    "section3": {
+      "title": "3. Purpose of Data Processing",
+      "content": "The collected data serves exclusively for evaluation of app usage."
+    },
+    "section4": {
+      "title": "4. Data Storage",
+      "content": "The anonymized data is stored on secure servers and complies with applicable data protection regulations (GDPR)."
+    },
+    "section5": {
+      "title": "5. Your Rights",
+      "content": "Since no personal data is stored, the anonymized data cannot be traced back to your person. The use of the app is voluntary and you can stop using the app at any time without giving reasons."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "content": {
+        "pre": "For questions about data protection, contact",
+        "mid": "Further information about data protection can be found at"
+      }
+    }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "App Information",
+      "name": "App Name",
+      "version": "Version",
+      "type": "This app is a wellness and lifestyle application."
+    },
+    "responsible": {
+      "title": "Responsible for Content",
+      "email": "Email",
+      "website": "Website"
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "content1": "The contents of this app were created with the greatest possible care. However, we cannot guarantee the accuracy, completeness and timeliness of the content.",
+      "content2": "The app serves exclusively wellness and lifestyle purposes and does not constitute medical or therapeutic treatment."
+    },
+    "copyright": {
+      "title": "Copyright",
+      "content": "The content and works created by the app operators are subject to German copyright law. Reproduction, editing, distribution and any form of exploitation outside the limits of copyright law require the written consent of the respective author or creator."
+    },
+    "legalBasis": {
+      "title": "Legal Basis",
+      "content": "This imprint was created in accordance with § 5 of the Digital Services Act (DDG) and fulfills the information obligations for telemedia.",
+      "additionalInfo": "Further information about the imprint can be found at",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
     }
   }
 }

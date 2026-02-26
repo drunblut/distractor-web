@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "Acerca de la app",
+    "tasks": "Tareas",
     "language": "Idioma",
     "privacy": "Política de privacidad",
     "imprint": "Aviso legal"
@@ -12,7 +13,7 @@
     "continueButton": "Continuar",
     "backButton": "Atrás",
     "instruction": "Por favor, mueve el control deslizante para indicar tu estado de ánimo",
-    "symptomTitle": "¿Cuál es actualmente tu síntoma principal que te gustaría influir con la aplicación?",
+    "symptomTitle": "¿Qué síntoma se aplica más a usted?",
     "intensityTitle": "¿Qué tan fuerte es tu síntoma principal ({{symptom}}) ahora mismo?",
     "intensityLabelLeft": "muy débil",
     "intensityLabelRight": "muy fuerte",
@@ -28,7 +29,13 @@
       "drugCraving": "Deseo de drogas",
       "eating": "Comer",
       "nicotineCraving": "Deseo de nicotina",
-      "otherSymptom": "Otro síntoma"
+      "otherSymptom": "Otro síntoma",
+      "anxiety": "Ansiedad",
+      "sadness": "Tristeza",
+      "stress": "Estrés",
+      "irritability": "Irritabilidad",
+      "fatigue": "Fatiga",
+      "none": "Ninguno de estos"
     }
   },
   "postGameMood": {
@@ -132,6 +139,7 @@
   },
   "common": {
     "ok": "OK",
+    "cancel": "Cancelar",
     "loading": "Cargando...",
     "left": "izquierda",
     "right": "derecha"
@@ -206,6 +214,70 @@
     "faden": {
       "title": "Thread Task", 
       "description": "Verás una imagen con 2 hilos. Sigue el hilo que comienza en x y toca la cifra al final de este hilo."
+    }
+  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Recopilación y Procesamiento de Datos",
+      "content": "Esta aplicación recopila los siguientes datos con fines de evaluación:",
+      "list": {
+        "mood": "Información sobre su estado de ánimo actual",
+        "symptoms": "Información sobre su síntoma principal y su intensidad",
+        "scores": "Sus puntuaciones obtenidas en las tareas cognitivas",
+        "usage": "Estadísticas de uso de las diversas tareas"
+      }
+    },
+    "section2": {
+      "title": "2. Anonimato",
+      "content": "Todos los datos se almacenan completamente anonimizados. No se recopilan ni almacenan datos personales como nombre, dirección de correo electrónico u otras características de identificación."
+    },
+    "section3": {
+      "title": "3. Propósito del Procesamiento de Datos",
+      "content": "Los datos recopilados sirven exclusivamente para la evaluación del uso de la aplicación."
+    },
+    "section4": {
+      "title": "4. Almacenamiento de Datos",
+      "content": "Los datos anonimizados se almacenan en servidores seguros y cumplen con las regulaciones aplicables de protección de datos (GDPR)."
+    },
+    "section5": {
+      "title": "5. Sus Derechos",
+      "content": "Dado que no se almacenan datos personales, los datos anonimizados no pueden rastrearse hasta su persona. El uso de la aplicación es voluntario y puede dejar de usar la aplicación en cualquier momento sin dar razones."
+    },
+    "section6": {
+      "title": "6. Contacto",
+      "content": {
+        "pre": "Para preguntas sobre protección de datos, contacte",
+        "mid": "Más información sobre protección de datos se puede encontrar en"
+      }
+    }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "Información de la Aplicación",
+      "name": "Nombre de la Aplicación",
+      "version": "Versión",
+      "type": "Esta aplicación es una aplicación de bienestar y estilo de vida."
+    },
+    "responsible": {
+      "title": "Responsable del Contenido",
+      "email": "Email",
+      "website": "Sitio Web"
+    },
+    "disclaimer": {
+      "title": "Descargo de Responsabilidad",
+      "content1": "Los contenidos de esta aplicación fueron creados con el mayor cuidado posible. Sin embargo, no podemos garantizar la exactitud, completitud y actualidad del contenido.",
+      "content2": "La aplicación sirve exclusivamente para fines de bienestar y estilo de vida y no constituye tratamiento médico o terapéutico."
+    },
+    "copyright": {
+      "title": "Derechos de Autor",
+      "content": "El contenido y las obras creadas por los operadores de la aplicación están sujetos a la ley de derechos de autor alemana. La reproducción, edición, distribución y cualquier forma de explotación fuera de los límites de la ley de derechos de autor requieren el consentimiento por escrito del respectivo autor o creador."
+    },
+    "legalBasis": {
+      "title": "Base Legal",
+      "content": "Este aviso legal fue creado de acuerdo con el § 5 de la Ley de Servicios Digitales (DDG) y cumple con las obligaciones de información para los servicios telemedia.",
+      "additionalInfo": "Más información sobre el aviso legal se puede encontrar en",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
     }
   }
 }

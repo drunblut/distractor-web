@@ -138,7 +138,16 @@
     "ok": "OK",
     "loading": "Chargement...",
     "left": "gauche",
-    "right": "droite"
+    "right": "droite",
+    "symptoms": {
+      "anxiety": "Anxiété",
+      "sadness": "Tristesse",
+      "stress": "Stress",
+      "irritability": "Irritabilité",
+      "fatigue": "Fatigue",
+      "none": "Aucun"
+    },
+    "cancel": "Annuler"
   },
   "languageSelection": {
     "info": "Choisissez votre langue préférée"
@@ -210,6 +219,70 @@
     "faden": {
       "title": "Thread Task", 
       "description": "Vous verrez une image avec 2 fils. Suivez le fil qui commence à x et touchez le chiffre à la fin de ce fil."
+    }
+  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Collecte et Traitement des Données",
+      "content": "Cette application collecte les données suivantes à des fins d'évaluation :",
+      "list": {
+        "mood": "Informations sur votre humeur actuelle",
+        "symptoms": "Informations sur votre symptôme principal et son intensité",
+        "scores": "Vos scores obtenus dans les tâches cognitives",
+        "usage": "Statistiques d'utilisation des diverses tâches"
+      }
+    },
+    "section2": {
+      "title": "2. Anonymat",
+      "content": "Toutes les données sont stockées de manière complètement anonyme. Aucune donnée personnelle telle que le nom, l'adresse e-mail ou d'autres caractéristiques d'identification n'est collectée ou stockée."
+    },
+    "section3": {
+      "title": "3. But du Traitement des Données",
+      "content": "Les données collectées servent exclusivement à l'évaluation de l'utilisation de l'application."
+    },
+    "section4": {
+      "title": "4. Stockage des Données",
+      "content": "Les données anonymisées sont stockées sur des serveurs sécurisés et respectent les réglementations applicables en matière de protection des données (RGPD)."
+    },
+    "section5": {
+      "title": "5. Vos Droits",
+      "content": "Étant donné qu'aucune donnée personnelle n'est stockée, les données anonymisées ne peuvent pas être retracées jusqu'à votre personne. L'utilisation de l'application est volontaire et vous pouvez arrêter d'utiliser l'application à tout moment sans donner de raisons."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "content": {
+        "pre": "Pour les questions de protection des données, veuillez contacter",
+        "mid": "Plus d'informations sur la protection des données peuvent être trouvées sur"
+      }
+    }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "Informations sur l'Application",
+      "name": "Nom de l'Application",
+      "version": "Version",
+      "type": "Cette application est une application de bien-être et de style de vie."
+    },
+    "responsible": {
+      "title": "Responsable du Contenu",
+      "email": "E-mail",
+      "website": "Site Web"
+    },
+    "disclaimer": {
+      "title": "Avis de Non-responsabilité",
+      "content1": "Les contenus de cette application ont été créés avec le plus grand soin possible. Cependant, nous ne pouvons garantir l'exactitude, la complétude et l'actualité du contenu.",
+      "content2": "L'application sert exclusivement à des fins de bien-être et de style de vie et ne constitue pas un traitement médical ou thérapeutique."
+    },
+    "copyright": {
+      "title": "Droits d'Auteur",
+      "content": "Le contenu et les œuvres créés par les opérateurs de l'application sont soumis au droit d'auteur allemand. La reproduction, l'édition, la distribution et toute forme d'exploitation en dehors des limites du droit d'auteur nécessitent le consentement écrit de l'auteur ou du créateur respectif."
+    },
+    "legalBasis": {
+      "title": "Base Légale",
+      "content": "Cette mention légale a été créée conformément au § 5 de la Loi sur les Services Numériques (DDG) et répond aux obligations d'information pour les services télémédias.",
+      "additionalInfo": "Plus d'informations sur les mentions légales peuvent être trouvées sur",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
     }
   }
 }

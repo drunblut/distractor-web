@@ -134,7 +134,16 @@
     "ok": "OK",
     "loading": "Laden...",
     "left": "links",
-    "right": "rechts"
+    "right": "rechts",
+    "symptoms": {
+      "anxiety": "Angst",
+      "sadness": "Verdriet",
+      "stress": "Stress",
+      "irritability": "Prikkelbaarbeid",
+      "fatigue": "Vermoeidheid",
+      "none": "Geen"
+    },
+    "cancel": "Annuleren"
   },
   "languageSelection": {
     "info": "Kies je voorkeurstaal"
@@ -206,6 +215,70 @@
     "faden": {
       "title": "Thread Task", 
       "description": "Je ziet een afbeelding met 2 draden. Volg de draad die begint bij x en tik op het cijfer aan het einde van deze draad."
+    }
+  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Gegevensverzameling en -verwerking",
+      "content": "Deze applicatie verzamelt de volgende gegevens voor evaluatiedoeleinden:",
+      "list": {
+        "mood": "Informatie over uw huidige stemming",
+        "symptoms": "Informatie over uw hoofdsymptoom en de intensiteit ervan",
+        "scores": "Uw behaalde scores in de cognitieve taken",
+        "usage": "Gebruiksstatistieken van de verschillende taken"
+      }
+    },
+    "section2": {
+      "title": "2. Anonimiteit",
+      "content": "Alle gegevens worden volledig anoniem opgeslagen. Er worden geen persoonlijke gegevens zoals naam, e-mailadres of andere identificerende kenmerken verzameld of opgeslagen."
+    },
+    "section3": {
+      "title": "3. Doel van Gegevensverwerking",
+      "content": "De verzamelde gegevens dienen uitsluitend voor de evaluatie van het gebruik van de applicatie."
+    },
+    "section4": {
+      "title": "4. Gegevensopslag",
+      "content": "De geanonimiseerde gegevens worden opgeslagen op beveiligde servers en voldoen aan de toepasselijke gegevensbeschermingsregels (AVG)."
+    },
+    "section5": {
+      "title": "5. Uw Rechten",
+      "content": "Aangezien er geen persoonlijke gegevens worden opgeslagen, kunnen de geanonimiseerde gegevens niet naar uw persoon worden herleid. Het gebruik van de applicatie is vrijwillig en u kunt op elk moment stoppen met het gebruik van de applicatie zonder opgave van redenen."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "content": {
+        "pre": "Voor vragen over gegevensbescherming kunt u contact opnemen met",
+        "mid": "Meer informatie over gegevensbescherming kunt u vinden op"
+      }
+    }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "Applicatie-informatie",
+      "name": "Applicatienaam",
+      "version": "Versie",
+      "type": "Deze applicatie is een welzijn- en lifestyle-applicatie."
+    },
+    "responsible": {
+      "title": "Verantwoordelijke voor de Inhoud",
+      "email": "E-mail",
+      "website": "Website"
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "content1": "De inhoud van deze applicatie is met de grootst mogelijke zorg gemaakt. We kunnen echter de juistheid, volledigheid en actualiteit van de inhoud niet garanderen.",
+      "content2": "De applicatie dient uitsluitend voor welzijn- en lifestyle-doeleinden en vormt geen medische of therapeutische behandeling."
+    },
+    "copyright": {
+      "title": "Auteursrecht",
+      "content": "De inhoud en werken die door de operators van de applicatie zijn gemaakt, vallen onder het Duitse auteursrecht. Reproductie, bewerking, verspreiding en elke vorm van exploitatie buiten de grenzen van het auteursrecht vereisen schriftelijke toestemming van de respectievelijke auteur of maker."
+    },
+    "legalBasis": {
+      "title": "Juridische Basis",
+      "content": "Dit colofon is gemaakt volgens \u00a7 5 van de Wet Digitale Diensten (DDG) en voldoet aan de informatieverplichtingen voor telemediaservices.",
+      "additionalInfo": "Meer informatie over het colofon kunt u vinden op",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
     }
   }
 }
