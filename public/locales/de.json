@@ -234,7 +234,8 @@
         "mood": "Die Angaben zu Ihrer aktuellen Stimmung",
         "symptoms": "Die Angaben zu Ihrem Hauptsymptom und dessen Intensität",
         "scores": "Ihre erreichten Punktzahlen bei den kognitiven Aufgaben",
-        "usage": "Nutzungsstatistiken der verschiedenen Aufgaben"
+        "usage": "Nutzungsstatistiken der verschiedenen Aufgaben",
+        "sessionId": "Eine temporäre Session-ID wird lokal auf Ihrem Gerät gespeichert, um die App-Funktionalität während der Nutzung zu gewährleisten"
       }
     },
     "section2": {
@@ -262,32 +263,26 @@
     }
   },
   "imprint": {
-    "appInfo": {
-      "title": "App-Informationen",
-      "name": "App-Name",
-      "version": "Version",
-      "type": "Diese App ist eine Wellness- und Lifestyle-Anwendung."
-    },
-    "responsible": {
-      "title": "Verantwortlich für den Inhalt",
-      "email": "E-Mail",
-      "website": "Website"
-    },
+    "title": "Impressum",
+    "responsible": "Verantwortlich für den Inhalt",
+    "name": "Andreas Reimer",
+    "address": "Weilbacherstrasse 13\n65719 Hofheim am Taunus\nDeutschland",
+    "email": "E-Mail: aepplerlandapps@gmail.com",
+    "phone": "Mobil: +49 170 8517637",
+    "legalBasis": "Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)",
     "disclaimer": {
       "title": "Haftungsausschluss",
-      "content1": "Die Inhalte dieser App wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.",
-      "content2": "Die App dient ausschließlich Wellness- und Lifestyle-Zwecken und stellt keine medizinische oder therapeutische Behandlung dar."
+      "content1": "Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.",
+      "content2": "Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+      "content3": "Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich."
     },
     "copyright": {
       "title": "Urheberrecht",
-      "content": "Die durch die App-Betreiber erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+      "content1": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.",
+      "content2": "Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet."
     },
-    "legalBasis": {
-      "title": "Gesetzliche Grundlage",
-      "content": "Dieses Impressum wurde gemäß § 5 des Digitale-Dienste-Gesetzes (DDG) erstellt und erfüllt die Informationspflichten für Telemedien.",
-      "additionalInfo": "Weitere Informationen zum Impressum finden Sie auf",
-      "linkUrl": "https://www.aepplerlandapps.de",
-      "linkText": "www.aepplerlandapps.de"
-    }
+    "additionalInfo": "Weitere Informationen finden Sie unter",
+    "linkUrl": "https://www.aepplerlandapps.de",
+    "linkText": "www.aepplerlandapps.de"
   }
 }

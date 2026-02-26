@@ -67,6 +67,26 @@ async function compressImages() {
       }
     }
   }
+
+  console.log('\n🔄 Processing additional images:');
+  
+  // Additional specific images
+  const additionalImages = ['Hand1.png', 'kreis1.png', 'MathTask.png', 'schach1.png', 'Face2.png'];
+  
+  for (const imageName of additionalImages) {
+    const inputPath = path.join(imageDir, imageName);
+    const outputPath = path.join(imageDir, imageName.replace('.png', '.webp'));
+    
+    if (fs.existsSync(inputPath)) {
+      const result = await compressImage(inputPath, outputPath, 85);
+      if (result) {
+        totalStats.originalTotal += result.originalSize;
+        totalStats.newTotal += result.newSize;
+      }
+    } else {
+      console.log(`⚠️  ${imageName} not found, skipping...`);
+    }
+  }
   
   // Summary
   const totalReduction = ((totalStats.originalTotal - totalStats.newTotal) / totalStats.originalTotal * 100).toFixed(1);

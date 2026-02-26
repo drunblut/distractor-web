@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdMenu } from 'react-icons/md';
 import About from './About';
-import PrivacyInfo from './PrivacyInfo';
+import Imprint from './Imprint';
+import PrivacyPolicy from './PrivacyPolicy';
+import TaskExamples from './TaskExamples';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -14,7 +16,9 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
   const { t } = useTranslation();
   const [menuVisible, setMenuVisible] = useState(false);
   const [aboutVisible, setAboutVisible] = useState(false);
+  const [imprintVisible, setImprintVisible] = useState(false);
   const [privacyVisible, setPrivacyVisible] = useState(false);
+  const [taskExamplesVisible, setTaskExamplesVisible] = useState(false);
 
   const handleStart = () => {
     console.log('Starting app...');
@@ -31,12 +35,14 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
       case 'about':
         setAboutVisible(true);
         break;
+      case 'tasks':
+        setTaskExamplesVisible(true);
+        break;
       case 'privacy':
         setPrivacyVisible(true);
         break;
       case 'imprint':
-        // Impressum ist Teil der About-Komponente
-        setAboutVisible(true);
+        setImprintVisible(true);
         break;
       default:
         console.log('Menu item pressed:', item);
@@ -46,6 +52,7 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
 
   const menuItems = [
     { key: 'about', label: t('menu.about') },
+    { key: 'tasks', label: t('menu.tasks') },
     { key: 'language', label: t('menu.language') },
     { key: 'privacy', label: t('menu.privacy') },
     { key: 'imprint', label: t('menu.imprint') }
@@ -91,22 +98,19 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
         <About onClose={() => setAboutVisible(false)} />
       )}
 
+      {/* Task Examples Modal */}
+      {taskExamplesVisible && (
+        <TaskExamples onClose={() => setTaskExamplesVisible(false)} />
+      )}
+
       {/* Privacy Modal */}
       {privacyVisible && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
-            <h2 className="text-xl font-bold mb-4">{t('menu.privacy')}</h2>
-            <p className="text-gray-600 mb-4">
-              Datenschutz-Informationen finden Sie in der PrivacyInfo-Komponente am unteren Bildschirmrand beim ersten Besuch.
-            </p>
-            <button
-              onClick={() => setPrivacyVisible(false)}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              Schließen
-            </button>
-          </div>
-        </div>
+        <PrivacyPolicy onClose={() => setPrivacyVisible(false)} />
+      )}
+
+      {/* Imprint Modal */}
+      {imprintVisible && (
+        <Imprint onClose={() => setImprintVisible(false)} />
       )}
 
       {/* Main Content */}
@@ -138,9 +142,6 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
           {t('startScreen.copyright')}
         </p>
       </div>
-
-      {/* Privacy Info Component (shows on first visit) */}
-      <PrivacyInfo />
     </div>
   );
 }

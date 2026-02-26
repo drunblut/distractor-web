@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalContext } from '../context/GlobalContext';
 import OptimizedImage from './OptimizedImage';
@@ -34,7 +34,7 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   const targetFace = face1Data?.targetFace || 1;
   
   // Generate choices including target and random distractors based on level
-  const getChoices = () => {
+  const getChoices = useCallback(() => {
     const currentLevel = face1Level || 1;
     const choices = [targetFace];
     
@@ -63,9 +63,18 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     
     // Shuffle array to randomize position of correct answer
     return choices.sort(() => Math.random() - 0.5);
-  };
+  }, [targetFace, face1Level]);
   
-  const [faces] = useState(() => getChoices());
+  const [faces, setFaces] = useState<number[]>([]);
+  
+  // Initialize faces when component mounts or when dependencies change
+  useEffect(() => {
+    if (targetFace && targetFace > 0) {
+      const newFaces = getChoices();
+      setFaces(newFaces);
+      console.log('[Face1Recall] Generated faces:', newFaces, 'for target:', targetFace);
+    }
+  }, [getChoices, targetFace]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -93,11 +102,13 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     setLoadedImages(prev => new Set(prev).add(faceNumber));
   };
 
-  const handleFaceClick = (selectedFace: number) => {
+  const handleFaceClick = useCallback((selectedFace: number) => {
     if (!addPoints || !trackTaskAttempt || !reduceMathLevelOnError || !setFace1Level || !setFace1Streak) {
-      console.error('Missing context functions');
+      console.error('[Face1Recall ERROR] Missing context functions');
       return;
     }
+
+    console.log(`[Face1Recall] Face clicked: ${selectedFace}, Target: ${targetFace}`);
 
     // Show click animation
     setClickedFace(selectedFace);
@@ -105,12 +116,11 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     const currentLevel = face1Level || 1;
     const currentStreak = face1Streak || 0;
     
-    console.log(`Face1Recall Level ${currentLevel}: Expected face ${targetFace}, selected face ${selectedFace}`);
-    
     // Check if selection is correct
     const isCorrect = selectedFace === targetFace;
     
     if (isCorrect) {
+      console.log('[Face1Recall] Correct answer!');
       // Add points (this will also track the attempt)
       addPoints('face1Task', true, currentLevel);
       
@@ -125,6 +135,7 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
         console.log(`Face1Task: Level up to ${currentLevel + 1}`);
       }
     } else {
+      console.log('[Face1Recall] Wrong answer!');
       // Track false attempt
       trackTaskAttempt('face1Task', false);
       reduceMathLevelOnError(); // Reduce MathLevel on error
@@ -142,29 +153,41 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     // Navigate to next task after animation
     setTimeout(() => {
       setClickedFace(null);
-      navigateToNextTask && navigateToNextTask();
+      if (navigateToNextTask) {
+        navigateToNextTask();
+      }
     }, 200);
-  };
+  }, [addPoints, trackTaskAttempt, reduceMathLevelOnError, setFace1Level, setFace1Streak, navigateToNextTask, targetFace, face1Level, face1Streak]);
 
-  const TaskContent = () => (
-    <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
-      <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-4xl w-full">
-        <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-6 sm:mb-8">
-          {t('face1Recall.instruction')} (Level {face1Level || 1})
-        </p>
-        
-        <div className={`grid gap-4 sm:gap-6 justify-items-center max-w-4xl mx-auto ${
-          faces.length === 4 ? 'grid-cols-2' : 
-          faces.length === 6 ? 'grid-cols-2 sm:grid-cols-3' :
-          'grid-cols-2 sm:grid-cols-4'
-        }`}>
+  const TaskContent = () => {
+    // Don't render until we have faces to show
+    if (!faces || faces.length === 0) {
+      return (
+        <div className="w-full h-full flex items-center justify-center bg-[#dfdfdfff]">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
+        <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-4xl w-full">
+          <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-6 sm:mb-8">
+            {t('face1Recall.instruction')} (Level {face1Level || 1})
+          </p>
+          
+          <div className={`grid gap-4 sm:gap-6 justify-items-center max-w-4xl mx-auto ${
+            faces.length === 4 ? 'grid-cols-2' : 
+            faces.length === 6 ? 'grid-cols-2 sm:grid-cols-3' :
+            'grid-cols-2 sm:grid-cols-4'
+          }`}>
           {faces.map((faceNumber) => {
             const hasError = imageErrors[faceNumber];
             
             return (
               <button
                 key={faceNumber}
-                className={`relative border-2 rounded-lg overflow-hidden transition-all duration-200 border-gray-300 hover:border-gray-400 ${
+                className={`relative border-2 rounded-lg overflow-hidden transition-all duration-200 border-gray-300 hover:border-gray-400 cursor-pointer ${
                   hasError ? 'bg-gray-100' : 'bg-white'
                 } ${
                   clickedFace === faceNumber ? 'scale-110' : 'scale-100'
@@ -172,32 +195,71 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
                 style={{
                   width: `${faceSize}px`,
                   height: `${faceSize}px`,
+                  pointerEvents: 'auto',
+                  zIndex: 1
                 }}
-                onClick={() => handleFaceClick(faceNumber)}
+                onMouseDown={() => console.log('[Face1Recall] MouseDown on face:', faceNumber)}
+                onMouseUp={() => {
+                  console.log('[Face1Recall] MouseUp on face:', faceNumber);
+                  console.log('[Face1Recall] Triggering handleFaceClick from MouseUp');
+                  handleFaceClick(faceNumber);
+                }}
+                onTouchStart={() => console.log('[Face1Recall] TouchStart on face:', faceNumber)}
+                onTouchEnd={() => {
+                  console.log('[Face1Recall] TouchEnd on face:', faceNumber);
+                  console.log('[Face1Recall] Triggering handleFaceClick from TouchEnd');
+                  handleFaceClick(faceNumber);
+                }}
+                onClick={(e) => {
+                  console.log('[Face1Recall DEBUG] Button clicked for face:', faceNumber);
+                  console.log('[Face1Recall DEBUG] Event:', e);
+                  console.log('[Face1Recall DEBUG] Current target:', e.currentTarget);
+                  handleFaceClick(faceNumber);
+                }}
+                disabled={false}
+                type="button"
               >
                 {hasError ? (
                   // Fallback placeholder if image is missing
-                  <div className="w-full h-full flex flex-col items-center justify-center">
+                  <div 
+                    className="w-full h-full flex flex-col items-center justify-center"
+                    onClick={() => {
+                      console.log('[Face1Recall] Fallback div clicked:', faceNumber);
+                      handleFaceClick(faceNumber);
+                    }}
+                  >
                     <div className="text-3xl text-gray-400 mb-1">👤</div>
                     <p className="text-xs font-semibold text-gray-600">{faceNumber}</p>
                   </div>
                 ) : (
-                  <OptimizedImage
-                    faceNumber={faceNumber}
-                    alt={`Face ${faceNumber}`}
-                    className="w-full h-full object-cover"
-                    onLoad={() => handleImageLoad(faceNumber)}
-                    onError={() => handleImageError(faceNumber)}
-                    data-face={faceNumber}
-                  />
+                  <>
+                    <OptimizedImage
+                      faceNumber={faceNumber}
+                      alt={`Face ${faceNumber}`}
+                      className="w-full h-full object-cover pointer-events-none"
+                      onLoad={() => handleImageLoad(faceNumber)}
+                      onError={() => handleImageError(faceNumber)}
+                      data-face={faceNumber}
+                    />
+                    {/* DEBUG: Invisible click overlay */}
+                    <div 
+                      className="absolute inset-0 bg-transparent cursor-pointer z-10"
+                      onClick={() => {
+                        console.log('[Face1Recall] Overlay clicked for face:', faceNumber);
+                        handleFaceClick(faceNumber);
+                      }}
+                      title={`Click to select face ${faceNumber}`}
+                    />
+                  </>
                 )}
               </button>
             );
           })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return <TaskContent />;
 }

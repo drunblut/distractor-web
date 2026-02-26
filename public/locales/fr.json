@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "À propos de l'app",
+    "tasks": "Tâches",
     "language": "Langue",
     "privacy": "Politique de confidentialité",
     "imprint": "Mentions légales"
@@ -152,6 +153,33 @@
     "pt": "Portugais",
     "es": "Espagnol"
   },
+  "results": {
+    "title": "R\u00e9sultats de l'App Distractor",
+    "table": {
+      "task": "T\u00e2che",
+      "count": "Nombre",
+      "correct": "r\u00e9ponses correctes",
+      "percentage": "%",
+      "total": "Total"
+    },
+    "phasePoints": {
+      "title": "Phase",
+      "points": "Points"
+    },
+    "moodData": {
+      "title": "Humeur et Sympt\u00f4mes",
+      "measurement": "Mesure",
+      "value": "Valeur",
+      "moodStart": "Humeur Initiale",
+      "moodEnd": "Humeur Finale",
+      "mainSymptom": "Sympt\u00f4me Principal",
+      "symptomStart": "Sympt\u00f4me Initial",
+      "symptomEnd": "Sympt\u00f4me Final",
+      "notRecorded": "Non enregistr\u00e9"
+    },
+    "totalScore": "Score Total",
+    "playAgain": "Rejouer"
+  },
   "taskExamples": {
     "title": "Explication des tâches",
     "subtitle": "Voici toutes les tâches disponibles avec des exemples:",
@@ -185,15 +213,63 @@
       "description": "Vous verrez une image avec 2 fils. Suivez le fil qui commence à x et touchez le chiffre à la fin de ce fil."
     }
   },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Collecte et Traitement des Données",
+      "content": "Cette application collecte les données suivantes à des fins d'évaluation:",
+      "list": {
+        "mood": "Informations sur votre humeur actuelle",
+        "symptoms": "Informations sur votre symptôme principal et son intensité",
+        "scores": "Vos scores obtenus dans les tâches cognitives",
+        "usage": "Statistiques d'utilisation des différentes tâches",
+        "sessionId": "Un ID de session temporaire est stocké localement sur votre appareil pour assurer le fonctionnement de l'application pendant l'utilisation"
+      }
+    },
+    "section2": {
+      "title": "2. Anonymat",
+      "content": "Toutes les données sont stockées de manière complètement anonyme. Aucune donnée personnelle comme le nom, l'adresse e-mail ou d'autres caractéristiques d'identification n'est collectée ou stockée."
+    },
+    "section3": {
+      "title": "3. But du Traitement des Données",
+      "content": "Les données collectées servent exclusivement à l'évaluation de l'utilisation de l'application."
+    },
+    "section4": {
+      "title": "4. Stockage des Données",
+      "content": "Les données anonymisées sont stockées sur des serveurs sécurisés et respectent les réglementations de protection des données en vigueur (RGPD)."
+    },
+    "section5": {
+      "title": "5. Vos Droits",
+      "content": "Comme aucune donnée personnelle n'est stockée, les données anonymisées ne peuvent pas être retracées jusqu'à votre personne. L'utilisation de l'application est volontaire et vous pouvez cesser d'utiliser l'application à tout moment sans donner de raisons."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "content": {
+        "pre": "Pour des questions sur la protection des données, contactez",
+        "mid": "Plus d'informations sur la protection des données sont disponibles sur"
+      }
+    }
+  },
   "imprint": {
     "title": "Mentions légales",
     "responsible": "Responsable du contenu",
-    "name": "Dr. Andreas Reimer",
-    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
-    "email": "Email: musteremail@example.com",
-    "legalBasis": "Ce site web est fourni comme service d'information conformément au § 5 TMG (Loi sur les télémédias). L'opérateur mentionné ci-dessus est responsable du contenu. Si vous avez des questions ou des commentaires, n'hésitez pas à contacter l'adresse e-mail spécifiée.",
-    "additionalInfo": "Des informations supplémentaires sur les mentions légales peuvent être trouvées sur ",
-    "linkUrl": "http://www.aepplerlandapps.de",
+    "name": "Andreas Reimer",
+    "address": "Weilbacherstrasse 13\n65719 Hofheim am Taunus\nAllemagne",
+    "email": "E-mail: aepplerlandapps@gmail.com",
+    "phone": "Mobile: +49 170 8517637",
+    "legalBasis": "Informations selon § 5 DDG (Loi sur les Services Numériques)",
+    "disclaimer": {
+      "title": "Clause de non-responsabilité",
+      "content1": "Le contenu de nos pages a été créé avec le plus grand soin. Cependant, nous ne pouvons garantir l'exactitude, l'intégralité et l'actualité du contenu. En tant que fournisseurs de services, nous sommes responsables de notre propre contenu sur ces pages selon les lois générales sous § 7, para.1 DDG.",
+      "content2": "Cependant, conformément aux §§ 8 à 10 DDG, nous ne sommes pas tenus de surveiller les informations tierces transmises ou stockées ou d'enquêter sur des circonstances qui indiquent une activité illégale.",
+      "content3": "Les obligations de supprimer ou de bloquer l'utilisation d'informations sous les lois générales restent inchangées. La responsabilité à cet égard n'est possible qu'à partir du moment de la connaissance d'une infraction spécifique."
+    },
+    "copyright": {
+      "title": "Droit d'auteur",
+      "content1": "Le contenu et les œuvres créés par les opérateurs du site sur ces pages sont soumis au droit d'auteur allemand. La duplication, le traitement, la distribution et toute forme de commercialisation de ce matériel au-delà de la portée du droit d'auteur nécessitent le consentement écrit de l'auteur ou du créateur.",
+      "content2": "Les téléchargements et copies de cette page ne sont autorisés que pour un usage privé, non commercial. Dans la mesure où le contenu de cette page n'a pas été créé par l'opérateur, les droits d'auteur de tiers sont respectés."
+    },
+    "additionalInfo": "Des informations supplémentaires peuvent être trouvées sur",
+    "linkUrl": "https://www.aepplerlandapps.de",
     "linkText": "www.aepplerlandapps.de"
   }
 }

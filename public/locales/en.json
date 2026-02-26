@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "About the App",
+    "tasks": "Tasks",
     "language": "Language",
     "privacy": "Privacy Policy",
     "imprint": "Legal Notice"
@@ -156,6 +157,33 @@
     "pt": "Portuguese",
     "es": "Spanish"
   },
+  "results": {
+    "title": "Distractor App Results",
+    "table": {
+      "task": "Task",
+      "count": "Count",
+      "correct": "correct answers",
+      "percentage": "%",
+      "total": "Total"
+    },
+    "phasePoints": {
+      "title": "Phase",
+      "points": "Points"
+    },
+    "moodData": {
+      "title": "Mood and Symptoms",
+      "measurement": "Measurement",
+      "value": "Value",
+      "moodStart": "Initial Mood",
+      "moodEnd": "Final Mood",
+      "mainSymptom": "Main Symptom",
+      "symptomStart": "Initial Symptom",
+      "symptomEnd": "Final Symptom",
+      "notRecorded": "Not recorded"
+    },
+    "totalScore": "Total Score",
+    "playAgain": "Play Again"
+  },
   "taskExamples": {
     "title": "Task Explanations",
     "subtitle": "Here are all available tasks with examples:",
@@ -189,15 +217,63 @@
       "description": "You will see an image with 2 threads. Follow the thread that starts at x and tap on the digit at the end of this thread."
     }
   },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Data Collection and Processing",
+      "content": "This app collects the following data for evaluation purposes:",
+      "list": {
+        "mood": "Information about your current mood",
+        "symptoms": "Information about your main symptom and its intensity",
+        "scores": "Your scores achieved in cognitive tasks",
+        "usage": "Usage statistics of the various tasks",
+        "sessionId": "A temporary session ID is stored locally on your device to ensure app functionality during use"
+      }
+    },
+    "section2": {
+      "title": "2. Anonymity",
+      "content": "All data is stored completely anonymized. No personal data such as name, email address or other identifying characteristics are collected or stored."
+    },
+    "section3": {
+      "title": "3. Purpose of Data Processing",
+      "content": "The collected data serves exclusively for the evaluation of app usage."
+    },
+    "section4": {
+      "title": "4. Data Storage",
+      "content": "The anonymized data is stored on secure servers and complies with applicable data protection regulations (GDPR)."
+    },
+    "section5": {
+      "title": "5. Your Rights",
+      "content": "Since no personal data is stored, the anonymized data cannot be traced back to your person. The use of the app is voluntary and you can stop using the app at any time without giving reasons."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "content": {
+        "pre": "For questions about data protection, please contact",
+        "mid": "More information about data protection can be found at"
+      }
+    }
+  },
   "imprint": {
-    "title": "Imprint",
-    "responsible": "Responsible for the content",
-    "name": "Dr. Andreas Reimer",
-    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
-    "email": "Email: musteremail@example.com",
-    "legalBasis": "This website is provided as an information service in accordance with § 5 TMG (Telemedia Act). The above-mentioned operator is responsible for the content. If you have any questions or comments, please feel free to contact the specified email address.",
-    "additionalInfo": "Additional information about the imprint can be found at ",
-    "linkUrl": "http://www.aepplerlandapps.de",
+    "title": "Legal Notice",
+    "responsible": "Responsible for content",
+    "name": "Andreas Reimer",
+    "address": "Weilbacherstrasse 13\\n65719 Hofheim am Taunus\\nGermany",
+    "email": "Email: aepplerlandapps@gmail.com",
+    "phone": "Mobile: +49 170 8517637",
+    "legalBasis": "Information according to § 5 DDG (Digital Services Act)",
+    "disclaimer": {
+      "title": "Disclaimer",
+      "content1": "The contents of our pages have been created with the greatest care. However, we cannot guarantee the accuracy, completeness and timeliness of the content. As service providers, we are liable for our own content on these pages according to general laws under § 7, para.1 DDG.",
+      "content2": "However, pursuant to §§ 8 to 10 DDG, we are not under obligation to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.",
+      "content3": "Obligations to remove or block the use of information under general laws remain unaffected. Liability in this regard is only possible from the time of knowledge of a specific infringement."
+    },
+    "copyright": {
+      "title": "Copyright",
+      "content1": "The content and works created by the site operators on these pages are subject to German copyright law. Duplication, processing, distribution and any form of commercialization of such material beyond the scope of the copyright law require the written consent of the author or creator.",
+      "content2": "Downloads and copies of this page are only permitted for private, non-commercial use. Insofar as the content on this page was not created by the operator, the copyrights of third parties are observed."
+    },
+    "additionalInfo": "Additional information can be found at",
+    "linkUrl": "https://www.aepplerlandapps.de",
     "linkText": "www.aepplerlandapps.de"
   }
 }

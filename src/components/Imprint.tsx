@@ -29,52 +29,32 @@ const Imprint: React.FC<ImprintProps> = ({ onClose }) => {
 
           {/* Content */}
           <div className="space-y-6">
-            {/* App Information */}
+            {/* Responsible Person */}
             <section>
               <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                {t('imprint.appInfo.title')}
+                {t('imprint.responsible')}
               </h3>
               <div className="text-gray-600 space-y-2">
                 <p>
-                  <strong>{t('imprint.appInfo.name')}:</strong> Distractor
+                  <strong>{t('imprint.name')}</strong>
+                </p>
+                <div className="whitespace-pre-line">
+                  {t('imprint.address')}
+                </div>
+                <p>
+                  {t('imprint.email')}
                 </p>
                 <p>
-                  <strong>{t('imprint.appInfo.version')}:</strong> 2026v001
-                </p>
-                <p className="text-sm italic">
-                  {t('imprint.appInfo.type')}
+                  {t('imprint.phone')}
                 </p>
               </div>
             </section>
 
-            {/* Responsible */}
+            {/* Legal Basis */}
             <section>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                {t('imprint.responsible.title')}
-              </h3>
-              <div className="text-gray-600 space-y-2">
-                <p>
-                  <strong>Andreas Reimer</strong>
-                </p>
-                <p>
-                  <strong>{t('imprint.responsible.email')}:</strong> {' '}
-                  <a 
-                    href="mailto:areimer0509@gmail.com" 
-                    className="text-blue-600 hover:text-blue-800 underline"
-                  >
-                    areimer0509@gmail.com
-                  </a>
-                </p>
-                <p>
-                  <strong>{t('imprint.responsible.website')}:</strong> {' '}
-                  <a 
-                    href="https://www.aepplerlandapps.de" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-blue-600 hover:text-blue-800 underline"
-                  >
-                    www.aepplerlandapps.de
-                  </a>
+              <div className="text-gray-600">
+                <p className="font-medium">
+                  {t('imprint.legalBasis')}
                 </p>
               </div>
             </section>
@@ -91,6 +71,9 @@ const Imprint: React.FC<ImprintProps> = ({ onClose }) => {
                 <p>
                   {t('imprint.disclaimer.content2')}
                 </p>
+                <p>
+                  {t('imprint.disclaimer.content3')}
+                </p>
               </div>
             </section>
 
@@ -99,29 +82,28 @@ const Imprint: React.FC<ImprintProps> = ({ onClose }) => {
               <h3 className="text-lg font-semibold text-gray-800 mb-3">
                 {t('imprint.copyright.title')}
               </h3>
-              <p className="text-gray-600">
-                {t('imprint.copyright.content')}
-              </p>
-            </section>
-
-            {/* Legal Basis */}
-            <section>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                {t('imprint.legalBasis.title')}
-              </h3>
-              <div className="text-gray-600 space-y-2">
+              <div className="text-gray-600 space-y-3">
                 <p>
-                  {t('imprint.legalBasis.content')}
+                  {t('imprint.copyright.content1')}
                 </p>
                 <p>
-                  {t('imprint.legalBasis.additionalInfo')} {' '}
+                  {t('imprint.copyright.content2')}
+                </p>
+              </div>
+            </section>
+
+            {/* Additional Information */}
+            <section className="border-t pt-4">
+              <div className="text-gray-600">
+                <p>
+                  {t('imprint.additionalInfo')} {' '}
                   <a 
-                    href={t('imprint.legalBasis.linkUrl')} 
+                    href={t('imprint.linkUrl')} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
-                    {t('imprint.legalBasis.linkText')}
+                    {t('imprint.linkText')}
                   </a>
                 </p>
               </div>

@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "Sobre o app",
+    "tasks": "Tarefas",
     "language": "Idioma",
     "privacy": "Política de privacidade",
     "imprint": "Impressão legal"
@@ -148,6 +149,33 @@
     "pt": "Português",
     "es": "Espanhol"
   },
+  "results": {
+    "title": "Resultados do App Distractor",
+    "table": {
+      "task": "Tarefa",
+      "count": "N\u00famero",
+      "correct": "respostas corretas",
+      "percentage": "%",
+      "total": "Total"
+    },
+    "phasePoints": {
+      "title": "Fase",
+      "points": "Pontos"
+    },
+    "moodData": {
+      "title": "Humor e Sintomas",
+      "measurement": "Medi\u00e7\u00e3o",
+      "value": "Valor",
+      "moodStart": "Humor Inicial",
+      "moodEnd": "Humor Final",
+      "mainSymptom": "Sintoma Principal",
+      "symptomStart": "Sintoma Inicial",
+      "symptomEnd": "Sintoma Final",
+      "notRecorded": "N\u00e3o registrado"
+    },
+    "totalScore": "Pontua\u00e7\u00e3o Total",
+    "playAgain": "Jogar Novamente"
+  },
   "taskExamples": {
     "title": "Explicações das tarefas",
     "subtitle": "Aqui estão todas as tarefas disponíveis com exemplos:",
@@ -181,15 +209,63 @@
       "description": "Você verá uma imagem com 2 fios. Siga o fio que começa em x e toque no dígito no final deste fio."
     }
   },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Coleta e Processamento de Dados",
+      "content": "Esta aplicação coleta os seguintes dados para fins de avaliação:",
+      "list": {
+        "mood": "Informações sobre seu humor atual",
+        "symptoms": "Informações sobre seu sintoma principal e sua intensidade",
+        "scores": "Suas pontuações obtidas nas tarefas cognitivas",
+        "usage": "Estatísticas de uso das várias tarefas",
+        "sessionId": "Um ID de sessão temporário é armazenado localmente em seu dispositivo para garantir a funcionalidade do aplicativo durante o uso"
+      }
+    },
+    "section2": {
+      "title": "2. Anonimato",
+      "content": "Todos os dados são armazenados de forma completamente anônima. Nenhum dado pessoal como nome, endereço de e-mail ou outras características identificantes são coletados ou armazenados."
+    },
+    "section3": {
+      "title": "3. Propósito do Processamento de Dados",
+      "content": "Os dados coletados servem exclusivamente para a avaliação do uso da aplicação."
+    },
+    "section4": {
+      "title": "4. Armazenamento de Dados",
+      "content": "Os dados anonimizados são armazenados em servidores seguros e atendem às regulamentações de proteção de dados vigentes (LGPD)."
+    },
+    "section5": {
+      "title": "5. Seus Direitos",
+      "content": "Como nenhum dado pessoal é armazenado, os dados anonimizados não podem ser rastreados até sua pessoa. O uso da aplicação é voluntário e você pode parar de usar a aplicação a qualquer momento sem fornecer motivos."
+    },
+    "section6": {
+      "title": "6. Contato",
+      "content": {
+        "pre": "Para questões sobre proteção de dados, entre em contato",
+        "mid": "Mais informações sobre proteção de dados estão disponíveis em"
+      }
+    }
+  },
   "imprint": {
-    "title": "Impressão",
+    "title": "Aviso Legal",
     "responsible": "Responsável pelo conteúdo",
-    "name": "Dr. Andreas Reimer",
-    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
-    "email": "Email: musteremail@example.com",
-    "legalBasis": "Este site é fornecido como um serviço de informação de acordo com § 5 TMG (Lei de Telemídia). O operador mencionado acima é responsável pelo conteúdo. Se você tiver alguma dúvida ou comentário, sinta-se à vontade para entrar em contato com o endereço de e-mail especificado.",
-    "additionalInfo": "Informações adicionais sobre o impressão podem ser encontradas em ",
-    "linkUrl": "http://www.aepplerlandapps.de",
+    "name": "Andreas Reimer",
+    "address": "Weilbacherstrasse 13\\n65719 Hofheim am Taunus\\nAlemanha",
+    "email": "Email: aepplerlandapps@gmail.com",
+    "phone": "Celular: +49 170 8517637",
+    "legalBasis": "Informações de acordo com § 5 DDG (Lei de Serviços Digitais)",
+    "disclaimer": {
+      "title": "Isenção de responsabilidade",
+      "content1": "Os conteúdos das nossas páginas foram criados com o maior cuidado. No entanto, não podemos garantir a precisão, completude e atualidade do conteúdo. Como provedores de serviços, somos responsáveis pelo nosso próprio conteúdo nestas páginas de acordo com as leis gerais sob § 7, parágrafo 1 DDG.",
+      "content2": "No entanto, de acordo com §§ 8 a 10 DDG, não estamos sob a obrigação de monitorar informações de terceiros transmitidas ou armazenadas ou investigar circunstâncias que indiquem atividade ilegal.",
+      "content3": "Obrigações de remover ou bloquear o uso de informações sob leis gerais permanecem inalteradas. A responsabilidade neste sentido só é possível a partir do momento do conhecimento de uma infração específica."
+    },
+    "copyright": {
+      "title": "Direitos autorais",
+      "content1": "O conteúdo e obras criadas pelos operadores do site nestas páginas estão sujeitos à lei de direitos autorais alemã. Duplicação, processamento, distribuição e qualquer forma de comercialização de tal material além do escopo da lei de direitos autorais requer consentimento por escrito do autor ou criador.",
+      "content2": "Downloads e cópias desta página são permitidos apenas para uso privado, não comercial. Na medida em que o conteúdo desta página não foi criado pelo operador, os direitos autorais de terceiros são observados."
+    },
+    "additionalInfo": "Informações adicionais podem ser encontradas em",
+    "linkUrl": "https://www.aepplerlandapps.de",
     "linkText": "www.aepplerlandapps.de"
   }
 }

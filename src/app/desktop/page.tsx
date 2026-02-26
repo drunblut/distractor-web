@@ -228,7 +228,10 @@ function Face1TaskWrapper() {
 
 function Face1RecallWrapper() {
   const context = useContext(GlobalContext);
-  if (!context) return null;
+  if (!context) {
+    console.error('[Face1RecallWrapper] GlobalContext is undefined');
+    return null;
+  }
   
   return (
     <div className="relative w-full h-full">

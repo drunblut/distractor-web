@@ -42,6 +42,7 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose }) => {
                 <li>{t('privacyPolicy.section1.list.symptoms')}</li>
                 <li>{t('privacyPolicy.section1.list.scores')}</li>
                 <li>{t('privacyPolicy.section1.list.usage')}</li>
+                <li>{t('privacyPolicy.section1.list.sessionId')}</li>
               </ul>
             </section>
 
@@ -94,10 +95,10 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose }) => {
                 <p>
                   {t('privacyPolicy.section6.content.pre')} {' '}
                   <a 
-                    href="mailto:areimer0509@gmail.com" 
+                    href="mailto:aepplerlandapps@gmail.com" 
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
-                    areimer0509@gmail.com
+                    aepplerlandapps@gmail.com
                   </a>
                 </p>
                 <p>

@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "Over de app",
+    "tasks": "Taken",
     "language": "Taal",
     "privacy": "Privacybeleid",
     "imprint": "Colofon"
@@ -148,6 +149,33 @@
     "pt": "Portugees",
     "es": "Spaans"
   },
+  "results": {
+    "title": "Distractor App Resultaten",
+    "table": {
+      "task": "Taak",
+      "count": "Aantal",
+      "correct": "juiste antwoorden",
+      "percentage": "%",
+      "total": "Totaal"
+    },
+    "phasePoints": {
+      "title": "Fase",
+      "points": "Punten"
+    },
+    "moodData": {
+      "title": "Stemming en Symptomen",
+      "measurement": "Meting",
+      "value": "Waarde",
+      "moodStart": "Aanvankelijke Stemming",
+      "moodEnd": "Eindelijke Stemming",
+      "mainSymptom": "Hoofdsymptoom",
+      "symptomStart": "Aanvankelijk Symptoom",
+      "symptomEnd": "Eindelijk Symptoom",
+      "notRecorded": "Niet opgenomen"
+    },
+    "totalScore": "Totale Score",
+    "playAgain": "Opnieuw Spelen"
+  },
   "taskExamples": {
     "title": "Uitleg van de taken",
     "subtitle": "Hier zijn alle beschikbare taken met voorbeelden:",
@@ -181,15 +209,63 @@
       "description": "Je ziet een afbeelding met 2 draden. Volg de draad die begint bij x en tik op het cijfer aan het einde van deze draad."
     }
   },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Gegevensverzameling en -verwerking",
+      "content": "Deze applicatie verzamelt de volgende gegevens voor evaluatiedoeleinden:",
+      "list": {
+        "mood": "Informatie over uw huidige stemming",
+        "symptoms": "Informatie over uw hoofdsymptoom en de intensiteit ervan",
+        "scores": "Uw behaalde scores in cognitieve taken",
+        "usage": "Gebruiksstatistieken van de verschillende taken",
+        "sessionId": "Een tijdelijke sessie-ID wordt lokaal op uw apparaat opgeslagen om de app-functionaliteit tijdens gebruik te waarborgen"
+      }
+    },
+    "section2": {
+      "title": "2. Anonimiteit",
+      "content": "Alle gegevens worden volledig geanonimiseerd opgeslagen. Er worden geen persoonlijke gegevens zoals naam, e-mailadres of andere identificerende kenmerken verzameld of opgeslagen."
+    },
+    "section3": {
+      "title": "3. Doel van Gegevensverwerking",
+      "content": "De verzamelde gegevens dienen uitsluitend voor de evaluatie van het gebruik van de applicatie."
+    },
+    "section4": {
+      "title": "4. Gegevensopslag",
+      "content": "De geanonimiseerde gegevens worden opgeslagen op beveiligde servers en voldoen aan de geldende gegevensbeschermingsvoorschriften (AVG)."
+    },
+    "section5": {
+      "title": "5. Uw Rechten",
+      "content": "Omdat er geen persoonlijke gegevens worden opgeslagen, kunnen de geanonimiseerde gegevens niet naar uw persoon worden herleid. Het gebruik van de applicatie is vrijwillig en u kunt op elk moment stoppen met het gebruik van de applicatie zonder redenen op te geven."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "content": {
+        "pre": "Voor vragen over gegevensbescherming, neem contact op met",
+        "mid": "Meer informatie over gegevensbescherming vindt u op"
+      }
+    }
+  },
   "imprint": {
     "title": "Impressum",
     "responsible": "Verantwoordelijk voor de inhoud",
-    "name": "Dr. Andreas Reimer",
-    "address": "Hauptstraße 123, 12345 Musterstadt, Deutschland",
-    "email": "Email: musteremail@example.com",
-    "legalBasis": "Deze website wordt aangeboden als informatiedienst in overeenstemming met § 5 TMG (Telemediewet). De bovengenoemde operator is verantwoordelijk voor de inhoud. Als u vragen of opmerkingen heeft, aarzel dan niet om contact op te nemen met het opgegeven e-mailadres.",
-    "additionalInfo": "Aanvullende informatie over het impressum is te vinden op ",
-    "linkUrl": "http://www.aepplerlandapps.de",
+    "name": "Andreas Reimer",
+    "address": "Weilbacherstrasse 13\\n65719 Hofheim am Taunus\\nDuitsland",
+    "email": "Email: aepplerlandapps@gmail.com",
+    "phone": "Mobiel: +49 170 8517637",
+    "legalBasis": "Informatie volgens § 5 DDG (Wet Digitale Diensten)",
+    "disclaimer": {
+      "title": "Vrijwaring",
+      "content1": "De inhoud van onze pagina's is met de grootste zorgvuldigheid gemaakt. We kunnen echter de juistheid, volledigheid en actualiteit van de inhoud niet garanderen. Als dienstverleners zijn we verantwoordelijk voor onze eigen inhoud op deze pagina's volgens algemene wetten onder § 7, lid 1 DDG.",
+      "content2": "Echter, volgens §§ 8 tot 10 DDG zijn we niet verplicht om doorgestuurde of opgeslagen informatie van derden te monitoren of te onderzoeken naar omstandigheden die wijzen op illegale activiteit.",
+      "content3": "Verplichtingen om informatie te verwijderen of het gebruik ervan te blokkeren onder algemene wetten blijven ongewijzigd. Aansprakelijkheid in dit opzicht is alleen mogelijk vanaf het moment van kennis van een specifieke inbreuk."
+    },
+    "copyright": {
+      "title": "Auteursrecht",
+      "content1": "De inhoud en werken gecreëerd door de site-operators op deze pagina's vallen onder het Duitse auteursrecht. Duplicatie, verwerking, distributie en elke vorm van commercialisatie van dergelijk materiaal buiten de reikwijdte van het auteursrecht vereist schriftelijke toestemming van de auteur of maker.",
+      "content2": "Downloads en kopieën van deze pagina zijn alleen toegestaan voor privé, niet-commercieel gebruik. Voor zover de inhoud op deze pagina niet door de operator is gemaakt, worden de auteursrechten van derden gerespecteerd."
+    },
+    "additionalInfo": "Aanvullende informatie is te vinden op",
+    "linkUrl": "https://www.aepplerlandapps.de",
     "linkText": "www.aepplerlandapps.de"
   }
 }
