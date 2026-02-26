@@ -71,10 +71,10 @@ export default function About({ onClose }: AboutProps) {
           </section>
 
           {/* Close Button */}
-          <div className="pt-4">
+          <div className="pt-4 flex justify-center">
             <button
               onClick={handleClose}
-              className="w-full py-3 px-4 rounded-lg font-medium transition-colors bg-blue-500 hover:bg-blue-600 text-white"
+              className="py-3 px-8 rounded-lg font-medium transition-colors bg-blue-500 hover:bg-blue-600 text-white max-w-xs"
             >
               {t('about.closeButton')}
             </button>

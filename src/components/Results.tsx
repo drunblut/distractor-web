@@ -374,7 +374,7 @@ export default function Results({ onComplete }: ResultsProps) {
     if (setCurrentPhase) setCurrentPhase(1);
     if (generateTaskQueue) generateTaskQueue();
     if (setCurrentTaskIndex) setCurrentTaskIndex(0);
-    if (setCurrentTask) setCurrentTask('pieTask');
+    // Don't set currentTask before reload to prevent PieTask flash
     
     // Clear ALL localStorage to ensure complete fresh start
     try {
