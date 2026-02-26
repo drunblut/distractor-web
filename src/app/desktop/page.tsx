@@ -275,26 +275,16 @@ function ContextChecker({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const context = useContext(GlobalContext);
   const [isReady, setIsReady] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     if (!context) return;
 
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 10;
-      setLoadingProgress(progress);
-      
-      if (progress >= 100) {
-        clearInterval(interval);
-        // Warte bis Context vollständig initialisiert
-        setTimeout(() => {
-          setIsReady(true);
-        }, 500);
-      }
-    }, 100);
+    // Einfache Wartezeit für Context-Initialisierung
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, [context]);
 
   if (!context) {
@@ -303,23 +293,8 @@ function ContextChecker({ children }: { children: React.ReactNode }) {
 
   if (!isReady || !context.taskQueue || context.taskQueue.length === 0) {
     return (
-      <div className="min-h-screen bg-[#dfdfdfff] flex flex-col items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
-          <p className="text-lg text-gray-600">Initialisiere Task Queue...</p>
-          <div className="w-64 bg-gray-200 rounded-full h-2 mt-4">
-            <div 
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${loadingProgress}%` }}
-            />
-          </div>
-          <p className="text-sm text-gray-400 mt-2">{loadingProgress}%</p>
-          <p className="text-xs text-gray-500 mt-2">
-            Queue: {context.taskQueue?.length || 0} | 
-            Current: {context.currentTask} | 
-            Index: {context.currentTaskIndex}
-          </p>
-        </div>
+      <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
       </div>
     );
   }
@@ -488,6 +463,16 @@ function DesktopNavigationApp() {
 
   const handleLanguageSelect = (languageCode: string) => {
     console.log('Language selected:', languageCode);
+    
+    // Save selected language to localStorage
+    try {
+      localStorage.setItem('selectedLanguage', languageCode);
+      console.log('Language saved to localStorage:', languageCode);
+    } catch (error) {
+      console.error('Failed to save language to localStorage:', error);
+    }
+    
+    // Change language in i18n
     i18n.changeLanguage(languageCode);
   };
 

@@ -2,6 +2,7 @@
 
 # experimental folders (test variants)
 /experimental/
+/src/app/progressive/
 
 # dependencies
 /node_modules

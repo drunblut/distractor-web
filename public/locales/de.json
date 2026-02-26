@@ -1,6 +1,7 @@
 {
   "menu": {
     "about": "Über die App",
+    "tasks": "Aufgaben",
     "language": "Sprache",
     "privacy": "Datenschutz",
     "imprint": "Impressum"
@@ -12,8 +13,8 @@
     "continueButton": "Weiter",
     "backButton": "Zurück",
     "instruction": "Bitte bewegen Sie den Schieber, um Ihre Stimmung anzugeben",
-    "symptomTitle": "Was ist aktuell Ihr Hauptsymptom, das Sie mit der App beeinflussen möchten?",
-    "intensityTitle": "Wie stark ist Ihr Hauptsymptom {symptom} jetzt aktuell?",
+    "symptomTitle": "Welches Symptom trifft am ehesten auf Sie zu?",
+    "intensityTitle": "Wie stark ist Ihr Hauptsymptom ({{symptom}}) jetzt aktuell?",
     "intensityLabelLeft": "sehr schwach",
     "intensityLabelRight": "sehr stark",
     "symptoms": {
@@ -28,14 +29,20 @@
       "drugCraving": "Drogenverlangen",
       "eating": "Essen",
       "nicotineCraving": "Nikotinverlangen",
-      "otherSymptom": "Anderes Symptom"
+      "otherSymptom": "Anderes Symptom",
+      "anxiety": "Angst",
+      "sadness": "Traurigkeit", 
+      "stress": "Stress",
+      "irritability": "Reizbarkeit",
+      "fatigue": "Müdigkeit",
+      "none": "Keines davon"
     }
   },
   "postGameMood": {
     "title": "Nach den Aufgaben",
     "moodQuestion": "Wie ist Ihre Stimmung jetzt nach den Aufgaben?",
     "symptomTitle": "Symptom-Bewertung",
-    "symptomQuestion": "Wie stark ist Ihr Hauptsymptom \"{symptom}\" jetzt?",
+    "symptomQuestion": "Wie stark ist Ihr Hauptsymptom ({{symptom}}) jetzt?",
     "continue": "Weiter",
     "complete": "Abschließen",
     "veryLight": "Sehr schwach",
@@ -142,6 +149,7 @@
   },
   "common": {
     "ok": "OK",
+    "cancel": "Abbrechen",
     "loading": "Laden...",
     "left": "links",
     "right": "rechts"
@@ -158,6 +166,33 @@
     "pt": "Portugiesisch",
     "es": "Spanisch"
   },
+  "results": {
+    "title": "Distractor App Ergebnisse",
+    "table": {
+      "task": "Aufgabe",
+      "count": "Anzahl",
+      "correct": "davon korrekt",
+      "percentage": "%",
+      "total": "Gesamt"
+    },
+    "phasePoints": {
+      "title": "Phase",
+      "points": "Punkte"
+    },
+    "moodData": {
+      "title": "Stimmung & Symptome",
+      "measurement": "Messwert",
+      "value": "Wert",
+      "moodStart": "Stimmung Anfang",
+      "moodEnd": "Stimmung Ende",
+      "mainSymptom": "Hauptsymptom",
+      "symptomStart": "Hauptsymptom Anfang",
+      "symptomEnd": "Hauptsymptom Ende",
+      "notRecorded": "Nicht erfasst"
+    },
+    "totalScore": "Gesamtscore",
+    "playAgain": "Erneut spielen"
+  },
   "taskExamples": {
     "title": "Erläuterungen zu den Aufgaben",
     "subtitle": "Hier sind alle verfügbaren Aufgaben mit Beispielen:",
@@ -171,8 +206,8 @@
       "description": "Sie bekommen ein Schachbrett mit 1 - 4 blau eingefärbten Feldern angezeigt. Merken Sie sich die Position der blau gefärbten Felder. Lösen Sie dann eine Rechenaufgabe und tippen Sie danach auf die zuvor blau gefärbten Felder."
     },
     "math": {
-      "title": "Mathe-Aufgabe",
-      "description": "Lösen Sie einfache Rechenaufgaben während der Ablenkungsphase."
+      "title": "Math Task",
+      "description": "Lösen Sie die Rechenaufgabe."
     },
     "hand": {
       "title": "Hand Task",
@@ -184,7 +219,78 @@
     },
     "face2": {
       "title": "Face Task 2",
-      "description": "Sie bekommen eine Gruppe von 4-6 Gesichtern gezeigt. Sie bekommen diese Gruppe von Gesichtern in dieser Aufgabe 4 - 6 mal gezeigt. Dazwischen lösen Sie eine Rechenaufgabe. Sie sollen insgesamt jedes Bild nur einmal antippen. Die Bilder ändern ihre Positionen, d.h. Sie müssen sich die Gesichter merken, die Sie bereits angetippt haben."
+      "description": "Sie bekommen im Level 1 in 4 Durchgängen jeweils 4 Gesichter gezeigt. Die Position der Gesichter ändert sich zufällig. Die Durchgänge sind durch Rechenaufgaben unterbrochen. Sie sollen in den 4 Durchgängen auf jedes Bild genau einmal tippen. Sie müssen sich also die angetippten Bilder merken. In Level 2 und 3 erhöht sich die Anzahl der Bilder."
+    },
+    "faden": {
+      "title": "Thread Task", 
+      "description": "Sie bekommen ein Bild mit 2 Fäden gezeigt. Verfolgen Sie den Faden, der bei x startet und tippen Sie auf die Ziffer am Ende dieses Fadens."
+    }
+  },
+  "privacyPolicy": {
+    "section1": {
+      "title": "1. Datenerhebung und -verarbeitung",
+      "content": "Diese App erhebt folgende Daten zu Auswertungszwecken:",
+      "list": {
+        "mood": "Die Angaben zu Ihrer aktuellen Stimmung",
+        "symptoms": "Die Angaben zu Ihrem Hauptsymptom und dessen Intensität",
+        "scores": "Ihre erreichten Punktzahlen bei den kognitiven Aufgaben",
+        "usage": "Nutzungsstatistiken der verschiedenen Aufgaben"
+      }
+    },
+    "section2": {
+      "title": "2. Anonymität",
+      "content": "Alle Daten werden vollständig anonymisiert gespeichert. Es werden keine personenbezogenen Daten wie Name, E-Mail-Adresse oder andere Identifikationsmerkmale erfasst oder gespeichert."
+    },
+    "section3": {
+      "title": "3. Zweck der Datenverarbeitung",
+      "content": "Die erhobenen Daten dienen ausschließlich der Auswertung zur Nutzung der App."
+    },
+    "section4": {
+      "title": "4. Datenspeicherung",
+      "content": "Die anonymisierten Daten werden auf sicheren Servern gespeichert und entsprechen den geltenden Datenschutzbestimmungen (DSGVO)."
+    },
+    "section5": {
+      "title": "5. Ihre Rechte",
+      "content": "Da keine personenbezogenen Daten gespeichert werden, können die anonymisierten Daten nicht zu Ihrer Person zurückverfolgt werden. Die Nutzung der App ist freiwillig und Sie können die App jederzeit ohne Angabe von Gründen nicht mehr verwenden."
+    },
+    "section6": {
+      "title": "6. Kontakt",
+      "content": {
+        "pre": "Bei Fragen zum Datenschutz wenden Sie sich an",
+        "mid": "Weitere Informationen zum Datenschutz finden Sie unter"
+      }
+    }
+  },
+  "imprint": {
+    "appInfo": {
+      "title": "App-Informationen",
+      "name": "App-Name",
+      "version": "Version",
+      "type": "Diese App ist eine Wellness- und Lifestyle-Anwendung."
+    },
+    "responsible": {
+      "title": "Verantwortlich für den Inhalt",
+      "email": "E-Mail",
+      "website": "Website"
+    },
+    "disclaimer": {
+      "title": "Haftungsausschluss",
+      "content1": "Die Inhalte dieser App wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.",
+      "content2": "Die App dient ausschließlich Wellness- und Lifestyle-Zwecken und stellt keine medizinische oder therapeutische Behandlung dar."
+    },
+    "copyright": {
+      "title": "Urheberrecht",
+      "content": "Die durch die App-Betreiber erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+    },
+    "legalBasis": {
+      "title": "Gesetzliche Grundlage",
+      "content": "Dieses Impressum wurde gemäß § 5 des Digitale-Dienste-Gesetzes (DDG) erstellt und erfüllt die Informationspflichten für Telemedien.",
+      "additionalInfo": "Weitere Informationen zum Impressum finden Sie auf",
+      "linkUrl": "https://www.aepplerlandapps.de",
+      "linkText": "www.aepplerlandapps.de"
+    }
+  }
+}
     },
     "faden": {
       "title": "Thread Task", 
