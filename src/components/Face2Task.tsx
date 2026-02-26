@@ -43,6 +43,7 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
   // Image loading states
   const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [allImagesLoaded, setAllImagesLoaded] = useState<boolean>(false);
   const [initialized, setInitialized] = useState(false);
   const initializationAttempted = useRef(false);
   const [clickedFace, setClickedFace] = useState<number | null>(null);
@@ -281,6 +282,20 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
     }
   }, [originalFaces.length, currentFaces.length, initialized]); // Use lengths to avoid deep comparison
 
+  // Check if all images are loaded
+  useEffect(() => {
+    if (currentFaces.length > 0) {
+      const totalImages = currentFaces.length;
+      const loadedCount = loadedImages.size + Object.keys(imageErrors).length;
+      
+      if (loadedCount >= totalImages) {
+        setAllImagesLoaded(true);
+      } else {
+        setAllImagesLoaded(false);
+      }
+    }
+  }, [currentFaces.length, loadedImages.size, imageErrors]);
+
   const handleImageLoad = (faceNumber: number) => {
     setLoadedImages(prev => new Set(prev).add(faceNumber));
   };
@@ -289,7 +304,30 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
     setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
   };
 
-  // Don't block rendering - show immediately like Face1Recall
+  // Don't render main content until all images are loaded
+  if (!initialized || currentFaces.length === 0 || !allImagesLoaded) {
+    return (
+      <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+        {/* Preload images invisibly to track loading */}
+        {currentFaces.length > 0 && (
+          <div className="absolute opacity-0 pointer-events-none">
+            {currentFaces.map((faceNumber) => (
+              <OptimizedImage
+                key={`preload-${faceNumber}`}
+                faceNumber={faceNumber}
+                alt={`Preload Face2 ${faceNumber}`}
+                className="w-1 h-1"
+                onLoad={() => handleImageLoad(faceNumber)}
+                onError={() => handleImageError(faceNumber)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
       <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-2xl w-full">
@@ -336,14 +374,8 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
                     faceNumber={faceNumber}
                     alt={`Face2 ${faceNumber}`}
                     className="w-full h-full object-cover"
-                    onLoad={() => {
-                      console.log(`[Face2Task] ✅ SUCCESS: Bild${faceNumber}.png loaded`);
-                      setLoadedImages(prev => new Set(prev).add(faceNumber));
-                    }}
-                    onError={() => {
-                      console.log(`[Face2Task] ❌ FAILED: Bild${faceNumber}.png could not load`);
-                      setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
-                    }}
+                    onLoad={() => handleImageLoad(faceNumber)}
+                    onError={() => handleImageError(faceNumber)}
                     data-face={faceNumber}
                   />
                 )}

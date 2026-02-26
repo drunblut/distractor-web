@@ -13,6 +13,7 @@ export default function ChessTask({ onComplete }: ChessTaskProps) {
   const { chessLevel, setCirclePositions } = contextValue || {};
   const { t } = useTranslation();
   const [localCirclePositions, setLocalCirclePositions] = useState<Array<{row: number, col: number}>>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Safety check for context
   if (!contextValue) {
@@ -72,6 +73,8 @@ export default function ChessTask({ onComplete }: ChessTaskProps) {
         localStorage.setItem('chessTaskCirclePositions', JSON.stringify(positions));
         console.log('[ChessTask DEBUG] Backup saved to localStorage');
       }
+      
+      setIsInitialized(true);
     } else {
       console.log('[ChessTask DEBUG] Invalid level, clearing positions');
       setLocalCirclePositions([]);
@@ -82,6 +85,8 @@ export default function ChessTask({ onComplete }: ChessTaskProps) {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('chessTaskCirclePositions');
       }
+      
+      setIsInitialized(true);
     }
   }, [chessLevel, setCirclePositions]);
 
@@ -120,6 +125,15 @@ export default function ChessTask({ onComplete }: ChessTaskProps) {
 
     return squares;
   };
+
+  // Don't render main content until initialized
+  if (!isInitialized) {
+    return (
+      <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">

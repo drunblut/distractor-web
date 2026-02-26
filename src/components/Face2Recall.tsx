@@ -24,6 +24,7 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
   
   const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [allImagesLoaded, setAllImagesLoaded] = useState<boolean>(false);
   const [selectedFaces, setSelectedFaces] = useState<Set<number>>(new Set());
   const [isCompleted, setIsCompleted] = useState(false);
   
@@ -83,6 +84,18 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
       return () => window.removeEventListener('resize', updateSize);
     }
   }, []);
+
+  // Check if all images are loaded
+  useEffect(() => {
+    if (choices.length > 0) {
+      const totalImages = choices.length;
+      const loadedCount = loadedImages.size + Object.keys(imageErrors).length;
+      
+      if (loadedCount >= totalImages) {
+        setAllImagesLoaded(true);
+      }
+    }
+  }, [choices.length, loadedImages.size, imageErrors]);
 
   const handleImageError = (faceNumber: number) => {
     setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
@@ -161,20 +174,26 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
     }, 1500);
   };
 
-  // Check if all images have been processed
-  const imagesLoaded = choices.every(face => 
-    loadedImages.has(face) || imageErrors[face]
-  );
-
-  if (!imagesLoaded) {
+  // Don't render main content until all images are loaded
+  if (!allImagesLoaded) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
-        <div className="flex flex-col items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
-          <p className="text-base text-gray-600 text-center font-medium">
-            {t('common.loading')}
-          </p>
-        </div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+        {/* Preload images invisibly to track loading */}
+        {choices.length > 0 && (
+          <div className="absolute opacity-0 pointer-events-none">
+            {choices.map((faceNumber) => (
+              <img
+                key={`preload-${faceNumber}`}
+                src={`/images/Bild${faceNumber}.png`}
+                alt={`Preload Face2 ${faceNumber}`}
+                className="w-1 h-1"
+                onLoad={() => handleImageLoad(faceNumber)}
+                onError={() => handleImageError(faceNumber)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     );
   }

@@ -22,6 +22,18 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
 
   const handleStart = () => {
     console.log('Starting app...');
+    
+    // Check if About acknowledgment is set in localStorage
+    if (typeof window !== 'undefined') {
+      const aboutAcknowledged = localStorage.getItem('aboutAcknowledged');
+      if (aboutAcknowledged !== 'true') {
+        console.log('About not acknowledged - showing About modal');
+        setAboutVisible(true);
+        return;
+      }
+    }
+    
+    console.log('About acknowledged - proceeding to app');
     onStart();
   };
 

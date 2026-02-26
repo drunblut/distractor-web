@@ -21,6 +21,7 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
   }
 
   const [targetFace, setTargetFace] = useState<number>(0);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   
   // Responsive image sizing
   const [imageSize, setImageSize] = useState(350);
@@ -49,6 +50,9 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
   };
 
   const initializeFace1Task = () => {
+    // Reset image loaded state when generating new target
+    setImageLoaded(false);
+    
     // Select a random face number from all available faces (1-69)
     const faceNumber = getRandomInt(1, 69);
     
@@ -66,11 +70,23 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     initializeFace1Task();
   }, []);
 
-  // Don't render anything until we have a target face
-  if (targetFace === 0) {
+  // Don't render main content until we have a target face AND the image is loaded
+  if (targetFace === 0 || !imageLoaded) {
     return (
       <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+        {/* Preload the image invisibly to track loading */}
+        {targetFace !== 0 && (
+          <div className="absolute opacity-0 pointer-events-none">
+            <OptimizedImage
+              faceNumber={targetFace}
+              alt={`Preload Face ${targetFace}`}
+              className="w-1 h-1"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(true)} // Show content even if image fails
+            />
+          </div>
+        )}
       </div>
     );
   }
@@ -94,6 +110,8 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
               faceNumber={targetFace}
               alt={`Face ${targetFace}`}
               className="w-full h-full object-contain"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(true)}
             />
           </div>
         </div>

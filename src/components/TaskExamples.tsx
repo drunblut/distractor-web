@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdClose } from 'react-icons/md';
 
@@ -9,6 +9,9 @@ interface TaskExamplesProps {
 
 export default function TaskExamples({ onClose }: TaskExamplesProps) {
   const { t } = useTranslation();
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
 
   const taskItems = [
     {
@@ -48,11 +51,54 @@ export default function TaskExamples({ onClose }: TaskExamplesProps) {
     }
   ];
 
+  // Check if all images are loaded
+  useEffect(() => {
+    const totalImages = taskItems.length;
+    const processedImages = loadedImages.size + imageErrors.size;
+    
+    if (processedImages >= totalImages) {
+      setAllImagesLoaded(true);
+    }
+  }, [loadedImages.size, imageErrors.size, taskItems.length]);
+
+  const handleImageLoad = (imagPath: string) => {
+    setLoadedImages(prev => new Set(prev).add(imagPath));
+  };
+
+  const handleImageError = (imagPath: string) => {
+    setImageErrors(prev => new Set(prev).add(imagPath));
+  };
+
+  // Don't render main content until all images are loaded
+  if (!allImagesLoaded) {
+    return (
+      <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
+        <div className="bg-white rounded-lg shadow-xl p-8 flex flex-col items-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
+          <p className="text-gray-600">{t('common.loading', 'Loading...')}</p>
+          {/* Preload images invisibly */}
+          <div className="absolute opacity-0 pointer-events-none">
+            {taskItems.map((task) => (
+              <img
+                key={`preload-${task.key}`}
+                src={task.image}
+                alt={`Preload ${task.imageAlt}`}
+                className="w-1 h-1"
+                onLoad={() => handleImageLoad(task.image)}
+                onError={() => handleImageError(task.image)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-gray-200">
           <div>
             <h2 className="text-2xl font-bold text-gray-800">
               {t('taskExamples.title')}
@@ -61,12 +107,6 @@ export default function TaskExamples({ onClose }: TaskExamplesProps) {
               {t('taskExamples.subtitle')}
             </p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <MdClose size={24} color="#666" />
-          </button>
         </div>
 
         {/* Content */}
@@ -99,6 +139,8 @@ export default function TaskExamples({ onClose }: TaskExamplesProps) {
                           transformOrigin: 'center',
                           transition: 'transform 0.2s ease-out'
                         }}
+                        onLoad={() => handleImageLoad(task.image)}
+                        onError={() => handleImageError(task.image)}
                       />
                     </div>
                   </div>
@@ -122,6 +164,16 @@ export default function TaskExamples({ onClose }: TaskExamplesProps) {
             <p className="text-blue-800 text-sm font-medium text-center">
               💡 {t('taskExamples.footer')}
             </p>
+          </div>
+          
+          {/* Close Button */}
+          <div className="pt-4">
+            <button
+              onClick={onClose}
+              className="w-full py-3 px-4 rounded-lg font-medium transition-colors bg-blue-500 hover:bg-blue-600 text-white"
+            >
+              {t('about.closeButton')}
+            </button>
           </div>
         </div>
       </div>

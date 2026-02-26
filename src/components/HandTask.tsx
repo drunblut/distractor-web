@@ -29,6 +29,7 @@ export default function HandTask({ onComplete }: HandTaskProps) {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [selectedCoords, setSelectedCoords] = useState<HandCoord[]>([]);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isTaskInitialized, setIsTaskInitialized] = useState(false);
   
   // Responsive image sizing
   const [imageSize, setImageSize] = useState(350);
@@ -93,15 +94,15 @@ export default function HandTask({ onComplete }: HandTaskProps) {
       }
     }
     
-    setImageLoaded(true);
+    setIsTaskInitialized(true);
   };
 
   useEffect(() => {
     initializeHandTask();
   }, []);
 
-  // Show loading indicator while initializing
-  if (!imageLoaded || !selectedImage) {
+  // Show loading indicator while initializing or while image is loading
+  if (!isTaskInitialized || !imageLoaded || !selectedImage) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
         <div className="flex flex-col items-center justify-center">
@@ -110,6 +111,18 @@ export default function HandTask({ onComplete }: HandTaskProps) {
             Wird geladen...
           </p>
         </div>
+        
+        {/* Invisible preload image */}
+        {isTaskInitialized && selectedImage && (
+          <div className="opacity-0 pointer-events-none absolute">
+            <img
+              src={`/images/${selectedImage}`}
+              alt="Preload"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(true)} // Fallback in case of error
+            />
+          </div>
+        )}
       </div>
     );
   }

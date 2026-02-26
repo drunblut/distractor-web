@@ -26,6 +26,7 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [clickedFace, setClickedFace] = useState<number | null>(null);
+  const [allImagesLoaded, setAllImagesLoaded] = useState<boolean>(false);
   
   // Responsive sizing
   const [faceSize, setFaceSize] = useState(120);
@@ -72,9 +73,23 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     if (targetFace && targetFace > 0) {
       const newFaces = getChoices();
       setFaces(newFaces);
+      setLoadedImages(new Set()); // Reset loaded images
+      setAllImagesLoaded(false); // Reset loading state
       console.log('[Face1Recall] Generated faces:', newFaces, 'for target:', targetFace);
     }
   }, [getChoices, targetFace]);
+
+  // Check if all images are loaded
+  useEffect(() => {
+    if (faces.length > 0) {
+      const totalImages = faces.length;
+      const loadedCount = loadedImages.size + Object.keys(imageErrors).length;
+      
+      if (loadedCount >= totalImages) {
+        setAllImagesLoaded(true);
+      }
+    }
+  }, [faces.length, loadedImages.size, imageErrors]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -160,11 +175,26 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   }, [addPoints, trackTaskAttempt, reduceMathLevelOnError, setFace1Level, setFace1Streak, navigateToNextTask, targetFace, face1Level, face1Streak]);
 
   const TaskContent = () => {
-    // Don't render until we have faces to show
-    if (!faces || faces.length === 0) {
+    // Don't render until we have faces to show AND all images are loaded
+    if (!faces || faces.length === 0 || !allImagesLoaded) {
       return (
         <div className="w-full h-full flex items-center justify-center bg-[#dfdfdfff]">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+          {/* Preload images invisibly to track loading */}
+          {faces.length > 0 && (
+            <div className="absolute opacity-0 pointer-events-none">
+              {faces.map((faceNumber) => (
+                <OptimizedImage
+                  key={`preload-${faceNumber}`}
+                  faceNumber={faceNumber}
+                  alt={`Preload Face ${faceNumber}`}
+                  className="w-1 h-1"
+                  onLoad={() => handleImageLoad(faceNumber)}
+                  onError={() => handleImageError(faceNumber)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       );
     }
