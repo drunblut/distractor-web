@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef, useCallback, useMemo, useContext } 
 import { useTranslation } from 'react-i18next';
 import { MdChevronRight } from 'react-icons/md';
 import { GlobalContext } from '../context/GlobalContext';
+import { generateMathProblem, MathProblem } from '../utils/mathUtils';
+import ScoreDisplay from './ScoreDisplay';
 
 const generateRandomRotation = () => Math.random() * (30 - 10) + 10;
 
@@ -105,6 +107,18 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   // Send initial data to parent immediately when requested
   const [dataInitialized, setDataInitialized] = useState(false);
   
+  // Inline Math Task state
+  const [showMathTask, setShowMathTask] = useState(false);
+  const [mathProblem, setMathProblem] = useState<MathProblem | null>(null);
+  const [mathInput, setMathInput] = useState('');
+  const [mathAnswered, setMathAnswered] = useState(false);
+  const [pointsEarned, setPointsEarned] = useState<number | null>(null);
+  const [showPointsAnimation, setShowPointsAnimation] = useState(false);
+  const mathInputRef = useRef<HTMLInputElement>(null);
+  
+  // Get addPoints function from context
+  const { addPoints, mathLevel, setCurrentTask } = contextValue || {};
+  
   useEffect(() => {
     console.log('[PieTask DEBUG] Saving rotation data:', rotationRef.current);
     console.log('[PieTask DEBUG] Saving target segments:', targetSegments);
@@ -136,24 +150,24 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
     setDataInitialized(true);
   }, [onDataUpdate, setPieRotation, setPieTargetSegments, targetSegments]);
 
-  // Navigate to next task using the new navigation system
+  // Navigate to next task using inline math task
   const handleNavigateToNext = () => {
-    console.log('[PieTask] handleNavigateToNext called');
-    console.log('[PieTask] Final rotation before navigation:', rotationRef.current);
-    console.log('[PieTask] Final target segments before navigation:', targetSegments);
+    console.log('[PieTask] handleNavigateToNext called - showing inline math task');
+    console.log('[PieTask] Final rotation before math:', rotationRef.current);
+    console.log('[PieTask] Final target segments before math:', targetSegments);
     
-    // Ensure data is saved before navigation
+    // Ensure data is saved
     if (setPieRotation && setPieTargetSegments) {
       setPieRotation(rotationRef.current);
       setPieTargetSegments(targetSegments);
-      console.log('[PieTask] Re-saved data before navigation');
+      console.log('[PieTask] Saved data before showing math task');
     }
     
-    // Re-save to localStorage before navigation
+    // Save to localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('pieTaskRotation', rotationRef.current.toString());
       localStorage.setItem('pieTaskTargetSegments', JSON.stringify(targetSegments));
-      console.log('[PieTask] Re-saved to localStorage before navigation');
+      console.log('[PieTask] Saved to localStorage before showing math task');
     }
     
     // Call onDataUpdate callback if available
@@ -162,12 +176,74 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
       console.log('[PieTask] Called onDataUpdate with final data');
     }
     
-    console.log('[PieTask] onNext function available:', !!onNext);
-    if (onNext) {
-      console.log('[PieTask] Calling onNext function');
-      onNext();
-    } else {
-      console.error('[PieTask] No onNext function provided');
+    // Generate and show inline math task
+    if (mathLevel) {
+      const problem = generateMathProblem(mathLevel);
+      setMathProblem(problem);
+      setMathInput('');
+      setMathAnswered(false);
+      setShowMathTask(true);
+      
+      console.log('[PieTask] ✅ Inline math task shown');
+      
+      // Focus input immediately after direct user interaction
+      setTimeout(() => {
+        if (mathInputRef.current) {
+          console.log('[PieTask] Focusing math input after user click...');
+          mathInputRef.current.focus();
+          mathInputRef.current.click();
+        }
+      }, 50);
+    }
+  };
+  
+  // Handle math task answer submission
+  const handleMathSubmit = () => {
+    if (!mathInput.trim() || mathAnswered || !mathProblem) return;
+    
+    const userAnswerNum = parseInt(mathInput);
+    const isCorrect = userAnswerNum === mathProblem.correctAnswer;
+    setMathAnswered(true);
+    
+    console.log('[PieTask] Math answer submitted:', { userAnswer: userAnswerNum, correct: isCorrect });
+    
+    // Calculate points earned
+    const points = isCorrect ? (mathLevel || 1) : 0;
+    setPointsEarned(points);
+    
+    // Add points through the global context
+    if (addPoints) {
+      addPoints('mathTask', isCorrect, mathLevel || 1);
+      console.log(`[PieTask] Points added: ${points} (correct: ${isCorrect}, level: ${mathLevel})`);
+    }
+    
+    // Show points animation
+    if (points > 0) {
+      setShowPointsAnimation(true);
+      setTimeout(() => setShowPointsAnimation(false), 2000);
+    }
+    
+    // Proceed to PieRecall after delay
+    setTimeout(() => {
+      setShowMathTask(false);
+      setPointsEarned(null);
+      setShowPointsAnimation(false);
+      console.log('[PieTask] Proceeding to PieRecall after math completion');
+      if (setCurrentTask) {
+        setCurrentTask('pieRecall');
+      } else {
+        console.error('[PieTask] No setCurrentTask function provided, falling back to onNext');
+        if (onNext) {
+          onNext();
+        }
+      }
+    }, 1200); // Slightly longer to show points animation
+  };
+  
+  // Handle Enter key press in math input
+  const handleMathKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !mathAnswered) {
+      handleMathSubmit();
     }
   };
 
@@ -215,7 +291,10 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   }, [staticSegmentPaths]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
+    <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff] relative">
+      {/* Score Display */}
+      <ScoreDisplay />
+      
       <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-lg w-full">
         <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-4 sm:mb-6">
           {pieLevel === 1
@@ -308,6 +387,107 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
           </button>
         </div>
       </div>
+      
+      {/* Inline Math Task */}
+      {showMathTask && mathProblem && (
+        <div className="fixed inset-0 bg-[#dfdfdfff] flex flex-col min-h-screen p-5 z-50 relative">
+          {/* Score Display */}
+          <ScoreDisplay />
+          
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col items-center justify-start md:justify-center">
+            {/* Mobile spacing */}
+            <div className="md:hidden" style={{ height: '20vh' }}></div>
+            
+            <div className="flex flex-col items-center max-w-md">
+              {/* Math Equation */}
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-4xl font-bold text-gray-800">
+                  {mathProblem.num1}
+                </span>
+                <span className="text-4xl font-bold text-gray-600">
+                  {mathProblem.operator}
+                </span>
+                <span className="text-4xl font-bold text-gray-800">
+                  {mathProblem.num2}
+                </span>
+                <span className="text-4xl font-bold text-gray-800">
+                  =
+                </span>
+                <div className="relative">
+                  <input
+                    ref={mathInputRef}
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={mathInput}
+                    onChange={(e) => setMathInput(e.target.value.replace(/\D/g, ''))}
+                    onKeyDown={handleMathKeyPress}
+                    onClick={() => {
+                      console.log('[PieTask] Math input clicked, ensuring focus...');
+                      mathInputRef.current?.focus();
+                    }}
+                    onTouchStart={() => {
+                      console.log('[PieTask] Math input touched, ensuring focus...');
+                      mathInputRef.current?.focus();
+                    }}
+                    onFocus={() => console.log('[PieTask] Math input focused successfully')}
+                    maxLength={3}
+                    placeholder="?"
+                    disabled={mathAnswered}
+                    autoFocus
+                    autoComplete="off"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    style={{ 
+                      fontFamily: 'Arial, Helvetica, sans-serif',
+                      WebkitTapHighlightColor: 'rgba(0,123,255,0.2)',
+                      WebkitUserSelect: 'text'
+                    }}
+                    className={`math-input w-20 h-12 text-3xl font-bold text-center border-2 rounded-lg cursor-pointer transition-all
+                      ${mathAnswered 
+                        ? 'bg-gray-100 border-gray-300 text-gray-600'
+                        : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
+                      }`}
+                  />
+                  {!mathInput && !mathAnswered && (
+                    <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
+                      Tippen zum Eingeben
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Submit Button with Chevron */}
+              <button
+                onClick={handleMathSubmit}
+                disabled={!mathInput.trim() || mathAnswered}
+                className={`p-4 rounded-full transition-all duration-200 mb-6 md:mb-0 relative
+                  ${!mathInput.trim() || mathAnswered 
+                    ? 'text-gray-400 cursor-not-allowed' 
+                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100 transform hover:scale-110'
+                  }`}
+              >
+                <MdChevronRight size={72} />
+                
+                {/* Points Animation */}
+                {showPointsAnimation && pointsEarned && pointsEarned > 0 && (
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                      +{pointsEarned} Punkt{pointsEarned > 1 ? 'e' : ''}
+                    </div>
+                  </div>
+                )}
+              </button>
+              
+              {/* Instruction */}
+              <div className="text-sm text-gray-600 text-center mt-6 md:mt-6 opacity-50">
+                Geben Sie die Antwort ein und drücken Sie Enter oder den Pfeil
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
