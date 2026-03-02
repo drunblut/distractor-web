@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalContext } from '../context/GlobalContext';
+
+import ScoreDisplay from './ScoreDisplay';
 import OptimizedImage from './OptimizedImage';
 
 interface Face2TaskProps {
@@ -203,8 +205,8 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
         }
       }, 200);
     } else {
-      // Continue to next round - only call onComplete for rounds 1-3
-      console.log(`[Face2Task] Round ${currentRound}/${totalRounds} complete - going to MathTask then returning for next round`);
+      // Continue to next round
+      console.log(`[Face2Task] Round ${currentRound}/${totalRounds} complete - continuing to next round`);
       const nextRound = currentRound + 1;
       setCurrentRound(nextRound);
       
@@ -217,13 +219,12 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
         });
       }
       
-      // Navigate to MathTask after animation - only if not final round
+      // Shuffle faces for new round after brief delay
       setTimeout(() => {
         setClickedFace(null);
-        if (onComplete) {
-          onComplete();
-        }
-      }, 200);
+        shuffleFacesForNewRound();
+        console.log(`[Face2Task] Starting round ${nextRound}`);
+      }, 300);
     }
   };
 
@@ -329,7 +330,10 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
+    <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff] relative">
+      {/* Score Display */}
+      <ScoreDisplay />
+      
       <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-2xl w-full">
         <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-2">
           {t('face2Task.instruction', 'Click on each face once')} (Level {initialLevel})
@@ -385,7 +389,7 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
         </div>
         
         <div className="text-center text-sm text-gray-500">
-          Click each face exactly once • MathTask after each click
+          Click each face exactly once
         </div>
       </div>
     </div>

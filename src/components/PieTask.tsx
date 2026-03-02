@@ -42,19 +42,21 @@ interface PieTaskProps {
 export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskProps) {
   const { t } = useTranslation();
   const contextValue = useContext(GlobalContext);
-  const { 
-    pieLevel,
-    setPieRotation,
-    setPieTargetSegments 
-  } = contextValue || {};
   
   // Safety check for context
   if (!contextValue) {
     console.error('[PieTask] GlobalContext is undefined');
     return null;
   }
-  
-  // Use pieLevel from GlobalContext, fallback to 1
+
+  const { 
+    pieLevel,
+    setPieRotation,
+    setPieTargetSegments,
+    addPoints, 
+    mathLevel, 
+    setCurrentTask 
+  } = contextValue;
   
   // Responsive pie size - initialize properly
   const [pieSize, setPieSize] = useState(() => getPieSize());
@@ -101,7 +103,7 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   // Use cached target segments - regenerate when level changes
   const targetSegments = useMemo(() => 
     generateTargetSegments(pieLevel || 1), 
-    [pieLevel] // Only depend on pieLevel, not the function itself
+    [generateTargetSegments, pieLevel]
   );
 
   // Send initial data to parent immediately when requested
@@ -112,12 +114,7 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   const [mathProblem, setMathProblem] = useState<MathProblem | null>(null);
   const [mathInput, setMathInput] = useState('');
   const [mathAnswered, setMathAnswered] = useState(false);
-  const [pointsEarned, setPointsEarned] = useState<number | null>(null);
-  const [showPointsAnimation, setShowPointsAnimation] = useState(false);
   const mathInputRef = useRef<HTMLInputElement>(null);
-  
-  // Get addPoints function from context
-  const { addPoints, mathLevel, setCurrentTask } = contextValue || {};
   
   useEffect(() => {
     console.log('[PieTask DEBUG] Saving rotation data:', rotationRef.current);
@@ -207,27 +204,15 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
     
     console.log('[PieTask] Math answer submitted:', { userAnswer: userAnswerNum, correct: isCorrect });
     
-    // Calculate points earned
-    const points = isCorrect ? (mathLevel || 1) : 0;
-    setPointsEarned(points);
-    
     // Add points through the global context
     if (addPoints) {
       addPoints('mathTask', isCorrect, mathLevel || 1);
-      console.log(`[PieTask] Points added: ${points} (correct: ${isCorrect}, level: ${mathLevel})`);
+      console.log(`[PieTask] Points added (correct: ${isCorrect}, level: ${mathLevel})`);
     }
     
-    // Show points animation
-    if (points > 0) {
-      setShowPointsAnimation(true);
-      setTimeout(() => setShowPointsAnimation(false), 2000);
-    }
-    
-    // Proceed to PieRecall after delay
+    // Proceed to PieRecall after brief delay
     setTimeout(() => {
       setShowMathTask(false);
-      setPointsEarned(null);
-      setShowPointsAnimation(false);
       console.log('[PieTask] Proceeding to PieRecall after math completion');
       if (setCurrentTask) {
         setCurrentTask('pieRecall');
@@ -237,7 +222,7 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
           onNext();
         }
       }
-    }, 1200); // Slightly longer to show points animation
+    }, 0);
   };
   
   // Handle Enter key press in math input
@@ -291,203 +276,184 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
   }, [staticSegmentPaths]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff] relative">
-      {/* Score Display */}
-      <ScoreDisplay />
-      
-      <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-lg w-full">
-        <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-4 sm:mb-6">
-          {pieLevel === 1
-            ? t('pieTask.instructionSingle')
-            : t('pieTask.instructionMultiple')}
-        </p>
-        
-        <div className="flex justify-center mb-6 sm:mb-8">
-          <svg width={pieSize} height={pieSize}>
-            <g>
-              {/* First: Draw all segments without strokes */}
-              {Array.from({ length: PIE_SEGMENTS }, (_, i) =>
-                createPieSegment(i, targetSegments.includes(i))
-              )}
-
-              {/* Second: Draw outer circle border */}
-              <path
-                d={`M ${center + radius} ${center}
-                    A ${radius} ${radius} 0 0 1 ${center} ${center + radius}
-                    A ${radius} ${radius} 0 0 1 ${center - radius} ${center}
-                    A ${radius} ${radius} 0 0 1 ${center} ${center - radius}
-                    A ${radius} ${radius} 0 0 1 ${center + radius} ${center}`}
-                fill="none"
-                stroke={Colors.textLight}
-                strokeWidth={1}
-                strokeLinecap="butt"
-                strokeLinejoin="round"
-              />
-
-              {/* Third: Draw thick white separator lines to force visibility */}
-              {Array.from({ length: PIE_SEGMENTS }, (_, i) => {
-                const angleStep = 360 / PIE_SEGMENTS;
-                const rotation = rotationRef.current;
-                const angle = (i * angleStep + rotation) * (Math.PI / 180);
-                const x = center + radius * Math.cos(angle);
-                const y = center + radius * Math.sin(angle);
-
-                return (
-                  <path
-                    key={`separator-${i}`}
-                    d={`M ${center} ${center} L ${x} ${y}`}
-                    stroke="white"
-                    strokeWidth={3.8}
-                    strokeLinecap="butt"
-                  />
-                );
-              })}
-
-              {/* Fourth: Draw thinner dark lines on top for better contrast */}
-              {Array.from({ length: PIE_SEGMENTS }, (_, i) => {
-                const angleStep = 360 / PIE_SEGMENTS;
-                const rotation = rotationRef.current;
-                const angle = (i * angleStep + rotation) * (Math.PI / 180);
-                const x = center + radius * Math.cos(angle);
-                const y = center + radius * Math.sin(angle);
-
-                return (
-                  <path
-                    key={`separator-dark-${i}`}
-                    d={`M ${center} ${center} L ${x} ${y}`}
-                    stroke={Colors.textLight}
-                    strokeWidth={3}
-                    strokeLinecap="butt"
-                  />
-                );
-              })}
-            </g>
-          </svg>
+    <>
+      <div className="w-full h-screen flex flex-col overflow-hidden relative bg-[#dfdfdfff]">
+        {/* Score Display */}
+        <div className="flex-shrink-0 mb-4">
+          <ScoreDisplay />
         </div>
-        
-        <div className="flex justify-center">
+
+        <div className="flex-1 flex flex-col items-center justify-center px-4 space-y-6">
+          {/* Pie Chart SVG */}
+          <div className="flex-shrink-0">
+            <svg
+              width={pieSize}
+              height={pieSize}
+              viewBox={`0 0 ${pieSize} ${pieSize}`}
+              className="drop-shadow-lg"
+            >
+              <g>
+                {/* First: Draw all segments without strokes */}
+                {Array.from({ length: PIE_SEGMENTS }, (_, index) =>
+                  createPieSegment(index, targetSegments.includes(index))
+                )}
+
+                {/* Second: Draw outer circle border */}
+                <path
+                  d={`M ${center + radius} ${center}
+                      A ${radius} ${radius} 0 0 1 ${center} ${center + radius}
+                      A ${radius} ${radius} 0 0 1 ${center - radius} ${center}
+                      A ${radius} ${radius} 0 0 1 ${center} ${center - radius}
+                      A ${radius} ${radius} 0 0 1 ${center + radius} ${center}`}
+                  fill="none"
+                  stroke={Colors.textLight}
+                  strokeWidth={1}
+                  strokeLinecap="butt"
+                  strokeLinejoin="round"
+                />
+
+                {/* Third: Draw thick white separator lines to force visibility */}
+                {Array.from({ length: PIE_SEGMENTS }, (_, i) => {
+                  const angleStep = 360 / PIE_SEGMENTS;
+                  const rotation = rotationRef.current;
+                  const angle = (i * angleStep + rotation) * (Math.PI / 180);
+                  const x = center + radius * Math.cos(angle);
+                  const y = center + radius * Math.sin(angle);
+
+                  return (
+                    <path
+                      key={`separator-${i}`}
+                      d={`M ${center} ${center} L ${x} ${y}`}
+                      stroke="white"
+                      strokeWidth={3.8}
+                      strokeLinecap="butt"
+                    />
+                  );
+                })}
+
+                {/* Fourth: Draw thinner dark lines on top for better contrast */}
+                {Array.from({ length: PIE_SEGMENTS }, (_, i) => {
+                  const angleStep = 360 / PIE_SEGMENTS;
+                  const rotation = rotationRef.current;
+                  const angle = (i * angleStep + rotation) * (Math.PI / 180);
+                  const x = center + radius * Math.cos(angle);
+                  const y = center + radius * Math.sin(angle);
+
+                  return (
+                    <path
+                      key={`separator-dark-${i}`}
+                      d={`M ${center} ${center} L ${x} ${y}`}
+                      stroke={Colors.textLight}
+                      strokeWidth={3}
+                      strokeLinecap="butt"
+                    />
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+
+          {/* Navigation Button - Chevron Right */}
           <button
-            onClick={(e) => {
-              console.log('[PieTask] Chevron button CLICK EVENT FIRED');
-              console.log('[PieTask] Event target:', e.target);
-              console.log('[PieTask] Current target:', e.currentTarget);
-              
-              e.preventDefault();
-              e.stopPropagation();
-              
-              console.log('[PieTask] Chevron button clicked - START');
-              handleNavigateToNext();
-              console.log('[PieTask] Chevron button clicked - END');
-            }}
+            onClick={handleNavigateToNext}
             className="p-4 rounded-full transition-all duration-200 text-gray-600 hover:text-gray-800 hover:bg-gray-100 transform hover:scale-110"
-            style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-            type="button"
           >
             <MdChevronRight size={72} />
           </button>
         </div>
       </div>
-      
+
       {/* Inline Math Task */}
       {showMathTask && mathProblem && (
-        <div className="fixed inset-0 bg-[#dfdfdfff] flex flex-col min-h-screen p-5 z-50 relative">
-          {/* Score Display */}
-          <ScoreDisplay />
-          
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col items-center justify-start md:justify-center">
-            {/* Mobile spacing */}
-            <div className="md:hidden" style={{ height: '20vh' }}></div>
-            
-            <div className="flex flex-col items-center max-w-md">
-              {/* Math Equation */}
-              <div className="flex items-center gap-4 mb-8">
-                <span className="text-4xl font-bold text-gray-800">
-                  {mathProblem.num1}
-                </span>
-                <span className="text-4xl font-bold text-gray-600">
-                  {mathProblem.operator}
-                </span>
-                <span className="text-4xl font-bold text-gray-800">
-                  {mathProblem.num2}
-                </span>
-                <span className="text-4xl font-bold text-gray-800">
-                  =
-                </span>
-                <div className="relative">
-                  <input
-                    ref={mathInputRef}
-                    type="tel"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    value={mathInput}
-                    onChange={(e) => setMathInput(e.target.value.replace(/\D/g, ''))}
-                    onKeyDown={handleMathKeyPress}
-                    onClick={() => {
-                      console.log('[PieTask] Math input clicked, ensuring focus...');
-                      mathInputRef.current?.focus();
-                    }}
-                    onTouchStart={() => {
-                      console.log('[PieTask] Math input touched, ensuring focus...');
-                      mathInputRef.current?.focus();
-                    }}
-                    onFocus={() => console.log('[PieTask] Math input focused successfully')}
-                    maxLength={3}
-                    placeholder="?"
-                    disabled={mathAnswered}
-                    autoFocus
-                    autoComplete="off"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    style={{ 
-                      fontFamily: 'Arial, Helvetica, sans-serif',
-                      WebkitTapHighlightColor: 'rgba(0,123,255,0.2)',
-                      WebkitUserSelect: 'text'
-                    }}
-                    className={`math-input w-20 h-12 text-3xl font-bold text-center border-2 rounded-lg cursor-pointer transition-all
-                      ${mathAnswered 
-                        ? 'bg-gray-100 border-gray-300 text-gray-600'
-                        : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
-                      }`}
-                  />
-                  {!mathInput && !mathAnswered && (
-                    <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
-                      Tippen zum Eingeben
-                    </div>
-                  )}
-                </div>
-              </div>
+        <div className="fixed inset-0 bg-[#dfdfdfff] z-50 overflow-hidden">
+          <div className="flex flex-col h-screen p-5">
 
-              {/* Submit Button with Chevron */}
-              <button
-                onClick={handleMathSubmit}
-                disabled={!mathInput.trim() || mathAnswered}
-                className={`p-4 rounded-full transition-all duration-200 mb-6 md:mb-0 relative
-                  ${!mathInput.trim() || mathAnswered 
-                    ? 'text-gray-400 cursor-not-allowed' 
-                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100 transform hover:scale-110'
-                  }`}
-              >
-                <MdChevronRight size={72} />
-                
-                {/* Points Animation */}
-                {showPointsAnimation && pointsEarned && pointsEarned > 0 && (
-                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 animate-bounce">
-                    <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-                      +{pointsEarned} Punkt{pointsEarned > 1 ? 'e' : ''}
-                    </div>
+            <ScoreDisplay />
+            <div className="flex-1 flex flex-col items-center justify-start md:justify-center">
+              {/* Mobile spacing */}
+              <div className="md:hidden" style={{ height: '20vh' }}></div>
+            
+              <div className="flex flex-col items-center max-w-md">
+                {/* Math Equation */}
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="text-4xl font-bold text-gray-800">
+                    {mathProblem?.num1}
+                  </span>
+                  <span className="text-3xl text-gray-600">
+                    {mathProblem?.operator}
+                  </span>
+                  <span className="text-4xl font-bold text-gray-800">
+                    {mathProblem?.num2}
+                  </span>
+                  <span className="text-4xl font-bold text-gray-800">
+                    =
+                  </span>
+                  <div className="relative">
+                    <input
+                      ref={mathInputRef}
+                      type="tel"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={mathInput}
+                      onChange={(e) => setMathInput(e.target.value.replace(/\D/g, ''))}
+                      onKeyDown={handleMathKeyPress}
+                      onClick={() => {
+                        console.log('[PieTask] Math input clicked, ensuring focus...');
+                        mathInputRef.current?.focus();
+                      }}
+                      onTouchStart={() => {
+                        console.log('[PieTask] Math input touched, ensuring focus...');
+                        mathInputRef.current?.focus();
+                      }}
+                      onFocus={() => console.log('[PieTask] Math input focused successfully')}
+                      maxLength={3}
+                      placeholder="?"
+                      disabled={mathAnswered}
+                      autoFocus
+                      autoComplete="off"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      style={{ 
+                        fontFamily: 'Arial, Helvetica, sans-serif',
+                        WebkitTapHighlightColor: 'rgba(0,123,255,0.2)',
+                        WebkitUserSelect: 'text'
+                      }}
+                      className={`math-input w-20 h-12 text-3xl font-bold text-center border-2 rounded-lg cursor-pointer transition-all
+                        ${mathAnswered 
+                          ? 'bg-gray-100 border-gray-300 text-gray-600'
+                          : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
+                        }`}
+                    />
+                    {!mathInput && !mathAnswered && (
+                      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
+                        Tippen zum Eingeben
+                      </div>
+                    )}
                   </div>
-                )}
-              </button>
-              
-              {/* Instruction */}
-              <div className="text-sm text-gray-600 text-center mt-6 md:mt-6 opacity-50">
-                Geben Sie die Antwort ein und drücken Sie Enter oder den Pfeil
+                </div>
+
+                {/* Submit Button with Chevron */}
+                <button
+                  onClick={handleMathSubmit}
+                  disabled={!mathInput.trim() || mathAnswered}
+                  className={`p-4 rounded-full transition-all duration-200 mb-6 md:mb-0
+                    ${!mathInput.trim() || mathAnswered 
+                      ? 'text-gray-400 cursor-not-allowed' 
+                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100 transform hover:scale-110'
+                    }`}
+                >
+                  <MdChevronRight size={72} />
+                </button>
+                
+                {/* Instruction */}
+                <div className="text-sm text-gray-600 text-center mt-6 md:mt-6 opacity-50">
+                  Geben Sie die Antwort ein und drücken Sie Enter oder den Pfeil
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

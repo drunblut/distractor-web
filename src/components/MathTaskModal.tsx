@@ -98,7 +98,7 @@ export default function MathTaskModal({ isOpen, onComplete, onClose }: MathTaskM
     setTimeout(() => {
       onComplete(isCorrect);
       onClose();
-    }, 1500);
+    }, 0);
   };
   
   // Handle Enter key press
@@ -124,9 +124,9 @@ export default function MathTaskModal({ isOpen, onComplete, onClose }: MathTaskM
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-[#dfdfdfff] rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+      <div className="bg-[#dfdfdfff] rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
+
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
           <h2 className="text-xl font-semibold text-gray-800">Rechenaufgabe</h2>
           <button
             onClick={onClose}
@@ -136,9 +136,8 @@ export default function MathTaskModal({ isOpen, onComplete, onClose }: MathTaskM
           </button>
         </div>
         
-        {/* Math Problem Content */}
-        <div className="p-6">
-          <div className="flex flex-col items-center">
+        <div className="flex-1 overflow-hidden p-6">
+          <div className="flex flex-col items-center h-full justify-center">
             {/* Math Equation */}
             <div className="flex items-center gap-4 mb-8">
               <span className="text-4xl font-bold text-gray-800">

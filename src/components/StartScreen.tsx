@@ -71,7 +71,7 @@ export default function StartScreen({ onStart, onLanguagePress }: StartScreenPro
   ];
 
   return (
-    <div className="relative flex flex-col min-h-screen bg-[#dfdfdfff] overflow-hidden">
+    <div className="relative flex flex-col h-screen bg-[#dfdfdfff] overflow-hidden">
       {/* Hamburger Menu Button */}
       <button 
         className="absolute top-5 right-5 z-50 p-3 hover:bg-black/5 rounded-lg transition-colors"

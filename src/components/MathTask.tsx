@@ -212,7 +212,7 @@ export default function MathTask({ onComplete, onBack }: MathTaskProps) {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#dfdfdfff] p-5">
+    <div className="flex flex-col h-screen bg-[#dfdfdfff] p-5 overflow-hidden">
       {/* Back Button */}
       {onBack && (
         <button
