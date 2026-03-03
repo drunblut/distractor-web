@@ -297,7 +297,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [taskQueue, setTaskQueue] = useState<string[]>([]);
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(1);
-  const [phaseTimer, setPhaseTimer] = useState(180); // Phase 1: 180 Sekunden
+  const [phaseTimer, setPhaseTimer] = useState(30); // Phase 1: 30 Sekunden (vorübergehend)
   const [isPhaseActive, setIsPhaseActive] = useState(true);
   const [pendingPhaseChange, setPendingPhaseChange] = useState<number | null>(null);
   
@@ -763,7 +763,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         console.log('[PHASE DEBUG] Phase 1 completed - switching to Phase 2');
         completePhase(); // Save Phase 1 results
         setCurrentPhase(2);
-        setPhaseTimer(180); // 180 Sekunden für Phase 2
+        setPhaseTimer(30); // 30 Sekunden für Phase 2 (vorübergehend)
         const phase2Queue = generateTaskQueue(2);
         console.log('[PHASE 2 QUEUE] Generated Phase 2 queue with tasks:', phase2Queue);
         console.log('[PHASE 2 QUEUE] Queue length:', phase2Queue.length);
@@ -777,7 +777,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setTaskQueue(phase2Queue);
         setCurrentTaskIndex(0);
         setCurrentTask(phase2Queue[0]);
-        console.log('[PHASE DEBUG] Successfully moved to Phase 2 (180 seconds) - Starting with:', phase2Queue[0]);
+        console.log('[PHASE DEBUG] Successfully moved to Phase 2 (30 seconds) - Starting with:', phase2Queue[0]);
         return true; // Phase change executed
       } else if (targetPhase === 3) {
         console.log('[PHASE DEBUG] Phase 2 completed - switching to Phase 3');

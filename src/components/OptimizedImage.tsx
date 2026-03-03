@@ -17,7 +17,12 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onError,
   'data-face': dataFace,
 }) => {
-  const [useWebP, setUseWebP] = useState(true);
+  // Check if iOS device
+  const isIOS = typeof window !== 'undefined' && 
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+  // Use PNG by default on iOS to avoid WebP issues
+  const [useWebP, setUseWebP] = useState(!isIOS);
 
   const handleError = () => {
     if (useWebP) {
@@ -30,8 +35,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   };
 
   const getImageSrc = () => {
-    if (useWebP) {
-      // Try WebP first (best compression)
+    if (useWebP && !isIOS) {
+      // Try WebP first (best compression) - but not on iOS
       return `/images/Bild${faceNumber}.webp`;
     }
     
@@ -47,7 +52,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       onLoad={onLoad}
       onError={handleError}
       data-face={dataFace}
-      loading="lazy" // Native lazy loading for better performance
+      // No lazy loading to prevent flickering
+      decoding="sync"
+      style={{
+        imageRendering: 'auto',
+        WebkitUserSelect: 'none',
+        userSelect: 'none',
+        display: 'block' // Prevent layout shifts
+      }}
     />
   );
 };

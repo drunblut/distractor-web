@@ -24,9 +24,8 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   const { t } = useTranslation();
   
   const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-  const [clickedFace, setClickedFace] = useState<number | null>(null);
-  const [allImagesLoaded, setAllImagesLoaded] = useState<boolean>(false);
+  const [preloadedImages, setPreloadedImages] = useState<{[key: number]: boolean}>({});
+  const [imagesReady, setImagesReady] = useState<boolean>(false);
   
   // Responsive sizing
   const [faceSize, setFaceSize] = useState(120);
@@ -73,23 +72,48 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     if (targetFace && targetFace > 0) {
       const newFaces = getChoices();
       setFaces(newFaces);
-      setLoadedImages(new Set()); // Reset loaded images
-      setAllImagesLoaded(false); // Reset loading state
+      setPreloadedImages({}); // Reset preloaded images
+      setImagesReady(false); // Reset loading state
       console.log('[Face1Recall] Generated faces:', newFaces, 'for target:', targetFace);
     }
   }, [getChoices, targetFace]);
 
-  // Check if all images are loaded
+  // Preload images to prevent flickering on iOS
   useEffect(() => {
-    if (faces.length > 0) {
-      const totalImages = faces.length;
-      const loadedCount = loadedImages.size + Object.keys(imageErrors).length;
+    const preloadImages = async () => {
+      const imagePromises = faces.map((faceNumber) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          
+          // For iOS, prefer PNG to avoid WebP issues
+          const isIOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+          img.src = isIOS ? `/images/Bild${faceNumber}.png` : `/images/Bild${faceNumber}.webp`;
+          
+          img.onload = () => {
+            setPreloadedImages(prev => ({ ...prev, [faceNumber]: true }));
+            resolve();
+          };
+          
+          img.onerror = () => {
+            // Try PNG fallback if WebP fails
+            if (!isIOS && img.src.includes('.webp')) {
+              img.src = `/images/Bild${faceNumber}.png`;
+            } else {
+              setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
+              resolve();
+            }
+          };
+        });
+      });
       
-      if (loadedCount >= totalImages) {
-        setAllImagesLoaded(true);
-      }
+      await Promise.allSettled(imagePromises);
+      setImagesReady(true);
+    };
+    
+    if (faces.length > 0) {
+      preloadImages();
     }
-  }, [faces.length, loadedImages.size, imageErrors]);
+  }, [faces]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -110,11 +134,11 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   }, []);
 
   const handleImageError = (faceNumber: number) => {
-    setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
+    // Error handling is now done in preloading
   };
 
   const handleImageLoad = (faceNumber: number) => {
-    setLoadedImages(prev => new Set(prev).add(faceNumber));
+    // Loading is now done in preloading
   };
 
   const handleFaceClick = useCallback((selectedFace: number) => {
@@ -124,9 +148,6 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     }
 
     console.log(`[Face1Recall] Face clicked: ${selectedFace}, Target: ${targetFace}`);
-
-    // Show click animation
-    setClickedFace(selectedFace);
 
     const currentLevel = face1Level || 1;
     const currentStreak = face1Streak || 0;
@@ -165,36 +186,29 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
       }
     }
 
-    // Navigate to next task after animation
-    setTimeout(() => {
-      setClickedFace(null);
-      if (navigateToNextTask) {
-        navigateToNextTask();
-      }
-    }, 200);
+    // Navigate immediately to prevent flickering
+    if (navigateToNextTask) {
+      navigateToNextTask();
+    }
   }, [addPoints, trackTaskAttempt, reduceMathLevelOnError, setFace1Level, setFace1Streak, navigateToNextTask, targetFace, face1Level, face1Streak]);
 
   const TaskContent = () => {
-    // Don't render until we have faces to show AND all images are loaded
-    if (!faces || faces.length === 0 || !allImagesLoaded) {
+    // Don't render until images are ready (prevents flickering)
+    if (!imagesReady && faces.length > 0) {
       return (
-        <div className="w-full h-full flex items-center justify-center bg-[#dfdfdfff]">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
-          {/* Preload images invisibly to track loading */}
-          {faces.length > 0 && (
-            <div className="absolute opacity-0 pointer-events-none">
-              {faces.map((faceNumber) => (
-                <OptimizedImage
-                  key={`preload-${faceNumber}`}
-                  faceNumber={faceNumber}
-                  alt={`Preload Face ${faceNumber}`}
-                  className="w-1 h-1"
-                  onLoad={() => handleImageLoad(faceNumber)}
-                  onError={() => handleImageError(faceNumber)}
-                />
-              ))}
-            </div>
-          )}
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-4"></div>
+            <p className="text-gray-600">{t('face1Recall.loading', 'Loading faces...')}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (faces.length === 0) {
+      return (
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
+          <p className="text-red-500">No faces available!</p>
         </div>
       );
     }
@@ -217,34 +231,26 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
             return (
               <button
                 key={faceNumber}
-                className={`relative border-2 rounded-lg overflow-hidden transition-all duration-200 border-gray-300 hover:border-gray-400 cursor-pointer ${
+                className={`relative border-2 rounded-lg overflow-hidden border-gray-300 hover:border-gray-400 cursor-pointer ${
                   hasError ? 'bg-gray-100' : 'bg-white'
-                } ${
-                  clickedFace === faceNumber ? 'scale-110' : 'scale-100'
                 }`}
                 style={{
                   width: `${faceSize}px`,
                   height: `${faceSize}px`,
                   pointerEvents: 'auto',
-                  zIndex: 1
-                }}
-                onMouseDown={() => console.log('[Face1Recall] MouseDown on face:', faceNumber)}
-                onMouseUp={() => {
-                  console.log('[Face1Recall] MouseUp on face:', faceNumber);
-                  console.log('[Face1Recall] Triggering handleFaceClick from MouseUp');
-                  handleFaceClick(faceNumber);
-                }}
-                onTouchStart={() => console.log('[Face1Recall] TouchStart on face:', faceNumber)}
-                onTouchEnd={() => {
-                  console.log('[Face1Recall] TouchEnd on face:', faceNumber);
-                  console.log('[Face1Recall] Triggering handleFaceClick from TouchEnd');
-                  handleFaceClick(faceNumber);
+                  zIndex: 1,
+                  WebkitTouchCallout: 'none',
+                  WebkitUserSelect: 'none'
                 }}
                 onClick={(e) => {
-                  console.log('[Face1Recall DEBUG] Button clicked for face:', faceNumber);
-                  console.log('[Face1Recall DEBUG] Event:', e);
-                  console.log('[Face1Recall DEBUG] Current target:', e.currentTarget);
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('[Face1Recall] Face clicked:', faceNumber);
                   handleFaceClick(faceNumber);
+                }}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  console.log('[Face1Recall] TouchStart on face:', faceNumber);
                 }}
                 disabled={false}
                 type="button"
@@ -262,25 +268,14 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
                     <p className="text-xs font-semibold text-gray-600">{faceNumber}</p>
                   </div>
                 ) : (
-                  <>
-                    <OptimizedImage
-                      faceNumber={faceNumber}
-                      alt={`Face ${faceNumber}`}
-                      className="w-full h-full object-cover pointer-events-none"
-                      onLoad={() => handleImageLoad(faceNumber)}
-                      onError={() => handleImageError(faceNumber)}
-                      data-face={faceNumber}
-                    />
-                    {/* DEBUG: Invisible click overlay */}
-                    <div 
-                      className="absolute inset-0 bg-transparent cursor-pointer z-10"
-                      onClick={() => {
-                        console.log('[Face1Recall] Overlay clicked for face:', faceNumber);
-                        handleFaceClick(faceNumber);
-                      }}
-                      title={`Click to select face ${faceNumber}`}
-                    />
-                  </>
+                  <OptimizedImage
+                    faceNumber={faceNumber}
+                    alt={`Face ${faceNumber}`}
+                    className="w-full h-full object-cover pointer-events-none"
+                    onLoad={() => handleImageLoad(faceNumber)}
+                    onError={() => handleImageError(faceNumber)}
+                    data-face={faceNumber}
+                  />
                 )}
               </button>
             );
