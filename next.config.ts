@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
   // Allow cross-origin access for testing
   ...(process.env.NODE_ENV === "development" && {
     allowedDevOrigins: [
-      "192.168.178.122",
+      "192.168.8.100",
       "localhost", 
       "127.0.0.1"
     ]
