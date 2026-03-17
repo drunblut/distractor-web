@@ -176,7 +176,7 @@ export default function MathTaskModal({ isOpen, onComplete, onClose }: MathTaskM
                   autoFocus
                   autoComplete="off"
                   autoCorrect="off"
-                  className={`w-16 h-16 text-3xl font-bold text-center border-2 rounded-lg transition-all duration-300 ${
+                  className={`w-16 h-16 text-4xl font-bold text-center border-2 rounded-lg transition-all duration-300 ${
                     isAnswered
                       ? parseInt(inputValue) === currentProblem.correctAnswer
                         ? 'border-green-500 bg-green-50 text-green-700'

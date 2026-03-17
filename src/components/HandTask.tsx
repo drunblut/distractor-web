@@ -324,7 +324,7 @@ export default function HandTask({ onComplete }: HandTaskProps) {
                         WebkitTapHighlightColor: 'rgba(0,123,255,0.2)',
                         WebkitUserSelect: 'text'
                       }}
-                      className={`math-input w-20 h-12 text-3xl font-bold text-center border-2 rounded-lg cursor-pointer transition-all
+                      className={`math-input w-20 h-12 text-4xl font-bold text-center border-2 rounded-lg cursor-pointer transition-all
                         ${mathAnswered 
                           ? 'bg-gray-100 border-gray-300 text-gray-600'
                           : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
