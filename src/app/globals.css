@@ -46,14 +46,17 @@ input, textarea, p, span {
 button {
   cursor: pointer;
   touch-action: manipulation;
+  user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
 
 /* Math inputs - iOS 26 specific */
 .math-input {
-  font-size: 2.25rem !important; /* text-4xl equivalent */
+  font-size: 2.1rem !important; /* text-4xl equivalent */
+  appearance: none;
   -webkit-appearance: none;
+  user-select: text;
   -webkit-user-select: text;
   touch-action: manipulation;
 }

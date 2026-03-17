@@ -110,8 +110,8 @@ export default function TaskExamples({ onClose }: TaskExamplesProps) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full overflow-y-auto">
+        <div className="flex-1 overflow-y-auto p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {taskItems.map((task) => (
               <div 
                 key={task.key}
