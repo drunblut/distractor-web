@@ -30,6 +30,7 @@ const nextConfig: NextConfig = {
   ...(process.env.NODE_ENV === "development" && {
     allowedDevOrigins: [
       "192.168.8.100",
+      "192.168.8.102",
       "localhost", 
       "127.0.0.1"
     ]
