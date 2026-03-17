@@ -52,7 +52,6 @@ button {
 
 /* Math inputs - iOS 26 specific */
 .math-input {
-  font-size: 16px !important;
   -webkit-appearance: none;
   -webkit-user-select: text;
   touch-action: manipulation;
