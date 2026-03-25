@@ -17,31 +17,35 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onError,
   'data-face': dataFace,
 }) => {
-  // Check if iOS device
+  // Enhanced iOS detection including iPad Pro
   const isIOS = typeof window !== 'undefined' && 
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
+    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
   
-  // Use PNG by default on iOS to avoid WebP issues
+  // iOS prefers PNG, others can use WebP
   const [useWebP, setUseWebP] = useState(!isIOS);
+  const [hasError, setHasError] = useState(false);
 
   const handleError = () => {
-    if (useWebP) {
-      // Try PNG version if WebP fails
+    console.log(`[OptimizedImage] Load error for Bild${faceNumber}, useWebP: ${useWebP}, isIOS: ${isIOS}`);
+    
+    if (useWebP && !isIOS) {
+      // Try PNG version if WebP fails on non-iOS
       setUseWebP(false);
     } else {
-      // PNG also failed, call parent error handler
+      // PNG also failed or iOS error, call parent error handler
+      setHasError(true);
       onError?.();
     }
   };
 
   const getImageSrc = () => {
-    if (useWebP && !isIOS) {
-      // Try WebP first (best compression) - but not on iOS
-      return `/images/Bild${faceNumber}.webp`;
+    // iOS always uses PNG, others try WebP first
+    if (isIOS || !useWebP || hasError) {
+      return `/images/Bild${faceNumber}.png`;
     }
     
-    // Use optimized PNG (now in main images folder)
-    return `/images/Bild${faceNumber}.png`;
+    return `/images/Bild${faceNumber}.webp`;
   };
 
   return (

@@ -964,54 +964,99 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     });
   });
 
-  // Image preloading function
+  // Image preloading function with iOS optimization
   const preloadImages = async () => {
     const imagePromises: Promise<void>[] = [];
     let loadedCount = 0;
     
-    // Face images (Bild1-Bild69)
-    const faceImages = Array.from({ length: 69 }, (_, i) => `Bild${i + 1}.webp`);
+    // Detect iOS device
+    const isIOS = typeof window !== 'undefined' && 
+      (/iPad|iPhone|iPod/.test(navigator.userAgent) || 
+       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+    
+    console.log('[PRELOAD] Device detection - iOS:', isIOS);
+    
+    // Face images (Bild1-Bild69) - prioritize based on phases
+    const phase1FaceImages = Array.from({ length: 20 }, (_, i) => `Bild${i + 1}`);
+    const phase2FaceImages = Array.from({ length: 25 }, (_, i) => `Bild${i + 21}`);
+    const phase3FaceImages = Array.from({ length: 24 }, (_, i) => `Bild${i + 46}`);
     
     // Faden images (Faden1-Faden6)
-    const fadenImages = Array.from({ length: 6 }, (_, i) => `Faden${i + 1}.webp`);
+    const fadenImages = Array.from({ length: 6 }, (_, i) => `Faden${i + 1}`);
     
     // Hand images (all combinations)
     const handTypes = ['Linksaussen', 'Linksinnen', 'Rechtsaussen', 'Rechtsinnen'];
     const handRotations = ['0', '90', '180', '270'];
     const handImages = handTypes.flatMap(type => 
-      handRotations.map(rotation => `${type}_${rotation}.webp`)
+      handRotations.map(rotation => `${type}_${rotation}`)
     );
     
-    const allImages = [...faceImages, ...fadenImages, ...handImages];
-    const totalImages = allImages.length;
+    // Priority loading for iOS: Load only Phase 1 images initially
+    const initialImages = isIOS 
+      ? [...phase1FaceImages.slice(0, 10), ...fadenImages.slice(0, 3), ...handImages.slice(0, 8)]
+      : [...phase1FaceImages, ...phase2FaceImages.slice(0, 10), ...fadenImages, ...handImages.slice(0, 8)];
     
-    console.log(`[PRELOAD] Starting to preload ${totalImages} images...`);
+    const totalImages = isIOS ? initialImages.length : 91;
+    
+    console.log(`[PRELOAD] ${isIOS ? 'iOS' : 'Desktop'} mode - Starting to preload ${totalImages} images...`);
     setLoadingText(`Lade Bilder... (0/${totalImages})`);
     
-    allImages.forEach((imageName) => {
-      const promise = new Promise<void>((resolve) => {
+    const createImagePromise = (imageName: string, isHandImage: boolean = false) => {
+      return new Promise<void>((resolve) => {
         const img = new Image();
+        
+        // iOS-optimized loading strategy
         img.onload = () => {
-          loadedCount++;
-          setLoadingProgress((loadedCount / totalImages) * 80); // 80% for images
-          setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
-          resolve();
-        };
-        img.onerror = () => {
-          console.warn(`[PRELOAD] Failed to load: ${imageName}`);
           loadedCount++;
           setLoadingProgress((loadedCount / totalImages) * 80);
           setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
           resolve();
         };
-        img.src = `/images/${imageName}`;
+        
+        img.onerror = () => {
+          console.warn(`[PRELOAD] Failed to load: ${imageName}`);
+          // Try PNG fallback for iOS
+          if (isIOS && img.src.includes('.webp')) {
+            const imageExtension = isHandImage ? '.webp' : '.png';
+            img.src = `/images/${imageName}${imageExtension}`;
+          } else {
+            loadedCount++;
+            setLoadingProgress((loadedCount / totalImages) * 80);
+            setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
+            resolve();
+          }
+        };
+        
+        // Choose format based on device and image type
+        const imageExtension = isHandImage 
+          ? '.webp' // Hand images only in WebP
+          : (isIOS ? '.png' : '.webp'); // Face/Faden: PNG for iOS, WebP for others
+        
+        img.src = `/images/${imageName}${imageExtension}`;
       });
-      
-      imagePromises.push(promise);
+    };
+    
+    // Create promises for initial images
+    initialImages.forEach((imageName) => {
+      const isHandImage = handImages.includes(imageName);
+      imagePromises.push(createImagePromise(imageName, isHandImage));
     });
     
     await Promise.all(imagePromises);
     console.log(`[PRELOAD] Successfully preloaded ${loadedCount}/${totalImages} images`);
+    
+    // On iOS, preload remaining images in background after app start
+    if (isIOS) {
+      setTimeout(() => {
+        console.log('[PRELOAD] Starting background preload for remaining images...');
+        const backgroundImages = [...phase2FaceImages, ...phase3FaceImages];
+        
+        backgroundImages.forEach((imageName) => {
+          const img = new Image();
+          img.src = `/images/${imageName}.png`;
+        });
+      }, 2000); // 2 second delay
+    }
   };
 
   // Stable wrapper components using useRef to prevent re-creation

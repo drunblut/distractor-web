@@ -78,15 +78,21 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     }
   }, [getChoices, targetFace]);
 
-  // Preload images to prevent flickering on iOS
+  // Preload images to prevent flickering on iOS  
   useEffect(() => {
     const preloadImages = async () => {
+      // Enhanced iOS detection including iPad Pro
+      const isIOS = typeof window !== 'undefined' && 
+        (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+      
+      console.log('[Face1Recall] iOS detected:', isIOS, 'Preloading', faces.length, 'faces');
+      
       const imagePromises = faces.map((faceNumber) => {
         return new Promise<void>((resolve) => {
           const img = new Image();
           
-          // For iOS, prefer PNG to avoid WebP issues
-          const isIOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+          // iOS uses PNG, others use WebP
           img.src = isIOS ? `/images/Bild${faceNumber}.png` : `/images/Bild${faceNumber}.webp`;
           
           img.onload = () => {
@@ -95,7 +101,8 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
           };
           
           img.onerror = () => {
-            // Try PNG fallback if WebP fails
+            console.warn(`[Face1Recall] Failed to load Bild${faceNumber} (${isIOS ? 'PNG' : 'WebP'})`);
+            // Try PNG fallback for non-iOS devices
             if (!isIOS && img.src.includes('.webp')) {
               img.src = `/images/Bild${faceNumber}.png`;
             } else {
@@ -108,6 +115,7 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
       
       await Promise.allSettled(imagePromises);
       setImagesReady(true);
+      console.log('[Face1Recall] Preloading completed for', faces.length, 'images');
     };
     
     if (faces.length > 0) {

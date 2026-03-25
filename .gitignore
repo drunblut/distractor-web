@@ -4,6 +4,15 @@
 /experimental/
 /src/app/progressive/
 
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+*.tmp
+
+# Database files (user-specific)
+/data/results.db
+/data/*.db
+
 # dependencies
 /node_modules
 /.pnp
