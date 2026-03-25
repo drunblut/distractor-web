@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
     allowedDevOrigins: [
       "192.168.8.100",
       "192.168.8.102",
+      "192.168.178.122", // Add current network IP
       "localhost", 
       "127.0.0.1"
     ]
