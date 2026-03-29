@@ -23,10 +23,6 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   } = contextValue || {};
   const { t } = useTranslation();
   
-  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
-  const [preloadedImages, setPreloadedImages] = useState<{[key: number]: boolean}>({});
-  const [imagesReady, setImagesReady] = useState<boolean>(false);
-  
   // Responsive sizing
   const [faceSize, setFaceSize] = useState(120);
 
@@ -72,56 +68,11 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
     if (targetFace && targetFace > 0) {
       const newFaces = getChoices();
       setFaces(newFaces);
-      setPreloadedImages({}); // Reset preloaded images
-      setImagesReady(false); // Reset loading state
       console.log('[Face1Recall] Generated faces:', newFaces, 'for target:', targetFace);
     }
   }, [getChoices, targetFace]);
 
-  // Preload images to prevent flickering on iOS  
-  useEffect(() => {
-    const preloadImages = async () => {
-      // Enhanced iOS detection including iPad Pro
-      const isIOS = typeof window !== 'undefined' && 
-        (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
-      
-      console.log('[Face1Recall] iOS detected:', isIOS, 'Preloading', faces.length, 'faces');
-      
-      const imagePromises = faces.map((faceNumber) => {
-        return new Promise<void>((resolve) => {
-          const img = new Image();
-          
-          // iOS uses PNG, others use WebP
-          img.src = isIOS ? `/images/Bild${faceNumber}.png` : `/images/Bild${faceNumber}.webp`;
-          
-          img.onload = () => {
-            setPreloadedImages(prev => ({ ...prev, [faceNumber]: true }));
-            resolve();
-          };
-          
-          img.onerror = () => {
-            console.warn(`[Face1Recall] Failed to load Bild${faceNumber} (${isIOS ? 'PNG' : 'WebP'})`);
-            // Try PNG fallback for non-iOS devices
-            if (!isIOS && img.src.includes('.webp')) {
-              img.src = `/images/Bild${faceNumber}.png`;
-            } else {
-              setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
-              resolve();
-            }
-          };
-        });
-      });
-      
-      await Promise.allSettled(imagePromises);
-      setImagesReady(true);
-      console.log('[Face1Recall] Preloading completed for', faces.length, 'images');
-    };
-    
-    if (faces.length > 0) {
-      preloadImages();
-    }
-  }, [faces]);
+
 
   useEffect(() => {
     const updateSize = () => {
@@ -201,18 +152,6 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
   }, [addPoints, trackTaskAttempt, reduceMathLevelOnError, setFace1Level, setFace1Streak, navigateToNextTask, targetFace, face1Level, face1Streak]);
 
   const TaskContent = () => {
-    // Don't render until images are ready (prevents flickering)
-    if (!imagesReady && faces.length > 0) {
-      return (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-4"></div>
-            <p className="text-gray-600">{t('face1Recall.loading', 'Loading faces...')}</p>
-          </div>
-        </div>
-      );
-    }
-
     if (faces.length === 0) {
       return (
         <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
@@ -234,14 +173,10 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
             'grid-cols-2 sm:grid-cols-4'
           }`}>
           {faces.map((faceNumber) => {
-            const hasError = imageErrors[faceNumber];
-            
             return (
               <button
                 key={faceNumber}
-                className={`relative border-2 rounded-lg overflow-hidden border-gray-300 hover:border-gray-400 cursor-pointer ${
-                  hasError ? 'bg-gray-100' : 'bg-white'
-                }`}
+                className="relative border-2 rounded-lg overflow-hidden border-gray-300 hover:border-gray-400 cursor-pointer bg-white"
                 style={{
                   width: `${faceSize}px`,
                   height: `${faceSize}px`,
@@ -263,28 +198,12 @@ export default function Face1Recall({ onComplete }: Face1RecallProps) {
                 disabled={false}
                 type="button"
               >
-                {hasError ? (
-                  // Fallback placeholder if image is missing
-                  <div 
-                    className="w-full h-full flex flex-col items-center justify-center"
-                    onClick={() => {
-                      console.log('[Face1Recall] Fallback div clicked:', faceNumber);
-                      handleFaceClick(faceNumber);
-                    }}
-                  >
-                    <div className="text-3xl text-gray-400 mb-1">👤</div>
-                    <p className="text-xs font-semibold text-gray-600">{faceNumber}</p>
-                  </div>
-                ) : (
-                  <OptimizedImage
-                    faceNumber={faceNumber}
-                    alt={`Face ${faceNumber}`}
-                    className="w-full h-full object-cover pointer-events-none"
-                    onLoad={() => handleImageLoad(faceNumber)}
-                    onError={() => handleImageError(faceNumber)}
-                    data-face={faceNumber}
-                  />
-                )}
+                <OptimizedImage
+                  faceNumber={faceNumber}
+                  alt={`Face ${faceNumber}`}
+                  className="w-full h-full object-cover pointer-events-none"
+                  data-face={faceNumber}
+                />
               </button>
             );
           })}

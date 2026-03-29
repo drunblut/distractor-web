@@ -55,9 +55,7 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
     }
   }, [face2Level, initialLevel]);
   // Image loading states
-  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-  const [allImagesLoaded, setAllImagesLoaded] = useState<boolean>(false);
+
   const [initialized, setInitialized] = useState(false);
   const initializationAttempted = useRef(false);
   
@@ -370,48 +368,11 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
     }
   }, [originalFaces.length, currentFaces.length, initialized]); // Use lengths to avoid deep comparison
 
-  // Check if all images are loaded
-  useEffect(() => {
-    if (currentFaces.length > 0) {
-      const totalImages = currentFaces.length;
-      const loadedCount = loadedImages.size + Object.keys(imageErrors).length;
-      
-      if (loadedCount >= totalImages) {
-        setAllImagesLoaded(true);
-      } else {
-        setAllImagesLoaded(false);
-      }
-    }
-  }, [currentFaces.length, loadedImages.size, imageErrors]);
-
-  const handleImageLoad = (faceNumber: number) => {
-    setLoadedImages(prev => new Set(prev).add(faceNumber));
-  };
-
-  const handleImageError = (faceNumber: number) => {
-    setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
-  };
-
-  // Don't render main content until all images are loaded
-  if (!initialized || currentFaces.length === 0 || !allImagesLoaded) {
+  // Simple loading check
+  if (!initialized || currentFaces.length === 0) {
     return (
       <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
-        {/* Preload images invisibly to track loading */}
-        {currentFaces.length > 0 && (
-          <div className="absolute opacity-0 pointer-events-none">
-            {currentFaces.map((faceNumber) => (
-              <OptimizedImage
-                key={`preload-${faceNumber}`}
-                faceNumber={faceNumber}
-                alt={`Preload Face2 ${faceNumber}`}
-                className="w-1 h-1"
-                onLoad={() => handleImageLoad(faceNumber)}
-                onError={() => handleImageError(faceNumber)}
-              />
-            ))}
-          </div>
-        )}
       </div>
     );
   }
@@ -436,17 +397,11 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
           totalImages === 6 ? 'grid-cols-2 sm:grid-cols-3' :
           'grid-cols-2 sm:grid-cols-3'
         }`}>
-          {currentFaces.map((faceNumber) => {
-            const hasError = imageErrors[faceNumber];
-            
+          {currentFaces.map((faceNumber) => {            
             return (
               <button
                 key={faceNumber}
-                className={`relative border-2 rounded-lg overflow-hidden transition-all duration-200 ${
-                  hasError 
-                    ? 'bg-gray-100 border-gray-300' 
-                    : 'bg-white border-gray-300 hover:border-gray-400 hover:scale-105'
-                } ${
+                className={`relative border-2 rounded-lg overflow-hidden transition-all duration-200 bg-white border-gray-300 hover:border-gray-400 hover:scale-105 ${
                   clickedFace === faceNumber ? 'scale-125' : 'scale-100'
                 }`}
                 style={{
@@ -455,21 +410,12 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
                 }}
                 onClick={() => handleFaceClick(faceNumber)}
               >
-                {hasError ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center">
-                    <div className="text-2xl text-gray-400 mb-1">👤</div>
-                    <p className="text-xs font-semibold text-gray-600">F2-{faceNumber}</p>
-                  </div>
-                ) : (
-                  <OptimizedImage
-                    faceNumber={faceNumber}
-                    alt={`Face2 ${faceNumber}`}
-                    className="w-full h-full object-cover"
-                    onLoad={() => handleImageLoad(faceNumber)}
-                    onError={() => handleImageError(faceNumber)}
-                    data-face={faceNumber}
-                  />
-                )}
+                <OptimizedImage
+                  faceNumber={faceNumber}
+                  alt={`Face2 ${faceNumber}`}
+                  className="w-full h-full object-cover"
+                  data-face={faceNumber}
+                />
               </button>
             );
           })}

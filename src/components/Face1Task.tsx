@@ -23,7 +23,7 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
   }
 
   const [targetFace, setTargetFace] = useState<number>(0);
-  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+  const [isReady, setIsReady] = useState<boolean>(false);
   
   // Inline Math Task state
   const [showMathTask, setShowMathTask] = useState(false);
@@ -62,8 +62,8 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
   };
 
   const initializeFace1Task = () => {
-    // Reset image loaded state when generating new target
-    setImageLoaded(false);
+    // Reset ready state when generating new target
+    setIsReady(false);
     
     // Select a random face number from all available faces (1-69)
     const faceNumber = getRandomInt(1, 69);
@@ -76,6 +76,11 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     if (setFace1Data) {
       setFace1Data({ targetFace: faceNumber });
     }
+    
+    // Simple 500ms delay instead of complex preloading
+    setTimeout(() => {
+      setIsReady(true);
+    }, 500);
   };
 
   useEffect(() => {
@@ -146,23 +151,11 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
     }
   };
 
-  // Don't render main content until we have a target face AND the image is loaded
-  if (targetFace === 0 || !imageLoaded) {
+  // Simple loading delay instead of complex preloading
+  if (targetFace === 0 || !isReady) {
     return (
       <div className="min-h-screen bg-[#dfdfdfff] flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
-        {/* Preload the image invisibly to track loading */}
-        {targetFace !== 0 && (
-          <div className="absolute opacity-0 pointer-events-none">
-            <OptimizedImage
-              faceNumber={targetFace}
-              alt={`Preload Face ${targetFace}`}
-              className="w-1 h-1"
-              onLoad={() => setImageLoaded(true)}
-              onError={() => setImageLoaded(true)} // Show content even if image fails
-            />
-          </div>
-        )}
       </div>
     );
   }
@@ -190,8 +183,6 @@ export default function Face1Task({ onComplete }: Face1TaskProps) {
                 faceNumber={targetFace}
                 alt={`Face ${targetFace}`}
                 className="w-full h-full object-contain"
-                onLoad={() => setImageLoaded(true)}
-                onError={() => setImageLoaded(true)}
               />
             </div>
           </div>

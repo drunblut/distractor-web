@@ -297,7 +297,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [taskQueue, setTaskQueue] = useState<string[]>([]);
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(1);
-  const [phaseTimer, setPhaseTimer] = useState(180); // Phase 1: 180 Sekunden
+  const [phaseTimer, setPhaseTimer] = useState(20); // Phase 1: 20 Sekunden (Test)
   const [isPhaseActive, setIsPhaseActive] = useState(true);
   const [pendingPhaseChange, setPendingPhaseChange] = useState<number | null>(null);
   
@@ -763,7 +763,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         console.log('[PHASE DEBUG] Phase 1 completed - switching to Phase 2');
         completePhase(); // Save Phase 1 results
         setCurrentPhase(2);
-        setPhaseTimer(180); // 180 Sekunden für Phase 2
+        setPhaseTimer(30); // 30 Sekunden für Phase 2 (für Tests)
         const phase2Queue = generateTaskQueue(2);
         console.log('[PHASE 2 QUEUE] Generated Phase 2 queue with tasks:', phase2Queue);
         console.log('[PHASE 2 QUEUE] Queue length:', phase2Queue.length);
@@ -777,7 +777,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setTaskQueue(phase2Queue);
         setCurrentTaskIndex(0);
         setCurrentTask(phase2Queue[0]);
-        console.log('[PHASE DEBUG] Successfully moved to Phase 2 (180 seconds) - Starting with:', phase2Queue[0]);
+        console.log('[PHASE DEBUG] Successfully moved to Phase 2 (30 seconds) - Starting with:', phase2Queue[0]);
         return true; // Phase change executed
       } else if (targetPhase === 3) {
         console.log('[PHASE DEBUG] Phase 2 completed - switching to Phase 3');
@@ -964,17 +964,26 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     });
   });
 
-  // Image preloading function with iOS optimization
+  // Image preloading function with iOS/Android optimization
   const preloadImages = async () => {
     const imagePromises: Promise<void>[] = [];
     let loadedCount = 0;
+    let failedCount = 0;
+    const failedImages: string[] = [];
     
-    // Detect iOS device
-    const isIOS = typeof window !== 'undefined' && 
-      (/iPad|iPhone|iPod/.test(navigator.userAgent) || 
-       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+    // Detect mobile devices (iOS and Android) - fixed detection  
+    const isIOS = typeof window !== 'undefined' && (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      // Only detect iPad Pro with touch support, not all MacIntel devices  
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchstart' in window)
+    );
     
-    console.log('[PRELOAD] Device detection - iOS:', isIOS);
+    const isAndroid = typeof window !== 'undefined' && 
+      /Android/.test(navigator.userAgent);
+    
+    const isMobile = isIOS || isAndroid;
+    
+    console.log('[PRELOAD] Device detection - iOS:', isIOS, 'Android:', isAndroid, 'Mobile:', isMobile);
     
     // Face images (Bild1-Bild69) - prioritize based on phases
     const phase1FaceImages = Array.from({ length: 20 }, (_, i) => `Bild${i + 1}`);
@@ -991,48 +1000,53 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       handRotations.map(rotation => `${type}_${rotation}`)
     );
     
-    // Priority loading for iOS: Load only Phase 1 images initially
-    const initialImages = isIOS 
-      ? [...phase1FaceImages.slice(0, 10), ...fadenImages.slice(0, 3), ...handImages.slice(0, 8)]
-      : [...phase1FaceImages, ...phase2FaceImages.slice(0, 10), ...fadenImages, ...handImages.slice(0, 8)];
+    // Load ALL images on all devices for consistent experience
+    // Mobile users can wait a bit longer for complete reliability
+    const initialImages = [...phase1FaceImages, ...phase2FaceImages, ...phase3FaceImages, ...fadenImages, ...handImages];
     
-    const totalImages = isIOS ? initialImages.length : 91;
+    const totalImages = initialImages.length;
     
-    console.log(`[PRELOAD] ${isIOS ? 'iOS' : 'Desktop'} mode - Starting to preload ${totalImages} images...`);
-    setLoadingText(`Lade Bilder... (0/${totalImages})`);
+    console.log(`[PRELOAD] ${isMobile ? (isIOS ? 'iOS' : 'Android') : 'Desktop'} mode - Loading ALL ${totalImages} images...`);
+    setLoadingText(`Lade alle Bilder... (0/${totalImages})`);
     
     const createImagePromise = (imageName: string, isHandImage: boolean = false) => {
       return new Promise<void>((resolve) => {
         const img = new Image();
         
-        // iOS-optimized loading strategy
+        // Choose format based on device and image type
+        const imageExtension = isHandImage 
+          ? '.webp' // Hand images only in WebP (supported on all devices)
+          : (isMobile ? '.png' : '.webp'); // Face/Faden: PNG for mobile, WebP for desktop
+        
+        const imagePath = `/images/${imageName}${imageExtension}`;
+        
+        // Mobile-optimized loading strategy
         img.onload = () => {
           loadedCount++;
           setLoadingProgress((loadedCount / totalImages) * 80);
           setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
+          console.log(`[PRELOAD] ✓ Loaded: ${imagePath}`);
           resolve();
         };
         
         img.onerror = () => {
-          console.warn(`[PRELOAD] Failed to load: ${imageName}`);
-          // Try PNG fallback for iOS
-          if (isIOS && img.src.includes('.webp')) {
-            const imageExtension = isHandImage ? '.webp' : '.png';
-            img.src = `/images/${imageName}${imageExtension}`;
+          failedCount++;
+          failedImages.push(imagePath);
+          console.warn(`[PRELOAD] ✗ Failed to load: ${imagePath}`);
+          // Try PNG fallback for mobile devices
+          if (isMobile && img.src.includes('.webp')) {
+            const fallbackPath = `/images/${imageName}.png`;
+            console.log(`[PRELOAD] Trying PNG fallback: ${fallbackPath}`);
+            img.src = fallbackPath;
           } else {
-            loadedCount++;
-            setLoadingProgress((loadedCount / totalImages) * 80);
+            // Count as processed but failed
+            setLoadingProgress(((loadedCount + failedCount) / totalImages) * 80);
             setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
             resolve();
           }
         };
         
-        // Choose format based on device and image type
-        const imageExtension = isHandImage 
-          ? '.webp' // Hand images only in WebP
-          : (isIOS ? '.png' : '.webp'); // Face/Faden: PNG for iOS, WebP for others
-        
-        img.src = `/images/${imageName}${imageExtension}`;
+        img.src = imagePath;
       });
     };
     
@@ -1043,20 +1057,13 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     });
     
     await Promise.all(imagePromises);
-    console.log(`[PRELOAD] Successfully preloaded ${loadedCount}/${totalImages} images`);
-    
-    // On iOS, preload remaining images in background after app start
-    if (isIOS) {
-      setTimeout(() => {
-        console.log('[PRELOAD] Starting background preload for remaining images...');
-        const backgroundImages = [...phase2FaceImages, ...phase3FaceImages];
-        
-        backgroundImages.forEach((imageName) => {
-          const img = new Image();
-          img.src = `/images/${imageName}.png`;
-        });
-      }, 2000); // 2 second delay
+    console.log(`[PRELOAD] Preloading completed:`);
+    console.log(`[PRELOAD] ✓ Successfully loaded: ${loadedCount}/${totalImages} images`);
+    if (failedCount > 0) {
+      console.log(`[PRELOAD] ✗ Failed to load: ${failedCount} images`);
+      console.log(`[PRELOAD] Failed images:`, failedImages);
     }
+    console.log(`[PRELOAD] All images loaded at startup - no background loading needed`);
   };
 
   // Stable wrapper components using useRef to prevent re-creation
@@ -1159,14 +1166,14 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setLoadingProgress(90);
         
         // Final setup
-        setLoadingText('Fertigstellung...');
+        setLoadingText('Alle Bilder erfolgreich geladen! Fertigstellung...');
         await new Promise(resolve => setTimeout(resolve, 500)); // Brief pause for smooth UX
         setLoadingProgress(100);
         
         // Mark as fully loaded
         setTimeout(() => {
           setIsLoading(false);
-          console.log('[INIT] App fully initialized and ready!');
+          console.log('[INIT] App fully initialized and ready with all images preloaded!');
         }, 200);
         
       } catch (error) {

@@ -30,8 +30,9 @@ const nextConfig: NextConfig = {
   ...(process.env.NODE_ENV === "development" && {
     allowedDevOrigins: [
       "192.168.8.100",
-      "192.168.8.102",
-      "192.168.178.122", // Add current network IP
+      "192.168.8.102", 
+      "192.168.178.122",
+      "192.168.0.220", // Add current network IP for Android testing
       "localhost", 
       "127.0.0.1"
     ]

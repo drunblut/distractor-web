@@ -17,10 +17,12 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onError,
   'data-face': dataFace,
 }) => {
-  // Enhanced iOS detection including iPad Pro
-  const isIOS = typeof window !== 'undefined' && 
-    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
-     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+  // Enhanced iOS detection including iPad Pro - fixed detection
+  const isIOS = typeof window !== 'undefined' && (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    // Only detect iPad Pro with touch support, not all MacIntel devices
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchstart' in window)
+  );
   
   // iOS prefers PNG, others can use WebP
   const [useWebP, setUseWebP] = useState(!isIOS);

@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalProvider, GlobalContext } from '../../context/GlobalContext';
+import MobileErrorBoundary from '../../components/MobileErrorBoundary';
 import StartScreen from '../../components/StartScreen';
 import MoodScreen from '../../components/MoodScreen';
 import LanguageSelector from '../../components/LanguageSelector';
@@ -25,6 +26,9 @@ import DebugConsole from '../../components/DebugConsole';
 
 // Import i18n configuration
 import '../../config/i18n';
+
+// Import mobile optimizations
+import '../../utils/mobileOptimizations';
 
 // Loading Indicator Component
 function LoadingIndicator({ message }: { message: string }) {
@@ -594,10 +598,12 @@ function DesktopNavigationApp() {
 
 export default function DesktopPage() {
   return (
-    <GlobalProvider>
-      <ContextChecker>
-        <DesktopNavigationApp />
-      </ContextChecker>
-    </GlobalProvider>
+    <MobileErrorBoundary>
+      <GlobalProvider>
+        <ContextChecker>
+          <DesktopNavigationApp />
+        </ContextChecker>
+      </GlobalProvider>
+    </MobileErrorBoundary>
   );
 }

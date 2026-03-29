@@ -2,6 +2,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalContext } from '../context/GlobalContext';
+import OptimizedImage from './OptimizedImage';
 
 interface Face2RecallProps {
   onComplete?: () => void;
@@ -22,9 +23,7 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
   } = contextValue || {};
   const { t } = useTranslation();
   
-  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-  const [allImagesLoaded, setAllImagesLoaded] = useState<boolean>(false);
+
   const [selectedFaces, setSelectedFaces] = useState<Set<number>>(new Set());
   const [isCompleted, setIsCompleted] = useState(false);
   
@@ -85,25 +84,7 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
     }
   }, []);
 
-  // Check if all images are loaded
-  useEffect(() => {
-    if (choices.length > 0) {
-      const totalImages = choices.length;
-      const loadedCount = loadedImages.size + Object.keys(imageErrors).length;
-      
-      if (loadedCount >= totalImages) {
-        setAllImagesLoaded(true);
-      }
-    }
-  }, [choices.length, loadedImages.size, imageErrors]);
 
-  const handleImageError = (faceNumber: number) => {
-    setImageErrors(prev => ({ ...prev, [faceNumber]: true }));
-  };
-
-  const handleImageLoad = (faceNumber: number) => {
-    setLoadedImages(prev => new Set(prev).add(faceNumber));
-  };
 
   const handleFaceClick = (selectedFace: number) => {
     if (isCompleted) return;
@@ -174,29 +155,7 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
     }, 1500);
   };
 
-  // Don't render main content until all images are loaded
-  if (!allImagesLoaded) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
-        {/* Preload images invisibly to track loading */}
-        {choices.length > 0 && (
-          <div className="absolute opacity-0 pointer-events-none">
-            {choices.map((faceNumber) => (
-              <img
-                key={`preload-${faceNumber}`}
-                src={`/images/Bild${faceNumber}.png`}
-                alt={`Preload Face2 ${faceNumber}`}
-                className="w-1 h-1"
-                onLoad={() => handleImageLoad(faceNumber)}
-                onError={() => handleImageError(faceNumber)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
+
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 sm:p-8 bg-[#dfdfdfff]">
@@ -213,7 +172,6 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
           'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
         }`}>
           {choices.map((faceNumber) => {
-            const hasError = imageErrors[faceNumber];
             const isSelected = selectedFaces.has(faceNumber);
             const isTarget = targetFaces.includes(faceNumber);
             const isCorrectSelection = isCompleted && isSelected && isTarget;
@@ -224,7 +182,6 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
               <button
                 key={faceNumber}
                 className={`relative border-2 rounded-lg overflow-hidden transition-all duration-200 ${
-                  hasError ? 'bg-gray-100 border-gray-300' : 
                   isCorrectSelection ? 'border-green-500 bg-green-50' :
                   isIncorrectSelection ? 'border-red-500 bg-red-50' :
                   isMissed ? 'border-orange-500 bg-orange-50' :
@@ -238,21 +195,12 @@ export default function Face2Recall({ onComplete }: Face2RecallProps) {
                 onClick={() => handleFaceClick(faceNumber)}
                 disabled={isCompleted}
               >
-                {hasError ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center">
-                    <div className="text-2xl text-gray-400 mb-1">👤</div>
-                    <p className="text-xs font-semibold text-gray-600">F2-{faceNumber}</p>
-                  </div>
-                ) : (
-                  <img
-                    src={`/images/Bild${faceNumber}.png`}
-                    alt={`Face2 ${faceNumber}`}
-                    className="w-full h-full object-cover"
-                    onLoad={() => handleImageLoad(faceNumber)}
-                    onError={() => handleImageError(faceNumber)}
-                    data-face={faceNumber}
-                  />
-                )}
+                <OptimizedImage
+                  faceNumber={faceNumber}
+                  alt={`Face2 ${faceNumber}`}
+                  className="w-full h-full object-cover"
+                  data-face={faceNumber}
+                />
                 
                 {/* Selection indicator */}
                 {isSelected && !isCompleted && (
