@@ -24,72 +24,70 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchstart' in window)
   );
   
-  // Debug info for iOS testing
-  if (typeof window !== 'undefined' && isIOS) {
-    console.log(`[OptimizedImage DEBUG] iOS Device - Face${faceNumber}:`, {
-      userAgent: navigator.userAgent,
-      platform: navigator.platform,
-      maxTouchPoints: navigator.maxTouchPoints,
-      hasTouch: 'ontouchstart' in window,
-      isIOS: isIOS
-    });
-  }
-  
   // iOS prefers PNG, others can use WebP
   const [useWebP, setUseWebP] = useState(!isIOS);
   const [hasError, setHasError] = useState(false);
+  const [loadStatus, setLoadStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
 
   const handleError = () => {
-    console.log(`[OptimizedImage ERROR] Face${faceNumber} load failed:`, {
-      useWebP: useWebP,
-      isIOS: isIOS,
-      userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'N/A',
-      currentSrc: getImageSrc()
-    });
+    setLoadStatus('error');
     
     if (useWebP && !isIOS) {
       // Try PNG version if WebP fails on non-iOS
-      console.log(`[OptimizedImage] Falling back to PNG for Face${faceNumber}`);
       setUseWebP(false);
+      setLoadStatus('loading');
     } else {
       // PNG also failed or iOS error, call parent error handler
-      console.log(`[OptimizedImage] PNG failed for Face${faceNumber} - setting hasError`);
       setHasError(true);
       onError?.();
     }
   };
 
+  const handleLoad = () => {
+    setLoadStatus('loaded');
+    onLoad?.();
+  };
+
   const getImageSrc = () => {
     // iOS always uses PNG, others try WebP first
-    const src = (isIOS || !useWebP || hasError) ? 
+    return (isIOS || !useWebP || hasError) ? 
       `/images/Bild${faceNumber}.png` : 
       `/images/Bild${faceNumber}.webp`;
-    
-    if (isIOS) {
-      console.log(`[OptimizedImage] iOS - Loading Face${faceNumber}: ${src}`);
-    }
-    
-    return src;
-  };
   };
 
   return (
-    <img
-      src={getImageSrc()}
-      alt={alt}
-      className={className}
-      onLoad={onLoad}
-      onError={handleError}
-      data-face={dataFace}
-      // No lazy loading to prevent flickering
-      decoding="sync"
-      style={{
-        imageRendering: 'auto',
-        WebkitUserSelect: 'none',
-        userSelect: 'none',
-        display: 'block' // Prevent layout shifts
-      }}
-    />
+    <div className="relative w-full h-full">
+      <img
+        src={getImageSrc()}
+        alt={alt}
+        className={className}
+        onLoad={handleLoad}
+        onError={handleError}
+        data-face={dataFace}
+        // No lazy loading to prevent flickering
+        decoding="sync"
+        style={{
+          imageRendering: 'auto',
+          WebkitUserSelect: 'none',
+          userSelect: 'none',
+          display: 'block' // Prevent layout shifts
+        }}
+      />
+      
+      {/* iOS Debug Overlay - Only show on iOS */}
+      {isIOS && (
+        <div className="absolute top-0 left-0 bg-black bg-opacity-75 text-white text-xs p-1 rounded max-w-full">
+          <div>Face: {faceNumber}</div>
+          <div>iOS: {isIOS ? 'YES' : 'NO'}</div>
+          <div>Format: {(isIOS || !useWebP) ? 'PNG' : 'WebP'}</div>
+          <div>Status: {loadStatus}</div>
+          <div>Error: {hasError ? 'YES' : 'NO'}</div>
+          <div className="text-xs opacity-75">
+            UA: {typeof window !== 'undefined' ? navigator.userAgent.substring(0, 40) : 'N/A'}...
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
