@@ -971,11 +971,13 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     let failedCount = 0;
     const failedImages: string[] = [];
     
-    // Detect mobile devices (iOS and Android) - fixed detection  
+    // Detect mobile devices (iOS and Android) - Enhanced detection for HTTPS/Railway
     const isIOS = typeof window !== 'undefined' && (
       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      // Only detect iPad Pro with touch support, not all MacIntel devices  
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchstart' in window)
+      // Enhanced iPad Pro detection for different Safari versions
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchstart' in window) ||
+      // Additional iOS detection for edge cases
+      /Mac OS X/.test(navigator.userAgent) && navigator.maxTouchPoints > 1
     );
     
     const isAndroid = typeof window !== 'undefined' && 
@@ -983,7 +985,15 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     
     const isMobile = isIOS || isAndroid;
     
-    console.log('[PRELOAD] Device detection - iOS:', isIOS, 'Android:', isAndroid, 'Mobile:', isMobile);
+    // Enhanced logging for Railway debugging
+    console.log('[PRELOAD] Enhanced device detection:');
+    console.log('[PRELOAD] - User Agent:', typeof window !== 'undefined' ? navigator.userAgent : 'N/A');
+    console.log('[PRELOAD] - Platform:', typeof window !== 'undefined' ? navigator.platform : 'N/A');
+    console.log('[PRELOAD] - Max Touch Points:', typeof window !== 'undefined' ? navigator.maxTouchPoints : 'N/A');
+    console.log('[PRELOAD] - iOS detected:', isIOS);
+    console.log('[PRELOAD] - Android detected:', isAndroid);
+    console.log('[PRELOAD] - Mobile device:', isMobile);
+    console.log('[PRELOAD] - Location:', typeof window !== 'undefined' ? window.location.href : 'N/A');
     
     // Face images (Bild1-Bild69) - prioritize based on phases
     const phase1FaceImages = Array.from({ length: 20 }, (_, i) => `Bild${i + 1}`);
@@ -1013,26 +1023,33 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       return new Promise<void>((resolve) => {
         const img = new Image();
         
-        // Choose format based on device and image type
-        const imageExtension = isHandImage 
-          ? '.webp' // Hand images only in WebP (supported on all devices)
-          : (isMobile ? '.png' : '.webp'); // Face/Faden: PNG for mobile, WebP for desktop
+        // Enhanced format selection for HTTPS/Railway environments
+        let imageExtension;
+        if (isHandImage) {
+          imageExtension = '.webp'; // Hand images only in WebP
+        } else {
+          // Force PNG for iOS on HTTPS to avoid Railway caching issues  
+          const isHTTPS = typeof window !== 'undefined' && window.location.protocol === 'https:';
+          imageExtension = (isMobile && isHTTPS) ? '.png' : (isMobile ? '.png' : '.webp');
+        }
         
         const imagePath = `/images/${imageName}${imageExtension}`;
         
-        // Mobile-optimized loading strategy
+        console.log(`[PRELOAD] Loading: ${imagePath} (Mobile: ${isMobile}, HTTPS: ${typeof window !== 'undefined' ? window.location.protocol === 'https:' : 'unknown'})`);
+        
+        // Enhanced loading strategy for Railway/HTTPS
         img.onload = () => {
           loadedCount++;
           setLoadingProgress((loadedCount / totalImages) * 80);
           setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
-          console.log(`[PRELOAD] Ô£ô Loaded: ${imagePath}`);
+          console.log(`[PRELOAD] ✓ Loaded: ${imagePath}`);
           resolve();
         };
         
-        img.onerror = () => {
+        img.onerror = (error) => {
+          console.error(`[PRELOAD] ✗ Failed to load: ${imagePath}`, error);
           failedCount++;
           failedImages.push(imagePath);
-          console.warn(`[PRELOAD] Ô£ù Failed to load: ${imagePath}`);
           // Try PNG fallback for mobile devices
           if (isMobile && img.src.includes('.webp')) {
             const fallbackPath = `/images/${imageName}.png`;
@@ -1046,6 +1063,8 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
           }
         };
         
+        // Set crossOrigin for better HTTPS compatibility  
+        img.crossOrigin = 'anonymous';
         img.src = imagePath;
       });
     };
