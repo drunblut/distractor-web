@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
@@ -31,7 +31,8 @@ const nextConfig: NextConfig = {
     allowedDevOrigins: [
       "192.168.8.100",
       "192.168.8.102", 
-      "192.168.178.122", // Add current network IP for mobile testing
+      "192.168.178.122",
+      "192.168.0.220", // Add current network IP for Android testing
       "localhost", 
       "127.0.0.1"
     ]

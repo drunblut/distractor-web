@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef, useMemo } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef, useMemo } from 'react';
 import PieTask from '../components/PieTask';
 import PieRecall from '../components/PieRecall';
 
@@ -297,7 +297,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [taskQueue, setTaskQueue] = useState<string[]>([]);
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(1);
-  const [phaseTimer, setPhaseTimer] = useState(30); // Phase 1: 30 Sekunden (für Tests)
+  const [phaseTimer, setPhaseTimer] = useState(20); // Phase 1: 20 Sekunden (Test)
   const [isPhaseActive, setIsPhaseActive] = useState(true);
   const [pendingPhaseChange, setPendingPhaseChange] = useState<number | null>(null);
   
@@ -487,7 +487,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       if (newStreak >= 5 && mathLevel < 4) {
         setMathLevel(prev => {
           const newLevel = Math.min(4, prev + 1);
-          console.log(`[Math Level] Level UP: ${prev} → ${newLevel} (after ${newStreak} correct)`);
+          console.log(`[Math Level] Level UP: ${prev} ÔåÆ ${newLevel} (after ${newStreak} correct)`);
           return newLevel;
         });
         setMathStreak(0); // Reset streak after level up
@@ -497,7 +497,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       setMathLevel(prev => {
         const newLevel = Math.max(1, prev - 1);
         if (newLevel !== prev) {
-          console.log(`[Math Level] Level DOWN: ${prev} → ${newLevel} (error)`);
+          console.log(`[Math Level] Level DOWN: ${prev} ÔåÆ ${newLevel} (error)`);
         }
         return newLevel;
       });
@@ -514,14 +514,14 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       // Level up every 3 correct answers
       if (newStreak % 3 === 0 && currentLevel < 4) {
         setLevel(Math.min(4, currentLevel + 1));
-        console.log(`[${taskType} Level] Level UP: ${currentLevel} → ${Math.min(4, currentLevel + 1)} (after ${newStreak} correct)`);
+        console.log(`[${taskType} Level] Level UP: ${currentLevel} ÔåÆ ${Math.min(4, currentLevel + 1)} (after ${newStreak} correct)`);
       }
     } else {
       // Immediate level down on error (except level 1)
       const newLevel = Math.max(1, currentLevel - 1);
       if (newLevel !== currentLevel) {
         setLevel(newLevel);
-        console.log(`[${taskType} Level] Level DOWN: ${currentLevel} → ${newLevel} (error)`);
+        console.log(`[${taskType} Level] Level DOWN: ${currentLevel} ÔåÆ ${newLevel} (error)`);
       }
       setStreak(0); // Reset streak on error
     }
@@ -532,7 +532,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     setMathLevel(prev => {
       const newLevel = Math.max(1, prev - 1);
       if (newLevel !== prev) {
-        console.log(`[Cross-Task Effect] Math Level reduced: ${prev} → ${newLevel} (error in other task)`);
+        console.log(`[Cross-Task Effect] Math Level reduced: ${prev} ÔåÆ ${newLevel} (error in other task)`);
       }
       return newLevel;
     });
@@ -745,7 +745,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     }
   }, [currentPhase]);
 
-  // Funktion zum direkten Durchführen eines Phasenwechsels (wird an Checkpoints aufgerufen)
+  // Funktion zum direkten Durchf├╝hren eines Phasenwechsels (wird an Checkpoints aufgerufen)
   const executePhaseTransition = useCallback(() => {
     console.log(`[PHASE DEBUG] executePhaseTransition called - Timer: ${phaseTimer}, Current Phase: ${currentPhase}, Pending: ${pendingPhaseChange}`);
     
@@ -763,7 +763,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         console.log('[PHASE DEBUG] Phase 1 completed - switching to Phase 2');
         completePhase(); // Save Phase 1 results
         setCurrentPhase(2);
-        setPhaseTimer(30); // 30 Sekunden für Phase 2 (für Tests)
+        setPhaseTimer(30); // 30 Sekunden f├╝r Phase 2 (f├╝r Tests)
         const phase2Queue = generateTaskQueue(2);
         console.log('[PHASE 2 QUEUE] Generated Phase 2 queue with tasks:', phase2Queue);
         console.log('[PHASE 2 QUEUE] Queue length:', phase2Queue.length);
@@ -783,7 +783,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         console.log('[PHASE DEBUG] Phase 2 completed - switching to Phase 3');
         completePhase(); // Save Phase 2 results
         setCurrentPhase(3);
-        setPhaseTimer(240); // 240 Sekunden für Phase 3
+        setPhaseTimer(240); // 240 Sekunden f├╝r Phase 3
         const phase3Queue = generateTaskQueue(3);
         console.log('[PHASE DEBUG] Generated Phase 3 Queue:', phase3Queue);
         console.log('[PHASE DEBUG] Face2Task count in Phase 3:', phase3Queue.filter(task => task === 'face2Task').length);
@@ -964,54 +964,106 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     });
   });
 
-  // Image preloading function
+  // Image preloading function with iOS/Android optimization
   const preloadImages = async () => {
     const imagePromises: Promise<void>[] = [];
     let loadedCount = 0;
+    let failedCount = 0;
+    const failedImages: string[] = [];
     
-    // Face images (Bild1-Bild69)
-    const faceImages = Array.from({ length: 69 }, (_, i) => `Bild${i + 1}.webp`);
+    // Detect mobile devices (iOS and Android) - fixed detection  
+    const isIOS = typeof window !== 'undefined' && (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      // Only detect iPad Pro with touch support, not all MacIntel devices  
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchstart' in window)
+    );
+    
+    const isAndroid = typeof window !== 'undefined' && 
+      /Android/.test(navigator.userAgent);
+    
+    const isMobile = isIOS || isAndroid;
+    
+    console.log('[PRELOAD] Device detection - iOS:', isIOS, 'Android:', isAndroid, 'Mobile:', isMobile);
+    
+    // Face images (Bild1-Bild69) - prioritize based on phases
+    const phase1FaceImages = Array.from({ length: 20 }, (_, i) => `Bild${i + 1}`);
+    const phase2FaceImages = Array.from({ length: 25 }, (_, i) => `Bild${i + 21}`);
+    const phase3FaceImages = Array.from({ length: 24 }, (_, i) => `Bild${i + 46}`);
     
     // Faden images (Faden1-Faden6)
-    const fadenImages = Array.from({ length: 6 }, (_, i) => `Faden${i + 1}.webp`);
+    const fadenImages = Array.from({ length: 6 }, (_, i) => `Faden${i + 1}`);
     
     // Hand images (all combinations)
     const handTypes = ['Linksaussen', 'Linksinnen', 'Rechtsaussen', 'Rechtsinnen'];
     const handRotations = ['0', '90', '180', '270'];
     const handImages = handTypes.flatMap(type => 
-      handRotations.map(rotation => `${type}_${rotation}.webp`)
+      handRotations.map(rotation => `${type}_${rotation}`)
     );
     
-    const allImages = [...faceImages, ...fadenImages, ...handImages];
-    const totalImages = allImages.length;
+    // Load ALL images on all devices for consistent experience
+    // Mobile users can wait a bit longer for complete reliability
+    const initialImages = [...phase1FaceImages, ...phase2FaceImages, ...phase3FaceImages, ...fadenImages, ...handImages];
     
-    console.log(`[PRELOAD] Starting to preload ${totalImages} images...`);
-    setLoadingText(`Lade Bilder... (0/${totalImages})`);
+    const totalImages = initialImages.length;
     
-    allImages.forEach((imageName) => {
-      const promise = new Promise<void>((resolve) => {
+    console.log(`[PRELOAD] ${isMobile ? (isIOS ? 'iOS' : 'Android') : 'Desktop'} mode - Loading ALL ${totalImages} images...`);
+    setLoadingText(`Lade alle Bilder... (0/${totalImages})`);
+    
+    const createImagePromise = (imageName: string, isHandImage: boolean = false) => {
+      return new Promise<void>((resolve) => {
         const img = new Image();
+        
+        // Choose format based on device and image type
+        const imageExtension = isHandImage 
+          ? '.webp' // Hand images only in WebP (supported on all devices)
+          : (isMobile ? '.png' : '.webp'); // Face/Faden: PNG for mobile, WebP for desktop
+        
+        const imagePath = `/images/${imageName}${imageExtension}`;
+        
+        // Mobile-optimized loading strategy
         img.onload = () => {
-          loadedCount++;
-          setLoadingProgress((loadedCount / totalImages) * 80); // 80% for images
-          setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
-          resolve();
-        };
-        img.onerror = () => {
-          console.warn(`[PRELOAD] Failed to load: ${imageName}`);
           loadedCount++;
           setLoadingProgress((loadedCount / totalImages) * 80);
           setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
+          console.log(`[PRELOAD] Ô£ô Loaded: ${imagePath}`);
           resolve();
         };
-        img.src = `/images/${imageName}`;
+        
+        img.onerror = () => {
+          failedCount++;
+          failedImages.push(imagePath);
+          console.warn(`[PRELOAD] Ô£ù Failed to load: ${imagePath}`);
+          // Try PNG fallback for mobile devices
+          if (isMobile && img.src.includes('.webp')) {
+            const fallbackPath = `/images/${imageName}.png`;
+            console.log(`[PRELOAD] Trying PNG fallback: ${fallbackPath}`);
+            img.src = fallbackPath;
+          } else {
+            // Count as processed but failed
+            setLoadingProgress(((loadedCount + failedCount) / totalImages) * 80);
+            setLoadingText(`Lade Bilder... (${loadedCount}/${totalImages})`);
+            resolve();
+          }
+        };
+        
+        img.src = imagePath;
       });
-      
-      imagePromises.push(promise);
+    };
+    
+    // Create promises for initial images
+    initialImages.forEach((imageName) => {
+      const isHandImage = handImages.includes(imageName);
+      imagePromises.push(createImagePromise(imageName, isHandImage));
     });
     
     await Promise.all(imagePromises);
-    console.log(`[PRELOAD] Successfully preloaded ${loadedCount}/${totalImages} images`);
+    console.log(`[PRELOAD] Preloading completed:`);
+    console.log(`[PRELOAD] Ô£ô Successfully loaded: ${loadedCount}/${totalImages} images`);
+    if (failedCount > 0) {
+      console.log(`[PRELOAD] Ô£ù Failed to load: ${failedCount} images`);
+      console.log(`[PRELOAD] Failed images:`, failedImages);
+    }
+    console.log(`[PRELOAD] All images loaded at startup - no background loading needed`);
   };
 
   // Stable wrapper components using useRef to prevent re-creation
@@ -1114,14 +1166,14 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setLoadingProgress(90);
         
         // Final setup
-        setLoadingText('Fertigstellung...');
+        setLoadingText('Alle Bilder erfolgreich geladen! Fertigstellung...');
         await new Promise(resolve => setTimeout(resolve, 500)); // Brief pause for smooth UX
         setLoadingProgress(100);
         
         // Mark as fully loaded
         setTimeout(() => {
           setIsLoading(false);
-          console.log('[INIT] App fully initialized and ready!');
+          console.log('[INIT] App fully initialized and ready with all images preloaded!');
         }, 200);
         
       } catch (error) {
@@ -1142,7 +1194,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     }
   }, [currentTask]);
 
-  // Phase Timer Effect - läuft normal runter, aber führt keine automatischen Aktionen durch
+  // Phase Timer Effect - l├ñuft normal runter, aber f├╝hrt keine automatischen Aktionen durch
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
     
@@ -1151,7 +1203,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setPhaseTimer(prev => {
           const newTime = prev - 1;
           
-          // Timer läuft zu 0, aber keine automatischen Aktionen
+          // Timer l├ñuft zu 0, aber keine automatischen Aktionen
           if (newTime <= 0) {
             console.log(`[TIMER DEBUG] Phase ${currentPhase} time is up - waiting for checkpoint`);
             return 0; // Stop timer at 0

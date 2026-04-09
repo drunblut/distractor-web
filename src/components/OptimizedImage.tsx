@@ -73,20 +73,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           display: 'block' // Prevent layout shifts
         }}
       />
-      
-      {/* iOS Debug Overlay - Only show on iOS */}
-      {isIOS && (
-        <div className="absolute top-0 left-0 bg-black bg-opacity-75 text-white text-xs p-1 rounded max-w-full">
-          <div>Face: {faceNumber}</div>
-          <div>iOS: {isIOS ? 'YES' : 'NO'}</div>
-          <div>Format: {(isIOS || !useWebP) ? 'PNG' : 'WebP'}</div>
-          <div>Status: {loadStatus}</div>
-          <div>Error: {hasError ? 'YES' : 'NO'}</div>
-          <div className="text-xs opacity-75">
-            UA: {typeof window !== 'undefined' ? navigator.userAgent.substring(0, 40) : 'N/A'}...
-          </div>
-        </div>
-      )}
     </div>
   );
 };
