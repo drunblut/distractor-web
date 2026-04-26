@@ -502,7 +502,7 @@ export default function Results({ onComplete }: ResultsProps) {
 
           {/* Total Score */}
           <div className="text-center mb-6">
-            <div className="text-2xl font-bold text-gray-800">
+            <div className="text-2xl font-bold text-gray-800 total-score">
               {t('results.totalScore')}: {totalPoints || 0}
             </div>
           </div>

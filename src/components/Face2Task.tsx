@@ -383,11 +383,8 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
       <ScoreDisplay />
       
       <div className="bg-[#dfdfdfff] p-4 sm:p-8 max-w-2xl w-full">
-        <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-2">
-          {t('face2Task.instruction', 'Click on each face once')} (Level {initialLevel})
-        </p>
-        <p className="text-sm text-gray-600 text-center mb-4 sm:mb-6">
-          Round {currentRound} of {totalRounds} • Clicked: {clickedFaces.size}/{totalImages}
+        <p className="text-base sm:text-lg font-semibold text-gray-800 text-center mb-4 sm:mb-6">
+          {t('face2Task.instruction')}
         </p>
         
         {/* Dynamic Grid based on INITIAL level to maintain consistent layout */}
@@ -419,10 +416,6 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
               </button>
             );
           })}
-        </div>
-        
-        <div className="text-center text-sm text-gray-500">
-          Click each face exactly once
         </div>
       </div>
 
@@ -486,11 +479,6 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
                           : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
                         }`}
                     />
-                    {!mathInput && !mathAnswered && (
-                      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
-                        Tippen zum Eingeben
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -506,11 +494,6 @@ export default function Face2Task({ onComplete }: Face2TaskProps) {
                 >
                   <MdChevronRight size={72} />
                 </button>
-                
-                {/* Instruction */}
-                <div className="text-sm text-gray-600 text-center mt-6 md:mt-6 opacity-50">
-                  Geben Sie die Antwort ein und drücken Sie Enter oder den Pfeil
-                </div>
               </div>
             </div>
           </div>

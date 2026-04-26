@@ -284,6 +284,15 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center px-4 space-y-6">
+          {/* Task Instruction */}
+          <div className="text-center px-4 mb-4">
+            <p className="text-base sm:text-lg font-semibold text-gray-800">
+              {targetSegments.length === 1 
+                ? t('pieTask.instructionSingle')
+                : t('pieTask.instructionMultiple')}
+            </p>
+          </div>
+
           {/* Pie Chart SVG */}
           <div className="flex-shrink-0">
             <svg
@@ -424,11 +433,6 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
                           : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
                         }`}
                     />
-                    {!mathInput && !mathAnswered && (
-                      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
-                        Tippen zum Eingeben
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -444,11 +448,6 @@ export default function PieTask({ onComplete, onNext, onDataUpdate }: PieTaskPro
                 >
                   <MdChevronRight size={72} />
                 </button>
-                
-                {/* Instruction */}
-                <div className="text-sm text-gray-600 text-center mt-6 md:mt-6 opacity-50">
-                  Geben Sie die Antwort ein und drücken Sie Enter oder den Pfeil
-                </div>
               </div>
             </div>
           </div>

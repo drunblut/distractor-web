@@ -46,7 +46,7 @@
     "title": "Distractor",
     "description": "A aplicação \"Distractor\" serve para distração mental de curto prazo e melhoria da concentração através de simples tarefas de memória e distração.",
     "startButton": "Iniciar",
-    "version": "Versão: 2026v001",
+    "version": "Versão: 2026v002",
     "copyright": "© aepplerlandapps.de",
     "usageExpired": "Período de utilização expirado!"
   },
@@ -96,7 +96,7 @@
     "wrongMessage": "Infelizmente errado. O rosto correto era #{{targetNumber}}, você selecionou #{{selectedNumber}}."
   },
   "face2Task": {
-    "instruction": "A tarefa consiste em 4 rodadas. Selecione uma imagem em cada rodada, mas cada imagem apenas uma vez no total!"
+    "instruction": "Toque em cada imagem exatamente uma vez"
   },  "handTask": {    "instruction": "Lembre-se da mão (que lado?) e do dedo com o ponto vermelho (polegar = 1, dedo mínimo = 5)."
   },
   "handRecall": {
@@ -117,8 +117,8 @@
     "wrongMessage": "Infelizmente errado. A resposta correta era \"{{expectedDigit}}\", você selecionou \"{{inputDigit}}\"."
   },
   "pieTask": {
-    "instructionSingle": "Lembre-se da posição do segmento azul:",
-    "instructionMultiple": "Lembre-se das posições dos segmentos azuis:"
+    "instructionSingle": "Lembre-se da posição do segmento azul!",
+    "instructionMultiple": "Lembre-se das posições dos segmentos azuis!"
   },
   "pieRecall": {
     "instructionSingle": "Onde estava o segmento azul?",
@@ -133,6 +133,7 @@
   },
   "common": {
     "ok": "OK",
+    "cancel": "Cancelar",
     "loading": "Carregando...",
     "left": "esquerda",
     "right": "direita"

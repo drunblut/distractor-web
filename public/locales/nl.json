@@ -46,7 +46,7 @@
     "title": "Distractor",
     "description": "De \"Distractor\" app dient voor kortstondige mentale afleiding en concentratieverbetering door eenvoudige geheugen- en afleidingstaken.",
     "startButton": "Start",
-    "version": "Versie: 2026v001",
+    "version": "Versie: 2026v002",
     "copyright": "© aepplerlandapps.de",
     "usageExpired": "Gebruiksperiode verlopen!"
   },
@@ -96,7 +96,7 @@
     "wrongMessage": "Helaas fout. Het juiste gezicht was #{{targetNumber}}, je selecteerde #{{selectedNumber}}."
   },
   "face2Task": {
-    "instruction": "De taak bestaat uit 4 rondes. Selecteer één afbeelding per ronde, maar elke afbeelding slechts één keer in totaal!"
+    "instruction": "Tik precies één keer op elke afbeelding"
   },
   "handTask": {
     "instruction": "Onthoud de hand (welke kant?) en de vinger met de rode stip (duim = 1, pink = 5)."
@@ -117,8 +117,8 @@
     "wrongMessage": "Helaas fout. Het juiste antwoord was \"{{expectedDigit}}\", je selecteerde \"{{inputDigit}}\"."
   },
   "pieTask": {
-    "instructionSingle": "Onthoud de positie van het blauwe segment:",
-    "instructionMultiple": "Onthoud de posities van de blauwe segmenten:"
+    "instructionSingle": "Onthoud de positie van het blauwe segment!",
+    "instructionMultiple": "Onthoud de posities van de blauwe segmenten!"
   },
   "pieRecall": {
     "instructionSingle": "Waar was het blauwe segment?",
@@ -133,6 +133,7 @@
   },
   "common": {
     "ok": "OK",
+    "cancel": "Annuleren",
     "loading": "Laden...",
     "left": "links",
     "right": "rechts"

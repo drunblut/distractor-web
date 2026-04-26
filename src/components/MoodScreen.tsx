@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdMenu, MdLanguage } from 'react-icons/md';
 
 interface MoodScreenProps {
   onContinue?: (data: { moodValue: number; mainSymptom: string; symptomIntensity: number }) => void;
@@ -17,7 +16,6 @@ export default function MoodScreen({ onContinue, onLanguagePress }: MoodScreenPr
   const [selectedSymptom, setSelectedSymptom] = useState('');
   const [symptomIntensity, setSymptomIntensity] = useState(5.0);
   const [intensitySliderMoved, setIntensitySliderMoved] = useState(false);
-  const [menuVisible, setMenuVisible] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isIntensityDragging, setIsIntensityDragging] = useState(false);
   
@@ -146,49 +144,10 @@ export default function MoodScreen({ onContinue, onLanguagePress }: MoodScreenPr
     console.log('[MoodScreen] Selected symptom:', symptomKey);
   };
 
-  const handleLanguageSelect = () => {
-    setMenuVisible(false);
-    if (onLanguagePress) {
-      onLanguagePress();
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col">
-      {/* Header */}
-      <div className="flex justify-between items-center px-5 pt-12 pb-5">
-        <div className="w-7 h-7" /> {/* Placeholder */}
-        <button 
-          onClick={() => setMenuVisible(true)}
-          className="p-1"
-        >
-          <MdMenu size={28} color="#333" />
-        </button>
-      </div>
-
-      {/* Menu Modal */}
-      {menuVisible && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-start pt-20 pr-5 z-50"
-          onClick={() => setMenuVisible(false)}
-        >
-          <div 
-            className="bg-white rounded-lg shadow-lg min-w-[150px]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button 
-              className="flex items-center px-4 py-3 w-full text-left hover:bg-gray-50"
-              onClick={handleLanguageSelect}
-            >
-              <MdLanguage size={20} color="#333" />
-              <span className="ml-3 text-base text-gray-800">{t('menu.language')}</span>
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-5 -mt-12 w-full max-w-md mx-auto">
+      <div className="flex-1 flex flex-col items-center justify-center px-5 w-full max-w-md mx-auto">
         {/* Step 1: Mood Rating */}
         {currentStep === 1 && (
           <>

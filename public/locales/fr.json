@@ -46,7 +46,7 @@
     "title": "Distractor",
     "description": "L'application \"Distractor\" sert à la distraction mentale à court terme et à l'amélioration de la concentration par de simples tâches de mémoire et de distraction.",
     "startButton": "Commencer",
-    "version": "Version : 2026v001",
+    "version": "Version : 2026v002",
     "copyright": "© aepplerlandapps.de",
     "usageExpired": "Période d'utilisation expirée !"
   },
@@ -98,7 +98,7 @@
     "wrongMessage": "Malheureusement faux. Le bon visage était #{{targetNumber}}, vous avez sélectionné #{{selectedNumber}}."
   },
   "face2Task": {
-    "instruction": "La tâche comprend 4 tours. Sélectionnez une image à chaque tour, mais chaque image une seule fois au total!"
+    "instruction": "Touchez chaque image exactement une fois"
   },
   "handTask": {
     "instruction": "Retenez la main (de quel côté ?) et le doigt avec le point rouge (pouce = 1, petit doigt = 5)."
@@ -117,26 +117,27 @@
     "instruction": "Suivez le chemin du fil qui commence à X, et cliquez sur le chiffre à la fin de ce fil.",
     "correct": "Correct !",
     "wrong": "Faux !",
-    "correctMessage": "Correct ! La réponse était \"{{digit}}\"",
+    "correctMessage": "Correct! La réponse était \"{{digit}}\"",
     "wrongMessage": "Malheureusement faux. La bonne réponse était \"{{expectedDigit}}\", vous avez sélectionné \"{{inputDigit}}\"."
   },
   "pieTask": {
-    "instructionSingle": "Retenez la position du segment bleu :",
-    "instructionMultiple": "Retenez les positions des segments bleus :"
+    "instructionSingle": "Retenez la position du segment bleu!",
+    "instructionMultiple": "Retenez les positions des segments bleus!"
   },
   "pieRecall": {
-    "instructionSingle": "Où était le segment bleu ?",
-    "instructionMultiple": "Où étaient les segments bleus ?",
+    "instructionSingle": "Où était le segment bleu?",
+    "instructionMultiple": "Où étaient les segments bleus?",
     "correct": "Correct !",
-    "wrong": "Faux !",
-    "levelUp": "Niveau supérieur !",
+    "wrong": "Faux!",
+    "levelUp": "Niveau supérieur!",
     "levelUpMessage": "Niveau {{level}} atteint ! Série remise à zéro",
-    "correctMessage": "Segments corrects sélectionnés ! Série : {{streak}}",
+    "correctMessage": "Segments corrects sélectionnés! Série : {{streak}}",
     "wrongMessage": "Malheureusement pas les bons segments.",
     "levelDownMessage": "Niveau réduit à {{level}}. Série remise à zéro."
   },
   "common": {
     "ok": "OK",
+    "cancel": "Annuler",
     "loading": "Chargement...",
     "left": "gauche",
     "right": "droite"

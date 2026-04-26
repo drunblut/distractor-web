@@ -310,11 +310,6 @@ export default function MathTask({ onComplete, onBack }: MathTaskProps) {
                     : 'bg-white border-blue-400 text-gray-800 focus:border-blue-500 focus:outline-none hover:border-blue-500 hover:shadow-md'
                   }`}
               />
-              {!inputValue && !isAnswered && (
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
-                  Tippen zum Eingeben
-                </div>
-              )}
             </div>
           </div>
 
@@ -330,11 +325,6 @@ export default function MathTask({ onComplete, onBack }: MathTaskProps) {
           >
             <MdChevronRight size={72} />
           </button>
-          
-          {/* Instruction */}
-          <div className="text-sm text-gray-600 text-center mt-6 md:mt-6 opacity-50">
-            Geben Sie die Antwort ein und drücken Sie Enter oder den Pfeil
-          </div>
         </div>
       </div>
     </div>

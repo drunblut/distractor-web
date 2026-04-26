@@ -82,3 +82,25 @@ textarea:not(.math-input) {
     -webkit-text-size-adjust: 100%;
   }
 }
+
+/* iOS Mobile Text Color Fix - Ensures black text on iOS devices */
+@supports (-webkit-long-text-focus: none) and (-webkit-appearance: none) {
+  @media (max-width: 768px) {
+    .text-gray-800, .font-bold, .font-medium {
+      color: #000000 !important;
+      -webkit-text-fill-color: #000000 !important;
+    }
+    
+    /* Specific Results page text corrections */
+    h1, h2, h3, td, th, .total-score {
+      color: #000000 !important;
+      -webkit-text-fill-color: #000000 !important;
+    }
+    
+    /* Table content should be black */
+    table td, table th {
+      color: #000000 !important;
+      -webkit-text-fill-color: #000000 !important;
+    }
+  }
+}

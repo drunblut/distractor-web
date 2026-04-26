@@ -46,7 +46,7 @@
     "title": "Distractor",
     "description": "The \"Distractor\" app serves for short-term mental distraction and concentration enhancement through simple memory and distraction tasks.",
     "startButton": "Start",
-    "version": "Version: 2026v001",
+    "version": "Version: 2026v002",
     "copyright": "© aepplerlandapps.de",
     "usageExpired": "Usage period expired!"
   },
@@ -88,7 +88,7 @@
     "wrongAnswer": "Wrong! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, not {{userAnswer}}"
   },
   "face1Task": {
-    "instruction": "Remember this image."
+    "instruction": "Remember this image!"
   },
   "face1Recall": {
     "instruction": "Which face did you remember?",
@@ -97,13 +97,7 @@
     "correctMessage": "Correct! That was face #{{targetNumber}}",
     "wrongMessage": "Unfortunately wrong. The correct face was #{{targetNumber}}, you selected #{{selectedNumber}}."
   },  "face2Task": {
-    "instruction": "Remember these faces."
-  },
-  "face2Recall": {
-    "instruction": "Select all faces you remember.",
-    "submit": "Submit Selection",
-    "correct": "Perfect! All correct faces selected!",
-    "incorrect": "Not quite right. Try to remember all the faces next time."
+    "instruction": "Tap on each picture exactly once"
   },  "handTask": {
     "instruction": "Remember the hand (which side?) and the finger with the red dot (thumb = 1, little finger = 5)."
   },
@@ -118,15 +112,15 @@
   },
   "fadenTask": {
     "loading": "Loading thread image...",
-    "instruction": "Follow the path of the thread that starts at X, and click on the digit at the end of this thread.",
+    "instruction": "Follow the path of the thread that starts at X, and click on the digit at the end of this thread!",
     "correct": "Correct!",
     "wrong": "Wrong!",
     "correctMessage": "Correct! The answer was \"{{digit}}\"",
     "wrongMessage": "Unfortunately wrong. The correct answer was \"{{expectedDigit}}\", you selected \"{{inputDigit}}\"."
   },
   "pieTask": {
-    "instructionSingle": "Remember the position of the blue segment:",
-    "instructionMultiple": "Remember the positions of the blue segments:"
+    "instructionSingle": "Remember the position of the blue segment!",
+    "instructionMultiple": "Remember the positions of the blue segments!"
   },
   "pieRecall": {
     "instructionSingle": "Where was the blue segment?",
@@ -141,12 +135,13 @@
   },
   "common": {
     "ok": "OK",
+    "cancel": "Cancel",
     "loading": "Loading...",
     "left": "left",
     "right": "right"
   },
   "languageSelection": {
-    "info": "Choose your preferred language"
+    "info": "Choose your preferred language!"
   },
   "languages": {
     "de": "German",

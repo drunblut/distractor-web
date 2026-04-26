@@ -198,12 +198,6 @@ export default function FadenTask({ onComplete }: FadenTaskProps) {
             ))}
           </div>
         </div>
-        
-        <div className="text-center">
-          <p className="text-sm text-gray-600 mb-4">
-            Klicken Sie auf den Punkt, der dem X-Punkt gegenüber liegt.
-          </p>
-        </div>
       </div>
     </div>
   );

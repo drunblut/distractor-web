@@ -52,7 +52,7 @@
     "title": "Distractor",
     "description": "Die App \"Distractor\" dient der kurzfristigen mentalen Ablenkung und Konzentrationsförderung durch einfache Merk- und Ablenkungsaufgaben.",
     "startButton": "Start",
-    "version": "Version: 2026v001",
+    "version": "Version: 2026v002",
     "copyright": "© aepplerlandapps.de",
     "usageExpired": "Nutzungsdauer abgelaufen!"
   },
@@ -73,8 +73,8 @@
     "alertOkButton": "OK"
   },
   "chessTask": {
-    "instructionSingle": "Merken Sie sich die Position des blauen Kreises.",
-    "instructionMultiple": "Merken Sie sich die Positionen der blauen Kreise."
+    "instructionSingle": "Merken Sie sich die Position des blauen Kreises!",
+    "instructionMultiple": "Merken Sie sich die Positionen der blauen Kreise!"
   },
   "chessRecall": {
     "instructionSingle": "Wo war der blaue Kreis?",
@@ -94,7 +94,7 @@
     "wrongAnswer": "Falsch! {{num1}} {{operator}} {{num2}} = {{correctAnswer}}, nicht {{userAnswer}}"
   },
   "face1Task": {
-    "instruction": "Merken Sie sich dieses Bild."
+    "instruction": "Merken Sie sich dieses Bild!"
   },
   "face1Recall": {
     "instruction": "Welches Gesicht haben Sie sich gemerkt?",
@@ -104,16 +104,10 @@
     "wrongMessage": "Leider falsch. Das richtige Gesicht war #{{targetNumber}}, du hast #{{selectedNumber}} gewählt."
   },
   "face2Task": {
-    "instruction": "Merken Sie sich diese Gesichter."
-  },
-  "face2Recall": {
-    "instruction": "Wählen Sie alle Gesichter aus, an die Sie sich erinnern.",
-    "submit": "Auswahl bestätigen",
-    "correct": "Perfekt! Alle richtigen Gesichter ausgewählt!",
-    "incorrect": "Nicht ganz richtig. Versuchen Sie sich beim nächsten Mal an alle Gesichter zu erinnern."
+    "instruction": "Tippen Sie auf jedes Bild genau einmal!"
   },
   "handTask": {
-    "instruction": "Merken Sie sich die Hand (welche Seite?) und den Finger mit dem roten Punkt (Daumen = 1, kleiner Finger = 5)."
+    "instruction": "Merken Sie sich die Hand (welche Seite?) und den Finger mit dem roten Punkt (Daumen = 1, kleiner Finger = 5)!"
   },
   "handRecall": {
     "instruction": "Wo war der rote Punkt?",
@@ -126,15 +120,15 @@
   },
   "fadenTask": {
     "loading": "Fadenbild wird geladen...",
-    "instruction": "Folgen Sie dem Verlauf des Fadens, der bei X startet, und klicken Sie auf die Ziffer am Ende dieses Fadens.",
+    "instruction": "Folgen Sie dem Verlauf des Fadens, der bei X startet, und klicken Sie auf die Ziffer am Ende dieses Fadens!",
     "correct": "Richtig!",
     "wrong": "Falsch!",
     "correctMessage": "Korrekt! Die Antwort war \"{{digit}}\"",
     "wrongMessage": "Leider falsch. Die richtige Antwort war \"{{expectedDigit}}\", du hast \"{{inputDigit}}\" gewählt."
   },
   "pieTask": {
-    "instructionSingle": "Merken Sie sich die Position des blauen Segmentes:",
-    "instructionMultiple": "Merken Sie sich die Positionen der blauen Segmente:"
+    "instructionSingle": "Merken Sie sich die Position des blauen Segmentes!",
+    "instructionMultiple": "Merken Sie sich die Positionen der blauen Segmente!"
   },
   "pieRecall": {
     "instructionSingle": "Wo war das blaue Segment?",
@@ -155,7 +149,7 @@
     "right": "rechts"
   },
   "languageSelection": {
-    "info": "Wählen Sie Ihre bevorzugte Sprache aus"
+    "info": "Wählen Sie Ihre bevorzugte Sprache aus!"
   },
   "languages": {
     "de": "Deutsch",
